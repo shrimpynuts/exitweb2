@@ -7,7 +7,7 @@ import { fetchAllCollections, groupAssetsWithCollections } from '../../lib/util'
 import { ICollectionsWithAssets } from '../../frontend/types'
 import client from '../../backend/graphql-client'
 import { middleEllipses } from '../../lib/util'
-import { GET_TOP_COLLECTIONS_ALERT } from '../../graphql/queries'
+// import { GET_TOP_COLLECTIONS_ALERT } from '../../graphql/queries'
 
 if (!process.env.SENDGRID_API_KEY) {
   console.error("Couldn't fetch SENDGRID_API_KEY")
@@ -15,12 +15,12 @@ if (!process.env.SENDGRID_API_KEY) {
 }
 export const sendgridAPIKey = process.env.SENDGRID_API_KEY
 
-export async function getTopCollections() {
-  const { data } = await client.query({
-    query: GET_TOP_COLLECTIONS_ALERT,
-  })
-  return data
-}
+// export async function getTopCollections() {
+//   const { data } = await client.query({
+//     query: GET_TOP_COLLECTIONS_ALERT,
+//   })
+//   return data
+// }
 
 export const removeDuplicatesSlug = (arr: any) => {
   return arr.reduce((arr: any, item: any) => {
