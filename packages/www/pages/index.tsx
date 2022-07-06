@@ -7,11 +7,12 @@ import Navbar from '../components/layout/navbar'
 import dynamic from 'next/dynamic'
 import Footer from '../components/layout/footer'
 
-const AccountingControllerWithNoSSR = dynamic(() => import('../components/accounting/controller'), {
-  ssr: false,
-})
+import { GET_SUBMISSIONS } from '../graphql/queries'
+import { useQuery } from '@apollo/client'
+import AllSubmissions from '../components/submissions/allSubmissions'
 
 const Home: NextPage = () => {
+  const { data, loading } = useQuery(GET_SUBMISSIONS)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
 
           {/* Body section */}
           <section>
-            <AccountingControllerWithNoSSR />
+            <AllSubmissions />
           </section>
         </div>
       </div>
