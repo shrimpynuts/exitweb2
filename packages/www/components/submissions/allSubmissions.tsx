@@ -12,7 +12,9 @@ export default function AllSubmissions({}: IProps) {
       {data &&
         !loading &&
         data.submissions &&
-        data.submissions.map((submission: ISubmission) => <Submission submission={submission} />)}
+        data.submissions.map((submission: ISubmission, idx: number) => (
+          <Submission submission={submission} key={idx} />
+        ))}
     </div>
   )
 }
