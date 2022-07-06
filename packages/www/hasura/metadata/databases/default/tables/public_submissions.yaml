@@ -1,3 +1,15 @@
 table:
   schema: public
   name: submissions
+select_permissions:
+  - role: public
+    permission:
+      columns:
+        - approved
+        - id
+        - commitment
+        - proof_of_interaction
+        - created_at
+        - updated_at
+        - community_id
+      filter: {}
