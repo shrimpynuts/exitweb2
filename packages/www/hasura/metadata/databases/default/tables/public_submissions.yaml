@@ -1,6 +1,17 @@
 table:
   schema: public
   name: submissions
+insert_permissions:
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - commitment
+        - community_id
+        - created_at
+        - id
+        - proof_of_interaction
+        - updated_at
 select_permissions:
   - role: public
     permission:
