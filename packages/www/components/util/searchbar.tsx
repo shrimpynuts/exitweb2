@@ -3,7 +3,7 @@ import web3 from 'web3'
 import { toast } from 'react-hot-toast'
 import Reward, { RewardElement } from 'react-rewards'
 
-import { useKeyPress } from '../hooks/useKeyPress'
+import { useKeyPress } from '../../hooks/useKeyPress'
 
 export default function Searchbar({
   autoFocus = false,
