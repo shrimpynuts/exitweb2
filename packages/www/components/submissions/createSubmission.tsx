@@ -43,7 +43,7 @@ export default function CreateSubmission({}: IProps) {
 
   return (
     <div className="">
-      <div className="flex flex-col mb-2">
+      <div className="flex flex-col mb-2 w-96">
         <label>Commitment</label>
         <input required type="text" name="commitment" value={formState.commitment} onChange={handleChange} />
 
