@@ -6,7 +6,7 @@ interface IProps {
 
 export default function AllSubmissions({ submission }: IProps) {
   return (
-    <div className="p-4 border border-black rounded m-2">
+    <div className="p-2 border border-black rounded">
       <div>{submission.id}</div>
       <div>{submission.created_at}</div>
       <div>{submission.commitment}</div>
