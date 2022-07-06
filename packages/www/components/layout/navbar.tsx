@@ -155,7 +155,6 @@ const Navbar = ({ displayConnectButton = true, customState, redirectToProfileOnC
             ) : (
               displayConnectButton !== false && <Button onClick={onConnectClick}>Connect</Button>
             )}
-            {/* <DarkModeToggle /> */}
           </div>
         </div>
       </nav>
