@@ -6,6 +6,12 @@
 3. Then run `yarn www dev`, and go to http://localhost:3000/.
 
 
+## Where is the backend hosted?
+
+It's hosted on a Heroku instance at https://exitweb2.herokuapp.com/.
+You will need to use the admin secret (environment variable HASURA_GRAPHQL_ADMIN_SECRET) to login to the console.
+
+
 <!-- ## How do I start the hasura console?
 
 1. Go to `hasura/config.yaml` and commment in the staging `admin_secret` & `endpoint` values.
