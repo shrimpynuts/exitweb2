@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
-import { GET_SUBMISSIONS } from '../../graphql/queries'
-import { ISubmission } from '../../types'
 import Button from '../util/button'
 import toast from 'react-hot-toast'
 
@@ -18,9 +16,9 @@ interface IState {
 export default function CreateSubmission({}: IProps) {
   const [insertSubmission] = useMutation(INSERT_SUBMISSION_ONE)
   const [formState, setFormState] = useState<IState>({
-    commitment: '33333',
+    commitment: 'default_commitment',
+    proof_of_interaction: 'default_proof_of_interaction',
     community_id: 'b28923c8-507c-4dc0-80a0-baf45829ba9d',
-    proof_of_interaction: 'proof_of_interaction',
   })
 
   const handleChange = (event: React.BaseSyntheticEvent) => {
@@ -35,10 +33,14 @@ export default function CreateSubmission({}: IProps) {
       variables: {
         submission: { ...formState },
       },
-    }).then((res) => {
-      console.log({ res })
-      toast.success('Inserted new submission')
     })
+      .then((res) => {
+        console.log({ res })
+        toast.success('Created new submission.')
+      })
+      .catch((err) => {
+        toast.error(`Failed to create submission! ${err}`)
+      })
   }
 
   return (
@@ -46,9 +48,6 @@ export default function CreateSubmission({}: IProps) {
       <div className="flex flex-col mb-2 w-96">
         <label>Commitment</label>
         <input required type="text" name="commitment" value={formState.commitment} onChange={handleChange} />
-
-        <label>Community ID</label>
-        <input required type="text" name="community_id" value={formState.community_id} onChange={handleChange} />
 
         <label>Proof Of Interaction</label>
         <input
@@ -58,8 +57,10 @@ export default function CreateSubmission({}: IProps) {
           value={formState.proof_of_interaction}
           onChange={handleChange}
         />
-      </div>
 
+        <label>Community ID</label>
+        <input required type="text" name="community_id" value={formState.community_id} onChange={handleChange} />
+      </div>
       <Button onClick={onClick}>Add Submission</Button>
     </div>
   )
