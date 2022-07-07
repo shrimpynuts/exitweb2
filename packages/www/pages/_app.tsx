@@ -1,24 +1,47 @@
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
+import '@rainbow-me/rainbowkit/styles.css'
 
-import type { AppProps } from 'next/app'
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 import { ApolloProvider } from '@apollo/client'
-
 import { ThemeProvider } from 'next-themes'
+import type { AppProps } from 'next/app'
+
 import Web3UserProvider from '../hooks/web3UserProvider'
 import client from '../frontend/apollo-client'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const { chains, provider } = configureChains(
+  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API }), publicProvider()],
+)
+const { connectors } = getDefaultWallets({
+  appName: 'Exit Web2',
+  chains,
+})
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+})
+
+function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
-      <ApolloProvider client={client}>
-        <div className="min-h-screen bg-white dark:bg-blackPearl dark:text-white">
-          <Web3UserProvider>
-            <Component {...pageProps} />
-          </Web3UserProvider>
-        </div>
-      </ApolloProvider>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <ApolloProvider client={client}>
+            <div className="min-h-screen bg-white dark:bg-blackPearl dark:text-white">
+              <Web3UserProvider>
+                <Component {...pageProps} />
+              </Web3UserProvider>
+            </div>
+          </ApolloProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </ThemeProvider>
   )
 }
-export default MyApp
+export default App

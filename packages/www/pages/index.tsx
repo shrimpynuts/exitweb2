@@ -1,19 +1,12 @@
-import { useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Toaster } from 'react-hot-toast'
 
+import AllSubmissions from '../components/submissions/allSubmissions'
 import Navbar from '../components/layout/navbar'
-import dynamic from 'next/dynamic'
 import Footer from '../components/layout/footer'
 
-import { GET_SUBMISSIONS } from '../graphql/queries'
-import { useQuery } from '@apollo/client'
-import AllSubmissions from '../components/submissions/allSubmissions'
-
 const Home: NextPage = () => {
-  const { data, loading } = useQuery(GET_SUBMISSIONS)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -23,7 +16,7 @@ const Home: NextPage = () => {
             <meta name="description" content="Monitor the performance of your Ethereum NFTs using Opensea data." />
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <Navbar displayConnectButton={false} customState={{ modalIsOpen, setModalIsOpen }} />
+          <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
 
           {/* Body section */}

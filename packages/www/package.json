@@ -18,6 +18,7 @@
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.3.2",
+    "@rainbow-me/rainbowkit": "^0.4.1",
     "@react-pdf/renderer": "^2.1.1",
     "@sendgrid/mail": "^7.6.1",
     "@tailwindcss/forms": "^0.3.3",
@@ -56,6 +57,7 @@
     "tailwindcss": "^2.2.15",
     "unstated-next": "^1.1.0",
     "use-mobile-detect-hook": "^1.0.4",
+    "wagmi": "^0.5.9",
     "yarn": "^1.22.17"
   },
   "devDependencies": {
