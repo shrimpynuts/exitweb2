@@ -17,7 +17,7 @@ export default function CreateSubmission({}: IProps) {
   const [insertSubmission] = useMutation(INSERT_SUBMISSION_ONE)
   const [formState, setFormState] = useState<IState>({
     commitment: 'default_commitment',
-    proof_of_interaction: 'default_proof_of_interaction',
+    proof_of_interaction: 'http://twitter.com/',
     community_id: 'b28923c8-507c-4dc0-80a0-baf45829ba9d',
   })
 
