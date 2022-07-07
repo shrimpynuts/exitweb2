@@ -4,7 +4,6 @@ import Head from 'next/head'
 
 import AllSubmissions from '../components/submissions/allSubmissions'
 import Navbar from '../components/layout/navbar'
-import Footer from '../components/layout/footer'
 
 const Home: NextPage = () => {
   return (
@@ -12,7 +11,7 @@ const Home: NextPage = () => {
       <div>
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <Head>
-            <title>NFT Accounting</title>
+            <title>Exit Web2</title>
             <meta name="description" content="Monitor the performance of your Ethereum NFTs using Opensea data." />
             <link rel="icon" href="/favicon.ico" />
           </Head>
@@ -25,7 +24,6 @@ const Home: NextPage = () => {
           </section>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }
