@@ -1,4 +1,10 @@
-# NFT Accounting
+
+## How do I run the frontend locally?
+
+1. From the root directory, run `yarn` to install dependencies.
+2. Download the `.env` file and place it at `packages/www/.env`.
+3. Then run `yarn www dev`, and go to http://localhost:3000/.
+
 
 <!-- ## How do I start the hasura console?
 
