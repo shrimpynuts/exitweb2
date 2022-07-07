@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import '@rainbow-me/rainbowkit/styles.css'
 
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { getDefaultWallets, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
@@ -31,7 +31,12 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider
+          chains={chains}
+          theme={lightTheme({
+            borderRadius: 'small',
+          })}
+        >
           <ApolloProvider client={client}>
             <div className="min-h-screen bg-white dark:bg-blackPearl dark:text-white">
               <Web3UserProvider>
