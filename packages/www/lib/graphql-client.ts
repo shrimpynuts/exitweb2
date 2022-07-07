@@ -1,4 +1,4 @@
-import clientFactory from '../lib/client-factory'
+import clientFactory from './client-factory'
 
 const config = {
   url: process.env.NEXT_PUBLIC_HEROKU_URI as string,

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import client from '../../backend/graphql-client'
+import client from '../../lib/graphql-client'
 import { GET_SUBMISSIONS } from '../../graphql/queries'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
