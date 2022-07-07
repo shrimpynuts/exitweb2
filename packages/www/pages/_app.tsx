@@ -10,7 +10,6 @@ import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 
-import Web3UserProvider from '../hooks/web3UserProvider'
 import client from '../frontend/apollo-client'
 
 const { chains, provider } = configureChains(
@@ -39,9 +38,7 @@ function App({ Component, pageProps }: AppProps) {
         >
           <ApolloProvider client={client}>
             <div className="min-h-screen bg-white dark:bg-blackPearl dark:text-white">
-              <Web3UserProvider>
-                <Component {...pageProps} />
-              </Web3UserProvider>
+              <Component {...pageProps} />
             </div>
           </ApolloProvider>
         </RainbowKitProvider>
