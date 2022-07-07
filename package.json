@@ -1,20 +1,19 @@
 {
-    "name": "nft-accounting",
-    "version": "1.0.0",
-    "description": "Monorepo for NFT Accounting",
-    "main": "index.js",
-    "repository": "https://github.com/shrimpynuts/nft-accounting.git",
-    "author": "Jonathan Cai <caimjonathan@gmail.com>",
-    "license": "MIT",
-    "private": true,
-    "workspaces": [
-      "packages/*"
-    ],
-    "scripts": {
-      "www": "yarn workspace @nft-accounting/www"
-    },
-    "dependencies": {
-      "@nft-accounting/www": "1.0.0"
-    }
+  "name": "nft-accounting",
+  "version": "1.0.0",
+  "description": "Monorepo for NFT Accounting",
+  "main": "index.js",
+  "repository": "https://github.com/shrimpynuts/nft-accounting.git",
+  "author": "Jonathan Cai <caimjonathan@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "www": "yarn workspace @nft-accounting/www"
+  },
+  "dependencies": {
+    "@nft-accounting/www": "1.0.0"
   }
-  
+}
