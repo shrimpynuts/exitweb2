@@ -17,7 +17,7 @@ const Navbar = ({ displayConnectButton = true }: IProps) => {
           {/* Logo */}
 
           <div className="flex items-center space-x-2">
-            <Link href="/">
+            <Link href="/" passHref>
               <div className="ml-1 transform hover:rotate-20 transition duration-200">
                 <Emoji className="text-4xl cursor-pointer " label="logo" symbol="🧾" />
               </div>
