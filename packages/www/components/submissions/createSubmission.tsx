@@ -42,6 +42,7 @@ export default function CreateSubmission({}: IProps) {
         toast.error(`Failed to create submission! ${err}`)
       })
   }
+  const handleFocus = (event: any) => event.target.select()
 
   return (
     <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded">
@@ -61,6 +62,7 @@ export default function CreateSubmission({}: IProps) {
         className="rounded border mt-2 mb-2 border-gray-300"
         required
         type="text"
+        onFocus={handleFocus}
         name="proof_of_interaction"
         value={formState.proof_of_interaction}
         onChange={handleChange}
