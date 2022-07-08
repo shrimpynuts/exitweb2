@@ -20,7 +20,7 @@ const Admin: NextPage = () => {
 
           {/* Body section */}
           <section>
-            <div className="w-1/2 mx-auto mt-8 p-4 border border-gray-300 rounded">
+            <div className="md:w-1/2 lg:w-1/3 mx-auto mt-8 p-4 border border-gray-300 rounded">
               <h1 className="text-xl font-bold">All Submissions</h1>
               <AllSubmissions />
             </div>
