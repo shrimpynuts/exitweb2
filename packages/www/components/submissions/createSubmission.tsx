@@ -44,8 +44,8 @@ export default function CreateSubmission({}: IProps) {
   }
 
   return (
-    <div className="flex flex-col w-96 p-2">
-      <label>Commitment</label>
+    <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded">
+      {/* <label>Commitment</label>
       <input
         className="rounded border mb-2 border-gray-300"
         required
@@ -53,11 +53,12 @@ export default function CreateSubmission({}: IProps) {
         name="commitment"
         value={formState.commitment}
         onChange={handleChange}
-      />
+      /> */}
 
-      <label>Proof Of Interaction</label>
+      <label className="text-xl font-bold">Join the community.</label>
+      <p className="mt-2">Provide a link that proves that you belong in this community.</p>
       <input
-        className="rounded border mb-2 border-gray-300"
+        className="rounded border mt-2 mb-2 border-gray-300"
         required
         type="text"
         name="proof_of_interaction"
@@ -65,7 +66,7 @@ export default function CreateSubmission({}: IProps) {
         onChange={handleChange}
       />
 
-      <label>Community ID (only one for now)</label>
+      {/* <label>Community ID (only one for now)</label>
       <input
         className="rounded border mb-2 border-gray-300 bg-gray-100 cursor-not-allowed"
         required
@@ -74,8 +75,8 @@ export default function CreateSubmission({}: IProps) {
         name="community_id"
         value={formState.community_id}
         onChange={handleChange}
-      />
-      <Button onClick={onClick}>Add Submission</Button>
+      /> */}
+      <Button onClick={onClick}>Submit</Button>
     </div>
   )
 }

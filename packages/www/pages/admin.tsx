@@ -2,25 +2,27 @@ import { Toaster } from 'react-hot-toast'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
+import AllSubmissions from '../components/submissions/allSubmissions'
 import Navbar from '../components/layout/navbar'
-import CreateSubmission from '../components/submissions/createSubmission'
 
-const Home: NextPage = () => {
+const Admin: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <Head>
-            <title>Exit Web2</title>
+            <title>Admin Panel</title>
             <meta name="description" content="Monitor the performance of your Ethereum NFTs using Opensea data." />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
 
+          {/* Body section */}
           <section>
-            <div className="mx-auto mt-8">
-              <CreateSubmission />
+            <div className="w-1/2 mx-auto mt-8 p-4 border border-gray-300 rounded">
+              <h1 className="text-xl font-bold">All Submissions</h1>
+              <AllSubmissions />
             </div>
           </section>
         </div>
@@ -29,4 +31,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Admin

@@ -7,7 +7,7 @@ interface IProps {
 
 export default function AllSubmissions({ submission }: IProps) {
   return (
-    <div className="p-3 border border-gray-200 shadow rounded flex justify-between space-x-8">
+    <div className="p-3 border border-gray-300 flex justify-between space-x-8">
       <div>
         <div className="">#{submission.id}</div>
         <div className="text-sm text-gray-500 italic mt-1">
