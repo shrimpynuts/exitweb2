@@ -1,39 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
 import client from '../../lib/graphql-client'
 import { GET_SUBMISSIONS } from '../../graphql/queries'
 import { MerkleTree } from '../../lib/MerkleTree'
-import { pedersenHashConcat, toHex, randomBigInt } from '../../lib/Library'
+import { randomBigInt } from '../../lib/Library'
+import { ISubmission } from '../../types'
 
-const TEST_USER = randomBigInt(31)
-const TEST_COMMUNITY_HASH = randomBigInt(31)
-
-const TEST_COMMITMENTS = [pedersenHashConcat(TEST_USER, TEST_COMMUNITY_HASH)]
 const DEFAULT_HEIGHT = 5
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { data } = await client.query({
-    query: GET_SUBMISSIONS,
-  })
+  const { communityId } = req.query
+  if (!communityId) return res.status(400).json({ error: 'Missing communityId' })
 
-  // const commitments = data['submissions'].map((obj) => {
-  //   if (!obj.approved) {
-  //     return BigInt(obj.commitment)
-  //   }
-  // })
-  const commitments = TEST_COMMITMENTS
-  console.log(toHex(TEST_USER), toHex(TEST_COMMUNITY_HASH), toHex(TEST_COMMITMENTS[0]))
+  // Query the database for all submissions for the given community
+  const { data } = await client.query({ query: GET_SUBMISSIONS, variables: { communityId: communityId } })
+  const submissions: ISubmission[] = data.submissions
+  const commitments: BigInt[] = submissions.filter((obj) => obj.approved).map((obj) => BigInt(obj.commitment))
 
-  if (commitments.length > 2 ** DEFAULT_HEIGHT) {
-    console.error('Too many commitments for tree height')
-  }
+  if (commitments.length > 2 ** DEFAULT_HEIGHT) return console.error('Too many commitments for tree height')
 
-  for (let i = commitments.length; i < 2 ** DEFAULT_HEIGHT; i++) {
-    commitments.push(randomBigInt(31))
-  }
-
-  const merkleTree = MerkleTree.createFromLeaves(commitments)
+  // Pad on random commitments to the tree until it is full
+  for (let i = commitments.length; i < 2 ** DEFAULT_HEIGHT; i++) commitments.push(randomBigInt(31))
 
   try {
+    const merkleTree = MerkleTree.createFromLeaves(commitments)
     res.status(200).json({ merkleTree: merkleTree.getStorageString() })
   } catch (e) {
     console.log(e)
