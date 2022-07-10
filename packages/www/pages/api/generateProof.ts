@@ -29,16 +29,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const computedCommitment = toHex(pedersenHashConcat(userSecret, communityHash))
 
   if (!mt.leafExists(BigInt(computedCommitment))) {
-    console.log('Leaf corresponding to (key,secret) does not exist in MerkleTree.')
+    return res.status(400).json('Commitment does not exist in MerkleTree.')
   }
 
   let proof = await generateProofCallData(mt, userSecret, communityHash, address, wasmBuff, zkeyBuff)
 
   try {
-    res.status(200).json({ proof })
+    return res.status(200).json({ proof })
   } catch (e) {
     console.log(e)
-    res.status(500).json(e)
+    return res.status(500).json(e)
   }
 }
 
