@@ -12,15 +12,13 @@ const TEST_USER = '0x00e617769f05294f974573fe683eec8a3aea0a31ca2ef80335c762a2705
 const TEST_COMMUNITY_HASH = '0x00d0407e2d4243aa61622237535069894b955765a1a22fbd326fb863af25e362'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // TODO: get user secret
   const userSecret = BigInt(TEST_USER)
-  // TODO: get community hash
   const communityHash = BigInt(TEST_COMMUNITY_HASH)
-  // TODO: get wasm buffer
-  // TODO: get zkey buffer
+
   let DOMAIN = 'http://localhost:3000'
   let wasmBuff = await getFileBuffer(`${DOMAIN}/circuit.wasm`)
   let zkeyBuff = await getFileBuffer(`${DOMAIN}/circuit_final.zkey`)
+
   // TODO: get wallet address
   const address = TEST_ADDRESS
   // TODO: get actual merkle tree
@@ -32,9 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json('Commitment does not exist in MerkleTree.')
   }
 
-  let proof = await generateProofCallData(mt, userSecret, communityHash, address, wasmBuff, zkeyBuff)
-
   try {
+    let proof = await generateProofCallData(mt, userSecret, communityHash, address, wasmBuff, zkeyBuff)
     return res.status(200).json({ proof })
   } catch (e) {
     console.log(e)
