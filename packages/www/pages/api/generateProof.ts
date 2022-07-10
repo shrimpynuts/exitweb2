@@ -42,11 +42,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
-async function getFileString(filename) {
+async function getFileString(filename: string) {
   let req = await fetch(filename)
   return await req.text()
 }
-async function getFileBuffer(filename) {
+async function getFileBuffer(filename: string) {
   let req = await fetch(filename)
   return Buffer.from(await req.arrayBuffer())
 }
