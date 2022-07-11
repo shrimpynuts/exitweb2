@@ -12,3 +12,10 @@ select_permissions:
         - hash
         - merkle_tree
       filter: {}
+update_permissions:
+  - role: public
+    permission:
+      columns:
+        - merkle_tree
+      filter: {}
+      check: null
