@@ -23,9 +23,9 @@ export default function GenerateProof({ community }: IProps) {
     const userSecret = BigInt(secretKey)
     const computedCommitment = toHex(pedersenHashConcat(communityHash, userSecret))
 
-    let DOMAIN = 'http://localhost:3000'
-    let wasmBuff = await getFileBuffer(`${DOMAIN}/circuit.wasm`)
-    let zkeyBuff = await getFileBuffer(`${DOMAIN}/circuit_final.zkey`)
+    let domain = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://exitweb2.vercel.app'
+    let wasmBuff = await getFileBuffer(`${domain}/circuit.wasm`)
+    let zkeyBuff = await getFileBuffer(`${domain}/circuit_final.zkey`)
 
     const address = '0xdef6919d69b28394B9D97FAf31b0CC2f5739ab57'
 
