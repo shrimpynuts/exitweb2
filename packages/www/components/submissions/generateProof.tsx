@@ -42,7 +42,7 @@ export default function GenerateProof({ community }: IProps) {
   return (
     <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded">
       <label className="text-xl font-bold">Generate a proof.</label>
-      <Button classOverrides="mt-2" onClick={onGenerateProof}>
+      <Button bgColor="bg-blue-600" classOverrides="mt-2" onClick={onGenerateProof}>
         Generate Proof
       </Button>
       {proof && <CopyCode text={proof} />}
