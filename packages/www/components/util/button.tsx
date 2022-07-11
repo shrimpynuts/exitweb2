@@ -17,7 +17,7 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<IButtonProps> = ({
   size = 'sm',
-  bgColor = 'blue-600',
+  bgColor = 'bg-blue-600',
   darkBgColor = 'gray-700',
   darkBgHoverColor = 'gray-800',
   bgHoverColor = 'blue-900',
@@ -33,12 +33,12 @@ const Button: React.FC<IButtonProps> = ({
       type="button"
       disabled={isLoading || disabled}
       className={classnames(
-        `transition-all duration-200 text-white bg-${bgColor} dark:bg-${darkBgColor} dark:hover:bg-${darkBgHoverColor} py-2 px-4 rounded font-medium text-center`,
+        `transition-all duration-200 ${bgColor} text-white dark:bg-${darkBgColor} dark:hover:bg-${darkBgHoverColor} py-2 px-4 rounded font-medium text-center`,
         {
           'text-xs': size === 'sm',
           'text-md': size === 'md',
           'text-xl': size === 'lg',
-          [`bg-${bgColor}-600 hover:bg-${bgColor}-800`]: !isLoading,
+          // 'bg-blue-600 hover:bg-blue-800': !isLoading,
           'bg-gray-400 cursor-not-allowed': isLoading || disabled,
           [`${classOverrides}`]: classOverrides?.length && classOverrides?.length > 0,
         },

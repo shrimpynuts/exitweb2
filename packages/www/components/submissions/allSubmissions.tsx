@@ -57,10 +57,10 @@ export default function AllSubmissions({ community }: IProps) {
           <Button onClick={onRefreshClick}>Refresh</Button>
           <Button onClick={onSelectAll}>Select All</Button>
           <Button onClick={onDeselectAll}>Select None</Button>
-          <Button bgColor="green-500" onClick={onApproveClick}>
+          <Button bgColor="bg-green-500" onClick={onApproveClick}>
             Approve
           </Button>
-          <Button bgColor="red-500" onClick={onDisproveClick}>
+          <Button bgColor="bg-red-500" onClick={onDisproveClick}>
             Disprove
           </Button>
         </div>
