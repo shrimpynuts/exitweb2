@@ -1,14 +1,22 @@
+import classNames from 'classnames'
 import Moment from 'react-moment'
 import { ISubmission } from '../../types'
 import Emoji from '../util/emoji'
 
 interface IProps {
   submission: ISubmission
+  selected: boolean
+  onClick: () => void
 }
 
-export default function AllSubmissions({ submission }: IProps) {
+export default function Submission({ submission, selected, onClick }: IProps) {
   return (
-    <div className="p-3 border border-gray-300 flex justify-between space-x-8">
+    <div
+      className={classNames('p-3 border focus-within:border-gray-300 flex justify-between space-x-8 cursor-pointer', {
+        'bg-blue-50 border-blue-300': selected,
+      })}
+      onClick={onClick}
+    >
       <div className="flex-none w-32">
         <div className="">#{submission.id}</div>
         <div className="text-sm text-gray-500 italic mt-1">
