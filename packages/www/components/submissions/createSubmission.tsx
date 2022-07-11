@@ -4,25 +4,25 @@ import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 
 import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
-import { pedersenHashConcat, randomBigInt, toHex } from '../../lib/util'
+import { pedersenHashConcat, randomBigInt, toHex } from '../../lib/zkp/util'
 import Button from '../util/button'
+import { ICommunity } from '../../types'
 
-interface IProps {}
+interface IProps {
+  community: ICommunity
+}
 
 interface IState {
   community_id: string
   proof_of_interaction: string
 }
 
-const DEFAULT_COMMUNITY_ID = 'f267857e-6840-49d7-a319-0a21a67114f3'
-const DEFAULT_COMMUNITY_HASH = '0x00ac9ebcfd1af25d43ab918d740e418a16f373e2ad94fbf5b5737c73576cac51'
-
-export default function CreateSubmission({}: IProps) {
+export default function CreateSubmission({ community }: IProps) {
   const [insertSubmission] = useMutation(INSERT_SUBMISSION_ONE)
 
   const [formState, setFormState] = useState<IState>({
     proof_of_interaction: 'http://twitter.com/',
-    community_id: DEFAULT_COMMUNITY_ID,
+    community_id: community.id,
   })
 
   const handleChange = (event: React.BaseSyntheticEvent) =>
@@ -31,13 +31,16 @@ export default function CreateSubmission({}: IProps) {
   const onClick = async () => {
     // Generate secret and store into localStorage under "DEFAULT_COMMUNITY_ID"
     const secretKey = randomBigInt(31)
-    localStorage.setItem(`exitweb2/community/${DEFAULT_COMMUNITY_ID}`, toHex(secretKey))
+    localStorage.setItem(`exitweb2/community/${community.id}`, toHex(secretKey))
 
-    const nullifier = BigInt(DEFAULT_COMMUNITY_HASH)
+    const nullifier = BigInt(community.hash)
 
     // Calculate commitment and create the submission object
     const commitment = toHex(pedersenHashConcat(nullifier, secretKey))
     const submission = { ...formState, commitment }
+    console.log({ commitment, secret: toHex(secretKey) })
+    // key: 0x00630812d5ee0954e1de5adeb5fb5d4dfc9961ab96fa2aeab9fd31cddf092f90
+    // 0x07c34a802ea5ac83791aa9c44dbab13a6aafda8dcf3b77972d1946e7eab572b6
 
     // Insert submission into database
     insertSubmission({ variables: { submission } })

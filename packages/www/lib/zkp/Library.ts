@@ -6,7 +6,6 @@ const circomlibjs = require('circomlibjs')
 const wc = require('./witness_calculator.js')
 
 import { MerkleTree } from './MerkleTree'
-import * as crypto from 'crypto'
 
 export async function generateProofCallData(
   merkleTree: MerkleTree,
@@ -50,22 +49,7 @@ export function toHex(number: BigInt, length = 32) {
   return '0x' + str.padStart(length * 2, '0')
 }
 
-export function randomBigInt(nBytes: number): BigInt {
-  return toBigIntLE(crypto.randomBytes(nBytes))
-}
-
-export function toBigIntLE(buff: Buffer) {
-  const reversed = Buffer.from(buff)
-  reversed.reverse()
-  const hex = reversed.toString('hex')
-  if (hex.length === 0) {
-    return BigInt(0)
-  }
-  return BigInt(`0x${hex}`)
-}
-
 // Non-exported
-
 interface CircuitInput {
   root: BigInt
   nullifierHash: BigInt

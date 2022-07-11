@@ -1,5 +1,5 @@
 const circomlibjs = require('circomlibjs')
-import * as crypto from 'crypto'
+import crypto from 'crypto-browserify'
 
 export function pedersenHash(nullifier: BigInt): BigInt {
   return pedersenHashBuff(toBufferLE(nullifier as any, 31))
@@ -41,4 +41,14 @@ function toBufferLE(bi: BigInt, width: number): Buffer {
   const buffer = Buffer.from(hex.padStart(width * 2, '0').slice(0, width * 2), 'hex')
   buffer.reverse()
   return buffer
+}
+
+export async function getFileString(filename: string) {
+  let req = await fetch(filename)
+  return await req.text()
+}
+
+export async function getFileBuffer(filename: string) {
+  let req = await fetch(filename)
+  return Buffer.from(await req.arrayBuffer())
 }

@@ -1,11 +1,12 @@
-import { Toaster } from 'react-hot-toast'
 import type { NextPage } from 'next'
+import dynamic from 'next/dynamic'
+import { Toaster } from 'react-hot-toast'
 import Head from 'next/head'
 
 import Navbar from '../components/layout/navbar'
-import CreateSubmission from '../components/submissions/createSubmission'
+import Home from '../components/home'
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -19,9 +20,7 @@ const Home: NextPage = () => {
           <Toaster position="top-center" reverseOrder={false} />
 
           <section>
-            <div className="mx-auto mt-8">
-              <CreateSubmission />
-            </div>
+            <Home />
           </section>
         </div>
       </div>
@@ -29,4 +28,5 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+// 0x2373a4fd89f2d260e12f0e0db86b464d26785b8b54a947b6567b9f1cc98eccb9
+export default HomePage

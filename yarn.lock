@@ -3841,6 +3841,11 @@ constants-browserify@1.0.0:
   resolved "https://registry.yarnpkg.com/constants-browserify/-/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
 
+constants@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/constants/-/constants-0.0.2.tgz#f973bcf3b69b6493b3b3645723124fbabce25094"
+  integrity sha512-K8aYHRLm9Q/b/Im6CQESZdkH7fblazlncmqPujXt9DP5bxKfi7vVNjRKXx70SnnwCkW6R86o3AcSnkXL7XLq4g==
+
 content-disposition@0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/content-disposition/-/content-disposition-0.5.3.tgz#e130caf7e7279087c5616c2007d0485698984fbd"
@@ -4034,7 +4039,7 @@ cross-spawn@^7.0.2:
   resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
   integrity sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
 
-crypto-browserify@3.12.0:
+crypto-browserify@3.12.0, crypto-browserify@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-3.12.0.tgz#396cf9f3137f03e4b8e532c58f698254e00f80ec"
   integrity sha512-fz4spIh+znjO2VjL+IdhEpRJ3YN6sMzITSBijk6FK2UvTqruSQW+/cCZTSNsMiZNvUeq0CqurF+dAbyiGOY6Wg==
@@ -9600,6 +9605,13 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-use-clipboard@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-use-clipboard/-/react-use-clipboard-1.0.8.tgz#7c1a5bcb469a0841dd9d1242af78e51d2ab7221f"
+  integrity sha512-QbN2kFl9uWEsELU4ONpAM98WASllAUWPSGBocbEVzRlcl1PbSa9EIdgADm6XlrcjYw9g1YQBfnCUb/5HGTOY+w==
+  dependencies:
+    copy-to-clipboard "^3.3.1"
 
 react@^17.0.2:
   version "17.0.2"
