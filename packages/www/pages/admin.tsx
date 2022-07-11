@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import AllSubmissions from '../components/submissions/allSubmissions'
+import AdminPage from '../components/admin'
 import Navbar from '../components/layout/navbar'
 
 const Admin: NextPage = () => {
@@ -20,9 +20,7 @@ const Admin: NextPage = () => {
 
           {/* Body section */}
           <section>
-            <div className="mx-4 lg:mx-24 mt-8 p-4 border border-gray-300 rounded">
-              <AllSubmissions />
-            </div>
+            <AdminPage />
           </section>
         </div>
       </div>

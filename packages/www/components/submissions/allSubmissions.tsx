@@ -3,15 +3,17 @@ import { useMutation, useQuery } from '@apollo/client'
 
 import { UPDATE_SUBMISSION_APPROVAL } from '../../graphql/mutations'
 import { GET_SUBMISSIONS } from '../../graphql/queries'
-import MerkleTree from './merkleTree'
-import { ISubmission } from '../../types'
+import MerkleTree from './createMerkleTree'
+import { ICommunity, ISubmission } from '../../types'
 import Submission from './submission'
 import Button from '../util/button'
 import { toast } from 'react-hot-toast'
 
-interface IProps {}
+interface IProps {
+  community: ICommunity
+}
 
-export default function AllSubmissions({}: IProps) {
+export default function AllSubmissions({ community }: IProps) {
   const [selectedIds, setSelectedIds] = useState<{ [id: number]: boolean }>({})
   const { data, loading, refetch } = useQuery(GET_SUBMISSIONS)
 
@@ -76,7 +78,7 @@ export default function AllSubmissions({}: IProps) {
             />
           ))}
       </div>
-      <MerkleTree submissions={data?.submissions} />
+      <MerkleTree submissions={data?.submissions} community={community} />
     </div>
   )
 }

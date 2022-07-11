@@ -16,3 +16,13 @@ export const UPDATE_SUBMISSION_APPROVAL = gql`
     }
   }
 `
+
+export const UPDATE_COMMUNITY_MERKLE_TREE = gql`
+  mutation UpdateCommunityMerkleTree($merkle_tree: String!, $id: uuid!) {
+    update_community_by_pk(pk_columns: { id: $id }, _set: { merkle_tree: $merkle_tree }) {
+      id
+      merkle_tree
+      updated_at
+    }
+  }
+`
