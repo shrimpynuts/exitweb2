@@ -17,6 +17,11 @@ export default function GenerateProof({ community }: IProps) {
 
   const onGenerateProof = async () => {
     try {
+      if (!community.merkle_tree) {
+        toast.error('Community has not generated a merkle tree yet!')
+        return
+      }
+
       const secretKey = localStorage.getItem(`exitweb2/community/${community.id}`)
       if (!secretKey) return toast.error('No secret key found!')
 
