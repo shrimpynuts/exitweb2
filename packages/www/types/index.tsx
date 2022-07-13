@@ -12,9 +12,14 @@ export interface ISubmission {
 export interface ICommunity {
   created_at: string
   updated_at: string
-
   id: string
+
   name: string
-  merkle_tree: string
   hash: string
+  description: string
+  requirement: string
+
+  merkle_tree?: string
+  icon_image_url?: string
+  banner_image_url?: string
 }
