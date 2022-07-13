@@ -11,7 +11,7 @@ export default function Home() {
   const communities: ICommunity[] = data?.community
   return (
     <div className="mx-auto mt-8">
-      {communities && (
+      {communities && communities[0] && (
         <div className="flex flex-col space-y-4">
           <CreateSubmission community={communities[0]} />
           <GenerateProof community={communities[0]} />
