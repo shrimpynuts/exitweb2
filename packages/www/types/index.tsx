@@ -7,6 +7,7 @@ export interface ISubmission {
   approved: boolean
   community_id: string
   proof_of_interaction: string
+  proof_of_account_ownership: string
 }
 
 export interface ICommunity {
