@@ -8,6 +8,7 @@ insert_permissions:
       columns:
         - commitment
         - community_id
+        - proof_of_account_ownership
         - proof_of_interaction
 select_permissions:
   - role: public
