@@ -9,14 +9,14 @@ export default function Home() {
         <div className="flex flex-col p-4 border border-gray-300 rounded">
           <h1 className="text-2xl font-bold">Join a community</h1>
           <p>Request to join a web3 community by proving your membership, while maintaining anonymity.</p>
-          <Button classOverrides="mt-4" onClick={() => router.push('/join-a-community')}>
+          <Button classOverrides="mt-4" onClick={() => router.push('/join-community')}>
             Browse communities
           </Button>
         </div>
         <div className="flex flex-col p-4 border border-gray-300 rounded">
           <h1 className="text-2xl font-bold">Create a community</h1>
           <p>Bootstrap a new web3 community by privately airdropping tokens to members.</p>
-          <Button classOverrides="mt-4" onClick={() => router.push('/create-a-community')}>
+          <Button classOverrides="mt-4" onClick={() => router.push('/create-community')}>
             Create a new community
           </Button>
         </div>
