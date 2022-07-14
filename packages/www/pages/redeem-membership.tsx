@@ -1,17 +1,41 @@
-import { Toaster } from 'react-hot-toast'
+import { useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useQuery } from '@apollo/client'
 import Head from 'next/head'
 
-import Navbar from '../components/layout/navbar'
-import { useQuery } from '@apollo/client'
-import { useRouter } from 'next/dist/client/router'
-import { GET_ALL_COMMUNITIES } from '../graphql/queries'
-import { ICommunity } from '../types'
 import GenerateProof from '../components/submissions/generateProof'
+import { GET_ALL_COMMUNITIES } from '../graphql/queries'
+import Navbar from '../components/layout/navbar'
+import { ICommunity } from '../types'
+import { CommunityCardSmallVertical } from '../components/community/communityCard'
+
+interface IState {
+  [communityId: string]: {
+    secretKey: string
+    community: ICommunity
+  }
+}
 
 export default function RedeemMembership() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
-  const router = useRouter()
   const communities: ICommunity[] = data?.community
+
+  const [secretKeys, setSecretKeys] = useState<IState>()
+
+  useEffect(() => {
+    if (communities) {
+      const secretKeys = communities.reduce((acc: IState, community) => {
+        const secretKey = localStorage.getItem(`exitweb2/community/${community.id}`)
+        if (secretKey) {
+          acc[community.id] = { secretKey, community }
+        }
+        return acc
+      }, {})
+      setSecretKeys(secretKeys)
+    }
+  }, [communities])
+
+  console.log({ secretKeys })
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -26,11 +50,22 @@ export default function RedeemMembership() {
           <Toaster position="top-center" reverseOrder={false} />
 
           <section>
-            {communities && communities[0] && (
+            <div className="mt-8 sm:w-4/5 lg:w-3/4 mx-auto">
               <div className="flex flex-col space-y-4">
-                <GenerateProof community={communities[0]} />
+                {communities?.map((community, i) => {
+                  return (
+                    <div key={i} className="flex space-x-8">
+                      <div className="w-96 ">
+                        <CommunityCardSmallVertical community={community} />
+                      </div>
+                      {secretKeys && secretKeys[community.id] && (
+                        <GenerateProof community={community} secretKey={secretKeys[community.id].secretKey} />
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-            )}
+            </div>
           </section>
         </div>
       </div>

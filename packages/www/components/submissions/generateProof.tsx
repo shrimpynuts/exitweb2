@@ -9,21 +9,19 @@ import Button from '../util/button'
 import CopyCode from '../util/copyableCode'
 
 interface IProps {
-  community: ICommunity
+  community: ICommunity | undefined
+  secretKey: string
 }
 
-export default function GenerateProof({ community }: IProps) {
+export default function GenerateProof({ community, secretKey }: IProps) {
   const [proof, setProof] = useState<string>()
 
   const onGenerateProof = async () => {
+    if (!community) return
     try {
       if (!community.merkle_tree) {
-        toast.error('Community has not generated a merkle tree yet!')
-        return
+        return Promise.reject(new Error('Community has not generated a merkle tree yet!'))
       }
-
-      const secretKey = localStorage.getItem(`exitweb2/community/${community.id}`)
-      if (!secretKey) return toast.error('No secret key found!')
 
       const communityHash = BigInt(community.hash)
       const userSecret = BigInt(secretKey)
@@ -54,12 +52,18 @@ export default function GenerateProof({ community }: IProps) {
   }
 
   return (
-    <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded">
-      <label className="text-xl font-bold">Generate a proof.</label>
-      <Button bgColor="bg-blue-600" classOverrides="mt-2" onClick={onClick}>
-        Generate Proof
-      </Button>
-      {proof && <CopyCode text={proof} />}
+    <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded ">
+      <>
+        <label className="text-xl font-bold">Generate a proof.</label>
+        <p>Found secret key in local storage.</p>
+        <CopyCode text={secretKey} />
+
+        <p className="mt-2">See if this key corresponds to an approved request:</p>
+        <Button bgColor="bg-blue-600" classOverrides="mt-2" onClick={onClick}>
+          Generate Proof
+        </Button>
+        {proof && <CopyCode text={proof} />}
+      </>
     </div>
   )
 }
