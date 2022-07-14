@@ -13,7 +13,7 @@ interface IProps {
 export default function CommunityPicker({ communities, selectedCommunity, setSelectedCommunity }: IProps) {
   return (
     <div>
-      {communities.length > 0 ? (
+      {communities && communities.length > 0 ? (
         <div className="grid mx-4 space-y-4 md:space-y-0 grid-cols-1 md:grid-cols-3 md:space-x-4">
           {communities.map((community, i) => (
             <div
