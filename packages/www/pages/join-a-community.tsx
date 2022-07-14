@@ -1,12 +1,18 @@
-import type { NextPage } from 'next'
-import dynamic from 'next/dynamic'
 import { Toaster } from 'react-hot-toast'
 import Head from 'next/head'
 
 import Navbar from '../components/layout/navbar'
-import Home from '../components/home'
+import { useQuery } from '@apollo/client'
+import { useRouter } from 'next/dist/client/router'
+import { GET_ALL_COMMUNITIES } from '../graphql/queries'
+import { ICommunity } from '../types'
+import CreateSubmission from '../components/submissions/createSubmission'
 
-const HomePage: NextPage = () => {
+export default function JoinACommunity() {
+  const { data } = useQuery(GET_ALL_COMMUNITIES)
+  const router = useRouter()
+  const communities: ICommunity[] = data?.community
+
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -20,12 +26,14 @@ const HomePage: NextPage = () => {
           <Toaster position="top-center" reverseOrder={false} />
 
           <section>
-            <Home />
+            {communities && communities[0] && (
+              <div className="flex flex-col space-y-4">
+                <CreateSubmission community={communities[0]} />
+              </div>
+            )}
           </section>
         </div>
       </div>
     </div>
   )
 }
-
-export default HomePage
