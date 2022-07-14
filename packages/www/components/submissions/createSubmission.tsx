@@ -61,7 +61,7 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
   )}&tw_p=tweetbutton`
 
   return (
-    <div className="flex flex-col justify-between h-96 my-auto w-1/2 mx-auto p-4 border border-gray-300 rounded">
+    <div className="flex flex-col justify-between h-80 my-auto w-1/2 mx-auto p-4 border border-gray-300 rounded">
       {!step1Finished ? (
         <>
           <div>

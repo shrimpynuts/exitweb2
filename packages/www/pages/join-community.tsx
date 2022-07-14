@@ -35,7 +35,7 @@ export default function JoinACommunity() {
                 setSelectedCommunity={setSelectedCommunity}
               />
               {selectedCommunity && (
-                <div className="mt-8 pt-8 h-full ">
+                <div className="mt-2 pt-8 h-full ">
                   <CreateSubmission onFinished={() => setSelectedCommunity(undefined)} community={selectedCommunity} />
                 </div>
               )}
