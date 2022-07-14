@@ -1,6 +1,18 @@
 table:
   schema: public
   name: community
+insert_permissions:
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - banner_image_url
+        - description
+        - hash
+        - icon_image_url
+        - merkle_tree
+        - name
+        - requirement
 select_permissions:
   - role: public
     permission:
