@@ -26,3 +26,11 @@ export const UPDATE_COMMUNITY_MERKLE_TREE = gql`
     }
   }
 `
+
+export const INSERT_COMMUNITY_ONE = gql`
+  mutation InsertCommunityOne($newCommunity: community_insert_input!) {
+    insert_community_one(object: $newCommunity) {
+      created_at
+    }
+  }
+`

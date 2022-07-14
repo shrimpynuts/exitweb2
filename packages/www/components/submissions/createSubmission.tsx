@@ -38,9 +38,6 @@ export default function CreateSubmission({ community }: IProps) {
     // Calculate commitment and create the submission object
     const commitment = toHex(pedersenHashConcat(nullifier, secretKey))
     const submission = { ...formState, commitment }
-    console.log({ commitment, secret: toHex(secretKey) })
-    // key: 0x00630812d5ee0954e1de5adeb5fb5d4dfc9961ab96fa2aeab9fd31cddf092f90
-    // 0x07c34a802ea5ac83791aa9c44dbab13a6aafda8dcf3b77972d1946e7eab572b6
 
     // Insert submission into database
     insertSubmission({ variables: { submission } })

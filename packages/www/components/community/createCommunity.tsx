@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 
-import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
+import { INSERT_COMMUNITY_ONE } from '../../graphql/mutations'
 import { randomBigInt, toHex } from '../../lib/zkp/util'
 import Button from '../util/button'
 import { ICommunity } from '../../types'
@@ -14,12 +14,12 @@ interface IProps {}
 type IState = Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
 
 export default function CreateSubmission({}: IProps) {
-  const [insertSubmission] = useMutation(INSERT_SUBMISSION_ONE)
+  const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
 
   const [formState, setFormState] = useState<IState>({
     name: 'Twitter OGs',
-    description: 'Made for the Twitter Open Graphs community',
-    requirement: 'Must post a link to a reply to a tweet to a @twitter_og_bot account',
+    description: 'Made for the Twitter Open Graphs community.',
+    requirement: 'Must post a link to your reply to a @twitter_og_bot tweet prior to 2022.',
     icon_image_url: 'https://cdn-icons-png.flaticon.com/512/124/124021.png',
     banner_image_url:
       'https://daocentral.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdaojones%2Fimage%2Fupload%2Fv1637755736%2FCleanShot_2021-11-24_at_04.08.33_pxl0kp.png&w=3840&q=75',
@@ -29,8 +29,23 @@ export default function CreateSubmission({}: IProps) {
   const handleChange = (event: React.BaseSyntheticEvent) =>
     setFormState({ ...formState, [event.target.name]: event.target.value })
 
-  const onClick = async () => {
-    const hash = randomBigInt(31)
+  const onSubmitClick = async () => {
+    const hash = toHex(randomBigInt(31))
+    const newCommunity = {
+      ...formState,
+      hash,
+    }
+
+    insertCommunity({ variables: { newCommunity } })
+      // Handle successful response
+      .then((res) => {
+        console.log({ res })
+        toast.success('Submitted new community, pending approval.')
+      })
+      // Handle error response
+      .catch((err) => {
+        toast.error(`Failed to submit community! ${err}`)
+      })
   }
 
   const inputClassName = 'rounded border mb-2 border-gray-300'
@@ -93,7 +108,7 @@ export default function CreateSubmission({}: IProps) {
           onChange={handleChange}
         />
 
-        <Button classOverrides="mt-2" onClick={onClick}>
+        <Button classOverrides="mt-2" onClick={onSubmitClick}>
           Submit for review
         </Button>
       </div>
