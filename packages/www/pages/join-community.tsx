@@ -37,7 +37,11 @@ export default function JoinACommunity() {
                       className={classNames('h-full duration-100 ease-out cursor-pointer transform hover:scale-105', {
                         ' bg-blue-50': community == selectedCommunity,
                       })}
-                      onClick={() => setSelectedCommunity(community)}
+                      onClick={() =>
+                        community == selectedCommunity
+                          ? setSelectedCommunity(undefined)
+                          : setSelectedCommunity(community)
+                      }
                       key={i}
                     >
                       <CommunityCard community={community} />
