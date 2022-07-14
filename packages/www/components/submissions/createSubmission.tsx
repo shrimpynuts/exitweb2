@@ -1,12 +1,11 @@
 import { useState } from 'react'
-
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 
-import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
 import { pedersenHashConcat, randomBigInt, toHex } from '../../lib/zkp/util'
-import Button from '../util/button'
+import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
 import { ICommunity } from '../../types'
+import Button from '../util/button'
 
 interface IProps {
   community: ICommunity
@@ -53,19 +52,27 @@ export default function CreateSubmission({ community }: IProps) {
   }
 
   return (
-    <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded">
-      <label className="text-xl font-bold">Join the community.</label>
-      <p className="mt-2">Provide a link that proves that you belong in this community.</p>
-      <input
-        className="rounded border mt-2 mb-2 border-gray-300"
-        required
-        type="text"
-        onFocus={(event: any) => event.target.select()}
-        name="proof_of_interaction"
-        value={formState.proof_of_interaction}
-        onChange={handleChange}
-      />
-      <Button onClick={onClick}>Submit</Button>
+    <div className="flex flex-col justify-between h-full my-auto w-1/2 mx-auto p-4 border border-gray-300 rounded">
+      <div>
+        <label className="text-xl font-bold">
+          Join the <span className="italic text-blue-600">{community.name}</span> community.
+        </label>
+        <p className="mt-2">Here is the requirement for your proof: {community.requirement}</p>
+        {/* <p className="mt-2">Provide a link that proves that you belong in this community.</p> */}
+      </div>
+
+      <div className="flex flex-col">
+        <input
+          className="rounded border mt-2 mb-2 border-gray-300"
+          required
+          type="text"
+          onFocus={(event: any) => event.target.select()}
+          name="proof_of_interaction"
+          value={formState.proof_of_interaction}
+          onChange={handleChange}
+        />
+        <Button onClick={onClick}>Request membership</Button>
+      </div>
     </div>
   )
 }
