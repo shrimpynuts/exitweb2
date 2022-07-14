@@ -9,7 +9,7 @@ import Button from '../util/button'
 import CopyCode from '../util/copyableCode'
 
 interface IProps {
-  community: ICommunity | undefined
+  community: ICommunity
   secretKey: string
 }
 
@@ -61,13 +61,19 @@ export default function GenerateProof({ community, secretKey }: IProps) {
     <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded ">
       <>
         <label className="text-xl font-bold">Generate a proof.</label>
-        <p>Found secret key in local storage.</p>
+        <p>Found secret key corresponding to this community in local storage.</p>
         <CopyCode text={secretKey} />
 
-        <p className="mt-2">See if this key corresponds to an approved request:</p>
-        <Button bgColor="bg-blue-600" classOverrides="mt-2" onClick={onClick}>
-          Generate Proof
-        </Button>
+        {community?.merkle_tree ? (
+          <>
+            <p className="mt-2">See if this key corresponds to an approved request:</p>
+            <Button disabled={!community?.merkle_tree} classOverrides="mt-2" onClick={onClick}>
+              Generate Proof
+            </Button>
+          </>
+        ) : (
+          <>Community has not generated merkle tree yet.</>
+        )}
         {proof && <CopyCode text={proof} />}
       </>
     </div>

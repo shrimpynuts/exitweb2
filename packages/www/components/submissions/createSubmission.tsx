@@ -81,7 +81,9 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
               value={formState.proof_of_interaction}
               onChange={handleChange}
             />
-            <Button onClick={() => setStep1Finished(true)}>Next</Button>
+            <Button bgColor="bg-blue-600" onClick={() => setStep1Finished(true)}>
+              Next
+            </Button>
             <Button classOverrides="mt-1" bgColor="bg-gray-600" onClick={onFinished}>
               Cancel
             </Button>
