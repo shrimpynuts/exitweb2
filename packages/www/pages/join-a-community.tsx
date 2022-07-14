@@ -7,11 +7,14 @@ import { useRouter } from 'next/dist/client/router'
 import { GET_ALL_COMMUNITIES } from '../graphql/queries'
 import { ICommunity } from '../types'
 import CreateSubmission from '../components/submissions/createSubmission'
+import CommunityCard from '../components/community/communityCard'
 
 export default function JoinACommunity() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
   const router = useRouter()
   const communities: ICommunity[] = data?.community
+
+  console.log({ communities, data })
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -26,11 +29,18 @@ export default function JoinACommunity() {
           <Toaster position="top-center" reverseOrder={false} />
 
           <section>
-            {communities && communities[0] && (
-              <div className="flex flex-col space-y-4">
-                <CreateSubmission community={communities[0]} />
-              </div>
-            )}
+            <div className="mt-8 sm:w-4/5 lg:w-3/4 mx-auto">
+              {communities && (
+                <div className="grid grid-cols-3 space-x-4">
+                  {communities.map((community, i) => (
+                    <div className="h-full duration-100 ease-out cursor-pointer transform hover:scale-105" key={i}>
+                      <CommunityCard community={community} />
+                    </div>
+                  ))}
+                  {/* <CreateSubmission community={communities[0]} /> */}
+                </div>
+              )}
+            </div>
           </section>
         </div>
       </div>
