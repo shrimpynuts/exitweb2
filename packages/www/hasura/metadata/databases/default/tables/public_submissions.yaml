@@ -14,12 +14,13 @@ select_permissions:
     permission:
       columns:
         - approved
-        - id
         - commitment
-        - proof_of_interaction
-        - created_at
-        - updated_at
         - community_id
+        - created_at
+        - id
+        - proof_of_account_ownership
+        - proof_of_interaction
+        - updated_at
       filter: {}
 update_permissions:
   - role: public
