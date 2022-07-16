@@ -20,6 +20,11 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
   const [merkleTreeStorageString, setMerkleTreeStorageString] = useState('')
   const [_, setCopied] = useClipboard(merkleTreeStorageString, { successDuration: 1000 })
 
+  useEffect(() => {
+    setMerkleTree(undefined)
+    setMerkleTreeStorageString('')
+  }, [community])
+
   const [updateCommunityMerkleTree] = useMutation(UPDATE_COMMUNITY_MERKLE_TREE)
 
   useEffect(() => {
@@ -29,14 +34,10 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
   const onGenerateClick = () => {
     const approvedSubmissions: ISubmission[] = submissions.filter((obj) => obj.approved)
     const commitments: BigInt[] = approvedSubmissions.map((obj) => BigInt(obj.commitment))
-
     if (commitments.length > 2 ** DEFAULT_HEIGHT) return toast.error('Too many commitments for tree height')
-
     // Pad on random commitments to the tree until it is full
     for (let i = commitments.length; i < 2 ** DEFAULT_HEIGHT; i++) commitments.push(randomBigInt(31))
-
     const merkleTree = MerkleTree.createFromLeaves(commitments)
-
     setMerkleTree(merkleTree)
   }
 
@@ -54,14 +55,16 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
 
   return (
     <div>
-      <Button onClick={onGenerateClick}>Generate Merkle Tree</Button>
+      <Button onClick={onGenerateClick}>Generate New Merkle Tree</Button>
       <div>
         {merkleTree && (
           <div>
             <div className="my-2 p-4 bg-gray-100 rounded cursor-pointer" onClick={onCopyClick}>
               <code className="overflow-x-auto line-clamp-3">{merkleTree.getStorageString()}</code>
             </div>
-            <Button onClick={onUploadClick}>Upload To Database</Button>
+            <Button bgColor="bg-green-500" onClick={onUploadClick}>
+              Update Merkle Tree in Database
+            </Button>
           </div>
         )}
       </div>

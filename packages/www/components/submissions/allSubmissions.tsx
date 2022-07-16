@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 
 import { UPDATE_SUBMISSION_APPROVAL } from '../../graphql/mutations'
-import { GET_SUBMISSIONS } from '../../graphql/queries'
+import { GET_SUBMISSIONS_FOR_COMMUNITY } from '../../graphql/queries'
 import MerkleTree from './createMerkleTree'
 import { ICommunity, ISubmission } from '../../types'
 import Submission from './submission'
 import Button from '../util/button'
 import { toast } from 'react-hot-toast'
+import CopyCode from '../util/copyableCode'
 
 interface IProps {
   community: ICommunity
@@ -15,7 +16,9 @@ interface IProps {
 
 export default function AllSubmissions({ community }: IProps) {
   const [selectedIds, setSelectedIds] = useState<{ [id: number]: boolean }>({})
-  const { data, loading, refetch } = useQuery(GET_SUBMISSIONS)
+  const { data, loading, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, {
+    variables: { id: community.id },
+  })
 
   const [updateSubmissionApproval] = useMutation(UPDATE_SUBMISSION_APPROVAL)
 
@@ -52,7 +55,9 @@ export default function AllSubmissions({ community }: IProps) {
   return (
     <div className="flex flex-col mt-2 space-y-4">
       <div className="flex justify-between">
-        <h1 className="text-xl font-bold">All Submissions</h1>
+        <h1 className="text-2xl font-bold">
+          Submissions for <span className="text-blue-600 italic">{community.name}</span>
+        </h1>
         <div className="flex space-x-2">
           <Button onClick={onRefreshClick}>Refresh</Button>
           <Button onClick={onSelectAll}>Select All</Button>
@@ -78,6 +83,16 @@ export default function AllSubmissions({ community }: IProps) {
             />
           ))}
       </div>
+      {community.merkle_tree ? (
+        <div>
+          <p>Merkle Tree:</p>
+          <CopyCode text={community.merkle_tree} />
+        </div>
+      ) : (
+        <div>
+          <p className="text-red-600 italic">No merkle tree generated yet.</p>
+        </div>
+      )}
       <MerkleTree submissions={data?.submissions} community={community} />
     </div>
   )

@@ -13,7 +13,7 @@ export const GET_SUBMISSIONS = gql`
 export const GET_SUBMISSIONS_FOR_COMMUNITY = gql`
   ${CORE_SUBMISSION_FIELDS}
   query GetSubmissionsByCommunityId($id: uuid!) {
-    community_by_pk(id: $id) {
+    submissions(where: { community_id: { _eq: $id } }) {
       ...CoreSubmissionFields
     }
   }

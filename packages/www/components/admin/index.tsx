@@ -11,6 +11,7 @@ export default function Home() {
 
   const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
   const communities: ICommunity[] = data?.community
+
   return (
     <>
       {communities && (
@@ -20,7 +21,7 @@ export default function Home() {
             setSelectedCommunity={setSelectedCommunity}
             communities={communities}
           />
-          <AllSubmissions community={communities[0]} />
+          {selectedCommunity && <AllSubmissions community={selectedCommunity} />}
         </div>
       )}
     </>
