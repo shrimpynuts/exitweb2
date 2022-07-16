@@ -13,7 +13,11 @@ import type { AppProps } from 'next/app'
 import client from '../lib/apollo-client'
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [
+    chain.goerli,
+    chain.mainnet,
+    // chain.polygon, chain.optimism, chain.arbitrum
+  ],
   [alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API }), publicProvider()],
 )
 const { connectors } = getDefaultWallets({
