@@ -44,7 +44,7 @@ export function CommunityPickerSmall({ communities, selectedCommunity, setSelect
         <div className="grid grid-cols-1 md:grid-cols-3">
           {communities.map((community, i) => (
             <div
-              className={classNames('mx-2 my-1 duration-100 ease-out cursor-pointer transform hover:scale-105', {
+              className={classNames('mx-2 my-1 duration-100 ease-out cursor-pointer ', {
                 ' bg-blue-50': community == selectedCommunity,
               })}
               onClick={() =>
