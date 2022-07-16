@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import classNames from 'classnames'
 
 import { ICommunity } from '../../types'
-import CommunityCard from './communityCard'
+import CommunityCard, { CommunityCardSmall } from './communityCard'
 
 interface IProps {
   communities: ICommunity[]
@@ -14,10 +13,10 @@ export default function CommunityPicker({ communities, selectedCommunity, setSel
   return (
     <div>
       {communities && communities.length > 0 ? (
-        <div className="grid mx-4 space-y-4 md:space-y-0 grid-cols-1 md:grid-cols-3 md:space-x-4">
+        <div className="grid mx-4 grid-cols-1 md:grid-cols-3">
           {communities.map((community, i) => (
             <div
-              className={classNames('h-full duration-100 ease-out cursor-pointer transform hover:scale-105', {
+              className={classNames('m-2 duration-100 ease-out cursor-pointer transform hover:scale-105', {
                 ' bg-blue-50': community == selectedCommunity,
               })}
               onClick={() =>
@@ -26,6 +25,34 @@ export default function CommunityPicker({ communities, selectedCommunity, setSel
               key={i}
             >
               <CommunityCard community={community} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          <h1 className="text-center py-8">No communities found :/</h1>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export function CommunityPickerSmall({ communities, selectedCommunity, setSelectedCommunity }: IProps) {
+  return (
+    <div>
+      {communities && communities.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {communities.map((community, i) => (
+            <div
+              className={classNames('m-1 duration-100 ease-out cursor-pointer transform hover:scale-105', {
+                ' bg-blue-50': community == selectedCommunity,
+              })}
+              onClick={() =>
+                community == selectedCommunity ? setSelectedCommunity(undefined) : setSelectedCommunity(community)
+              }
+              key={i}
+            >
+              <CommunityCardSmall community={community} />
             </div>
           ))}
         </div>
