@@ -39,13 +39,10 @@ export default function CreateSubmission({}: IProps) {
     insertCommunity({ variables: { newCommunity } })
       // Handle successful response
       .then((res) => {
-        console.log({ res })
         toast.success('Submitted new community, pending approval.')
       })
       // Handle error response
-      .catch((err) => {
-        toast.error(`Failed to submit community! ${err}`)
-      })
+      .catch((err) => toast.error(`Failed to submit community! ${err}`))
   }
 
   const inputClassName = 'rounded border mb-2 border-gray-300'

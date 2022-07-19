@@ -35,8 +35,6 @@ export default function RedeemMembership() {
     }
   }, [communities])
 
-  console.log({ secretKeys })
-
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>

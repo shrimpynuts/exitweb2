@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 
 import { UPDATE_SUBMISSION_APPROVAL } from '../../graphql/mutations'
 import { GET_SUBMISSIONS_FOR_COMMUNITY } from '../../graphql/queries'
-import MerkleTree from './createMerkleTree'
+import CreateMerkleTree from './createMerkleTree'
 import { ICommunity, ISubmission } from '../../types'
 import Submission from './submission'
 import Button from '../util/button'
@@ -22,9 +22,7 @@ export default function AllSubmissions({ community }: IProps) {
 
   const [updateSubmissionApproval] = useMutation(UPDATE_SUBMISSION_APPROVAL)
 
-  const onRefreshClick = () => {
-    refetch()
-  }
+  const onRefreshClick = () => refetch()
 
   const onApproveClick = () => {
     if (Object.keys(selectedIds).length === 0) return
@@ -84,8 +82,8 @@ export default function AllSubmissions({ community }: IProps) {
           ))}
       </div>
       {community.merkle_tree ? (
-        <div>
-          <p>Merkle Tree:</p>
+        <div className="overflow-hidden">
+          <p className="font-bold text-lg my-2">Merkle Tree:</p>
           <CopyCode text={community.merkle_tree} />
         </div>
       ) : (
@@ -93,7 +91,7 @@ export default function AllSubmissions({ community }: IProps) {
           <p className="text-red-600 italic">No merkle tree generated yet.</p>
         </div>
       )}
-      <MerkleTree submissions={data?.submissions} community={community} />
+      <CreateMerkleTree submissions={data?.submissions} community={community} />
     </div>
   )
 }

@@ -44,15 +44,12 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
     insertSubmission({ variables: { submission } })
       // Handle successful response
       .then((res) => {
-        console.log({ res })
         toast.success('Created new submission.')
         setStep1Finished(false)
         onFinished()
       })
       // Handle error response
-      .catch((err) => {
-        toast.error(`Failed to create submission! ${err}`)
-      })
+      .catch((err) => toast.error(`Failed to create submission! ${err}`))
   }
   const twitterShareText = `I\'m exiting web2. \n@exitweb2`
 

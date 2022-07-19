@@ -16,8 +16,8 @@ export default function CopyCode({ text }: IProps) {
   }
 
   return (
-    <div onClick={onClick} className="truncate cursor-pointer code p-2 bg-gray-100 rounded my-2">
+    <code onClick={onClick} className="block truncate cursor-pointer code p-2 bg-gray-100 rounded-lg my-2">
       {text}
-    </div>
+    </code>
   )
 }

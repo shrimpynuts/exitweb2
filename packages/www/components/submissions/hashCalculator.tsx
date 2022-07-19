@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Button from '../util/button'
 import { ICommunity } from '../../types'
-import { pedersenHash, pedersenHashConcat, toHex } from '../../lib/zkp/Library'
+import { pedersenHashConcat, toHex } from '../../lib/zkp/Library'
 
 interface IProps {
   community: ICommunity
@@ -29,7 +29,6 @@ export default function HashCalculator({ community }: IProps) {
     setFormState({ ...formState, [event.target.name]: event.target.value })
 
   const onClick = async () => {
-    console.log({ formState })
     setResult(toHex(pedersenHashConcat(BigInt(formState.community_hash), BigInt(formState.secret))))
   }
 
