@@ -1,37 +1,38 @@
 table:
-  schema: public
   name: community
+  schema: public
 insert_permissions:
-  - role: public
-    permission:
-      check: {}
-      columns:
-        - banner_image_url
-        - description
-        - hash
-        - icon_image_url
-        - merkle_tree
-        - name
-        - requirement
+- permission:
+    check: {}
+    columns:
+    - banner_image_url
+    - description
+    - hash
+    - icon_image_url
+    - merkle_tree
+    - name
+    - requirement
+  role: public
 select_permissions:
-  - role: public
-    permission:
-      columns:
-        - banner_image_url
-        - created_at
-        - description
-        - hash
-        - icon_image_url
-        - id
-        - merkle_tree
-        - name
-        - requirement
-        - updated_at
-      filter: {}
+- permission:
+    columns:
+    - banner_image_url
+    - contract_id
+    - created_at
+    - description
+    - hash
+    - icon_image_url
+    - id
+    - merkle_tree
+    - name
+    - requirement
+    - updated_at
+    filter: {}
+  role: public
 update_permissions:
-  - role: public
-    permission:
-      columns:
-        - merkle_tree
-      filter: {}
-      check: null
+- permission:
+    check: null
+    columns:
+    - merkle_tree
+    filter: {}
+  role: public
