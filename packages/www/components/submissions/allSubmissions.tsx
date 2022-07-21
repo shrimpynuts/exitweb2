@@ -52,7 +52,7 @@ export default function AllSubmissions({ community, contract_id }: IProps) {
   const onDeselectAll = () => setSelectedIds({})
 
   return (
-    <div className="flex flex-col mt-2 space-y-4">
+    <div className="flex flex-col mt-4 space-y-4">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold">
           Submissions for <span className="text-blue-600 italic">{community.name}</span>

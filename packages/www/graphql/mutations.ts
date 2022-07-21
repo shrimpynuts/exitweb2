@@ -31,6 +31,15 @@ export const INSERT_COMMUNITY_ONE = gql`
   mutation InsertCommunityOne($newCommunity: community_insert_input!) {
     insert_community_one(object: $newCommunity) {
       created_at
+      id
+    }
+  }
+`
+
+export const DELETE_COMMUNITY_BY_ID = gql`
+  mutation DeleteCommunityById($id: uuid!) {
+    delete_community(where: { id: { _eq: $id } }) {
+      affected_rows
     }
   }
 `

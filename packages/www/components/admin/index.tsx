@@ -14,7 +14,6 @@ export default function Home() {
 
   const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
   const communities: ICommunity[] = data?.community
-  const [tokenSupply, setTokenSupply] = useState()
 
   const DEFAULT_CONTRACT_ID = 0
 

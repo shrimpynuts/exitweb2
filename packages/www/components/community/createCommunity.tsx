@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
-import { useSigner } from 'wagmi'
+import { useContractRead, useSigner } from 'wagmi'
 
-import { getAirdropContractWithSigner } from '../../lib/config'
-import { INSERT_COMMUNITY_ONE } from '../../graphql/mutations'
+import { AIRDROP_CONTRACT_DATA, getAirdropContractWithSigner } from '../../lib/config'
+import { INSERT_COMMUNITY_ONE, DELETE_COMMUNITY_BY_ID } from '../../graphql/mutations'
 import { randomBigInt } from '../../lib/zkp/util'
 import { toHex } from '../../lib/zkp/Library'
 import CommunityCard from './communityCard'
@@ -17,6 +17,7 @@ interface IProps {}
 type IState = Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
 
 export default function CreateSubmission({}: IProps) {
+  const [deleteCommunity] = useMutation(DELETE_COMMUNITY_BY_ID)
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
   const { data: signer } = useSigner()
 
@@ -30,33 +31,43 @@ export default function CreateSubmission({}: IProps) {
     key: toHex(randomBigInt(31)),
   })
 
+  const { data: numContractCommunities } = useContractRead({
+    ...AIRDROP_CONTRACT_DATA,
+    functionName: 'totalCommunities',
+    select: (data) => data.toNumber(),
+  })
+
   const handleChange = (event: React.BaseSyntheticEvent) =>
     setFormState({ ...formState, [event.target.name]: event.target.value })
 
   const onSubmitClick = async () => {
-    const hash = toHex(randomBigInt(31))
-    const newCommunity = {
-      ...formState,
-      hash,
-    }
+    // Calculate contract_id
+    const contract_id = numContractCommunities
+    const newCommunity = { ...formState, contract_id }
 
+    // Add community to database
     try {
-      await insertCommunity({ variables: { newCommunity } })
-        // Handle successful response
-        .then((res) => toast.success('Submitted new community, pending approval.'))
-    } catch (err) {
-      toast.error(`Failed to submit community to database! ${err}`)
-      return
-    }
+      const { data } = await insertCommunity({ variables: { newCommunity } })
+      const newCommunityId = data.insert_community_one.id
+      console.log('Inserted community with id ', newCommunityId)
 
-    try {
-      if (!signer) return toast.error('Not signed in with Ethereum!')
-      let airdropContract = getAirdropContractWithSigner(signer)
-      let tx = await airdropContract.registerCommunity(formState.name)
-      await tx.wait().then(() => toast.success('Added community to smart contract.'))
+      // Add community to airdrop contract
+      try {
+        if (!signer) return toast.error('Not signed in with Ethereum!')
+        let airdropContract = getAirdropContractWithSigner(signer)
+        let tx = await airdropContract.registerCommunity(formState.name)
+        await tx.wait().then(() => toast.success('Added community to smart contract.'))
+      } catch (err) {
+        // If we've added the community to our database, but couldn't add it to the smart contract,
+        // we should delete the community from the database.
+        deleteCommunity({ variables: { id: newCommunityId } })
+          .then(() => console.log('Deleting community with id '))
+          .catch((err) => console.log(`Failed to delete failed community id ${newCommunityId}, ${err}`))
+
+        return toast.error(`Failed to add community to smart contract! ${err}`)
+      }
     } catch (err) {
-      toast.error(`Failed to add community to smart contract! ${err}`)
-      return
+      return toast.error(`Failed to submit community to database! ${err}`)
     }
   }
 

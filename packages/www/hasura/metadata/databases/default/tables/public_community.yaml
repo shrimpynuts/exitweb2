@@ -6,9 +6,10 @@ insert_permissions:
     check: {}
     columns:
     - banner_image_url
+    - contract_id
     - description
-    - key
     - icon_image_url
+    - key
     - merkle_tree
     - name
     - requirement
@@ -35,5 +36,10 @@ update_permissions:
     columns:
     - contract_id
     - merkle_tree
+    filter: {}
+  role: public
+delete_permissions:
+- permission:
+    backend_only: false
     filter: {}
   role: public
