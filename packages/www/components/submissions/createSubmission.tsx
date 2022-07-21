@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 
-import { pedersenHashConcat, randomBigInt, toHex } from '../../lib/zkp/util'
+import { pedersenHashConcat, toHex } from '../../lib/zkp/Library'
 import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
-import { ICommunity, ISubmission } from '../../types'
-import Button from '../util/button'
 import ShareTweetButton from '../util/shareTweetButton'
+import { ICommunity, ISubmission } from '../../types'
+import { randomBigInt } from '../../lib/zkp/util'
+import Button from '../util/button'
 
 interface IProps {
   community: ICommunity

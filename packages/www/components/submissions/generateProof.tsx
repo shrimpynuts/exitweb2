@@ -4,13 +4,12 @@ import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
 
 import { pedersenHashConcat, toHex, generateProofCallData, pedersenHash } from '../../lib/zkp/Library'
-
 import { MerkleTree } from '../../lib/zkp/MerkleTree'
 import { getFileBuffer } from '../../lib/zkp/util'
-import { ICommunity } from '../../types'
-import Button from '../util/button'
 import CopyCode from '../util/copyableCode'
+import { ICommunity } from '../../types'
 import ClaimToken from './claimToken'
+import Button from '../util/button'
 
 interface IProps {
   community: ICommunity
@@ -36,17 +35,18 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
 
       // Fetch key (nullifier stored in community database) and secret (stored in local storage)
-      const key = BigInt(community.hash)
+      const communityKey = BigInt(community.hash)
       const secret = BigInt(secretKey)
+      const nullifier = pedersenHashConcat(communityKey, secret)
 
       // Check if leaf is even in the merkle tree
       const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
-      const computedCommitment = toHex(pedersenHashConcat(key, secret))
+      const computedCommitment = toHex(pedersenHashConcat(nullifier, secret))
       if (!merkleTree.leafExists(BigInt(computedCommitment)))
         return Promise.reject(new Error('Commitment not found in merkle tree!'))
 
       // Generate proof and setState
-      return generateProofCallData(merkleTree, key, secret, address, WASM_BUFF, ZKEY_BUFF)
+      return generateProofCallData(merkleTree, nullifier, secret, address, WASM_BUFF, ZKEY_BUFF)
         .then(setProof)
         .catch((err) => Promise.reject(`Failed to generate proof! ${err}`))
     } catch (err: any) {

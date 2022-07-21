@@ -2,14 +2,15 @@ import { useState } from 'react'
 
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
-
-import { INSERT_COMMUNITY_ONE } from '../../graphql/mutations'
-import { randomBigInt, toHex } from '../../lib/zkp/util'
-import Button from '../util/button'
-import { ICommunity } from '../../types'
-import CommunityCard from './communityCard'
-import { getAirdropContractWithSigner } from '../../lib/config'
 import { useSigner } from 'wagmi'
+
+import { getAirdropContractWithSigner } from '../../lib/config'
+import { INSERT_COMMUNITY_ONE } from '../../graphql/mutations'
+import { randomBigInt } from '../../lib/zkp/util'
+import { toHex } from '../../lib/zkp/Library'
+import CommunityCard from './communityCard'
+import { ICommunity } from '../../types'
+import Button from '../util/button'
 
 interface IProps {}
 
