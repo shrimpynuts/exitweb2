@@ -13,14 +13,14 @@ interface IProps {
 }
 
 export default function ClaimToken({ community, proof, contract_id, nullifierHash }: IProps) {
-  const { write } = useContractWrite({
+  const { writeAsync: claim } = useContractWrite({
     ...AIRDROP_CONTRACT_DATA,
     functionName: 'collectAirdrop',
     args: [contract_id, proof, nullifierHash],
   })
 
   const claimToken = async () => {
-    write()
+    return claim().catch((error) => Promise.reject(`Error claiming tokens: ${error.message}`))
   }
 
   // Onclick handler for claiming tokens

@@ -5,8 +5,8 @@ import { CommunityPickerSmall } from '../community/communityPicker'
 import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
 import AllSubmissions from '../submissions/allSubmissions'
 import { ICommunity } from '../../types'
-import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS } from '../../lib/config'
-import { useContractReads } from 'wagmi'
+import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS, COMMUNITY_TOKEN_ABI } from '../../lib/config'
+import { useContractRead, useContractReads } from 'wagmi'
 import CopyCode from '../util/copyableCode'
 
 export default function Home() {
@@ -14,6 +14,7 @@ export default function Home() {
 
   const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
   const communities: ICommunity[] = data?.community
+  const [tokenSupply, setTokenSupply] = useState()
 
   const DEFAULT_CONTRACT_ID = 0
 
@@ -23,7 +24,16 @@ export default function Home() {
       { ...AIRDROP_CONTRACT_DATA, functionName: 'owner' },
       { ...AIRDROP_CONTRACT_DATA, functionName: 'communities', args: [DEFAULT_CONTRACT_ID] },
       { ...AIRDROP_CONTRACT_DATA, functionName: 'roots', args: [DEFAULT_CONTRACT_ID] },
+      { ...AIRDROP_CONTRACT_DATA, functionName: 'communityToken' },
     ],
+  })
+
+  const { data: tokenTotalSupply } = useContractRead({
+    addressOrName: '0x75537828f2ce51be7289709686A69CbFDbB714F1',
+    contractInterface: COMMUNITY_TOKEN_ABI,
+    functionName: 'totalSupply',
+    args: [DEFAULT_CONTRACT_ID],
+    select: (data) => data.toNumber(),
   })
 
   return (
@@ -43,6 +53,11 @@ export default function Home() {
               </p>
               <p className="text-lg inline">Root of community {DEFAULT_CONTRACT_ID}:</p>
               <CopyCode text={String(contractData[3])} inline />
+              <p className="text-lg inline">Community Token:</p>
+              <CopyCode text={String(contractData[4])} inline />
+              <p className="text-lg">
+                Total Supply for ID {DEFAULT_CONTRACT_ID}: {tokenTotalSupply}
+              </p>
             </div>
           )}
           <div className="p-4 border border-gray-300 rounded my-2">

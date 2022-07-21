@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useMutation } from '@apollo/client'
+import { useContractWrite, useSigner } from 'wagmi'
 
 import { UPDATE_COMMUNITY_MERKLE_TREE } from '../../graphql/mutations'
-import PRIVATE_AIRDROP_JSON from '../../lib/ABIs/PrivateAirdrop.json'
+import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
 import { ICommunity, ISubmission } from '../../types'
 import { MerkleTree } from '../../lib/zkp/MerkleTree'
 import { randomBigInt } from '../../lib/zkp/util'
-import Button from '../util/button'
-import { Contract } from 'ethers'
-import { useContractWrite, useSigner } from 'wagmi'
-import CopyCode from '../util/copyableCode'
 import { toHex } from '../../lib/zkp/Library'
-import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
+import CopyCode from '../util/copyableCode'
+import Button from '../util/button'
 
 interface IProps {
   submissions: ISubmission[]
@@ -20,7 +18,7 @@ interface IProps {
   contract_id: number
 }
 
-const DEFAULT_HEIGHT = 5
+const DEFAULT_HEIGHT = 13
 
 export default function CreateMerkleTree({ submissions, community, contract_id }: IProps) {
   const [merkleTree, setMerkleTree] = useState<MerkleTree>()

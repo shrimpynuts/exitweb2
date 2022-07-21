@@ -30,8 +30,10 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
 
       // Fetch wasm and zkey
       let domain = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://exitweb2.vercel.app'
-      let WASM_BUFF = await getFileBuffer(`${domain}/circuit.wasm`)
-      let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final.zkey`)
+      // let WASM_BUFF = await getFileBuffer(`${domain}/circuit.wasm`)
+      // let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final.zkey`)
+      let WASM_BUFF = await getFileBuffer(`${domain}/circuit_13.wasm`)
+      let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
 
       // Fetch key (nullifier stored in community database) and secret (stored in local storage)
       const key = BigInt(community.hash)
@@ -44,9 +46,9 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
         return Promise.reject(new Error('Commitment not found in merkle tree!'))
 
       // Generate proof and setState
-      await generateProofCallData(merkleTree, key, secret, address, WASM_BUFF, ZKEY_BUFF)
+      return generateProofCallData(merkleTree, key, secret, address, WASM_BUFF, ZKEY_BUFF)
         .then(setProof)
-        .catch((err) => toast.error(`Failed to create submission! ${err}`))
+        .catch((err) => Promise.reject(`Failed to generate proof! ${err}`))
     } catch (err: any) {
       toast.error(err.message)
     }
