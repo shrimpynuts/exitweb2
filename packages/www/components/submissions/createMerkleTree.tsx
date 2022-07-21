@@ -15,12 +15,11 @@ import Button from '../util/button'
 interface IProps {
   submissions: ISubmission[]
   community: ICommunity
-  contract_id: number
 }
 
 const DEFAULT_HEIGHT = 13
 
-export default function CreateMerkleTree({ submissions, community, contract_id }: IProps) {
+export default function CreateMerkleTree({ submissions, community }: IProps) {
   const [merkleTree, setMerkleTree] = useState<MerkleTree>()
   const [merkleTreeStorageString, setMerkleTreeStorageString] = useState('')
   const [merkleTreeRoot, setMerkleTreeRoot] = useState('')
@@ -28,10 +27,10 @@ export default function CreateMerkleTree({ submissions, community, contract_id }
 
   const { data: signer } = useSigner()
 
-  const { write } = useContractWrite({
+  const { writeAsync } = useContractWrite({
     ...AIRDROP_CONTRACT_DATA,
     functionName: 'updateRoot',
-    args: [contract_id, merkleTreeRoot],
+    args: [community.contract_id, merkleTreeRoot],
   })
 
   // Reset the merkle tree to undefined when community changes
@@ -65,7 +64,7 @@ export default function CreateMerkleTree({ submissions, community, contract_id }
   const onUpdateSmartContractClick = async () => {
     if (!merkleTree) return toast.error('No merkle tree to upload')
     if (!signer) return toast.error('Not signed in with Ethereum!')
-    write()
+    writeAsync().catch((e) => toast.error(e.message))
   }
 
   return (

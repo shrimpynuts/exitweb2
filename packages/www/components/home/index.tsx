@@ -32,6 +32,15 @@ export default function Home() {
             Redeem membership
           </Button>
         </div>
+
+        <div className="flex flex-col p-4 border border-gray-300 rounded">
+          <h1 className="text-2xl font-bold">Admin Panel</h1>
+          <a href="/admin" target="_blank" rel="noopener noreferrer" className="w-full">
+            <Button classOverrides="mt-4 w-full" bgColor="bg-yellow-500">
+              Open admin panel
+            </Button>
+          </a>
+        </div>
       </div>
     </div>
   )

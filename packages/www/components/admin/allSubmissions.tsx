@@ -3,24 +3,21 @@ import { useMutation, useQuery } from '@apollo/client'
 
 import { UPDATE_SUBMISSION_APPROVAL } from '../../graphql/mutations'
 import { GET_SUBMISSIONS_FOR_COMMUNITY } from '../../graphql/queries'
-import CreateMerkleTree from './createMerkleTree'
+import CreateMerkleTree from '../submissions/createMerkleTree'
 import { ICommunity, ISubmission } from '../../types'
-import Submission from './submission'
+import Submission from '../submissions/submission'
 import Button from '../util/button'
 import { toast } from 'react-hot-toast'
 import CopyCode from '../util/copyableCode'
 
 interface IProps {
   community: ICommunity
-  contract_id: number
+  submissions: ISubmission[]
+  refetch: () => void
 }
 
-export default function AllSubmissions({ community, contract_id }: IProps) {
+export default function AllSubmissions({ community, submissions, refetch }: IProps) {
   const [selectedIds, setSelectedIds] = useState<{ [id: number]: boolean }>({})
-  const { data, loading, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, {
-    variables: { id: community.id },
-  })
-
   const [updateSubmissionApproval] = useMutation(UPDATE_SUBMISSION_APPROVAL)
 
   const onRefreshClick = () => refetch()
@@ -45,7 +42,7 @@ export default function AllSubmissions({ community, contract_id }: IProps) {
 
   const onSelectAll = () => {
     const newSelectedIds: { [id: number]: boolean } = {}
-    data?.submissions.forEach((submission: ISubmission) => (newSelectedIds[parseInt(submission.id)] = true))
+    submissions.forEach((submission: ISubmission) => (newSelectedIds[parseInt(submission.id)] = true))
     setSelectedIds(newSelectedIds)
   }
 
@@ -69,30 +66,24 @@ export default function AllSubmissions({ community, contract_id }: IProps) {
           </Button>
         </div>
       </div>
-      <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden">
-        {data &&
-          !loading &&
-          data.submissions &&
-          data.submissions.map((submission: ISubmission, idx: number) => (
-            <Submission
-              onClick={() => onSelect(parseInt(submission.id))}
-              submission={submission}
-              key={idx}
-              selected={selectedIds[parseInt(submission.id)]}
-            />
-          ))}
-      </div>
-      <div className="overflow-hidden">
-        <p className="font-bold text-lg my-2">Merkle Tree (in database):</p>
-        {community.merkle_tree ? (
-          <CopyCode text={community.merkle_tree} />
-        ) : (
-          <div>
-            <p className="text-red-600 italic">No merkle tree generated yet.</p>
-          </div>
-        )}
-      </div>
-      <CreateMerkleTree submissions={data?.submissions} community={community} contract_id={contract_id} />
+      {submissions && (
+        <div>
+          {submissions.length > 0 ? (
+            <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden">
+              {submissions.map((submission, idx: number) => (
+                <Submission
+                  onClick={() => onSelect(parseInt(submission.id))}
+                  submission={submission}
+                  key={idx}
+                  selected={selectedIds[parseInt(submission.id)]}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center my-4 italic">No submissions yet.</div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
