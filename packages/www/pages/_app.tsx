@@ -14,7 +14,7 @@ import client from '../lib/apollo-client'
 
 const { chains, provider } = configureChains(
   [
-    chain.localhost,
+    ...(process.env.NODE_ENV === 'development' ? [chain.localhost] : []),
     chain.goerli,
     chain.mainnet,
     // chain.polygon, chain.optimism, chain.arbitrum
