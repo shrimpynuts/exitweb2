@@ -52,7 +52,14 @@ export default function Home() {
               setSelectedCommunity={setSelectedCommunity}
               communities={communities}
             />
-            {selectedCommunity && <CommunityAdmin community={selectedCommunity} />}
+            {selectedCommunity && contractData ? (
+              <CommunityAdmin community={selectedCommunity} communityTokenAddress={String(contractData[2])} />
+            ) : (
+              <div className="text-center my-8">
+                {!selectedCommunity && <p className="italic">No community selected.</p>}
+                {!contractData && <p className="italic">Having trouble fetching data from smart contract.</p>}
+              </div>
+            )}
           </div>
         </div>
       )}

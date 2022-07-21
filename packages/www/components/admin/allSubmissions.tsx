@@ -67,9 +67,9 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
         </div>
       </div>
       {submissions && (
-        <div>
+        <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden h-96">
           {submissions.length > 0 ? (
-            <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden">
+            <div>
               {submissions.map((submission, idx: number) => (
                 <Submission
                   onClick={() => onSelect(parseInt(submission.id))}
@@ -80,7 +80,7 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
               ))}
             </div>
           ) : (
-            <div className="text-center my-4 italic">No submissions yet.</div>
+            <div className="text-center mt-24 italic">No submissions yet.</div>
           )}
         </div>
       )}
