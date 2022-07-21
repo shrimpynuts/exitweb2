@@ -43,3 +43,11 @@ export const DELETE_COMMUNITY_BY_ID = gql`
     }
   }
 `
+
+export const INSERT_MESSAGE_ONE = gql`
+  mutation InsertMessageOne($newMessage: messages_insert_input!) {
+    insert_messages_one(object: $newMessage) {
+      id
+    }
+  }
+`

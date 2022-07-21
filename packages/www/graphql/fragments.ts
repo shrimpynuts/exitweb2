@@ -28,3 +28,15 @@ export const CORE_COMMUNITY_FIELDS = gql`
     contract_id
   }
 `
+
+export const CORE_MESSAGE_FIELDS = gql`
+  fragment CoreMessageFields on messages {
+    updated_at
+    created_at
+    id
+
+    text
+    from
+    community_id
+  }
+`

@@ -1,14 +1,16 @@
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import classNames from 'classnames'
 import moment from 'moment'
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 
-import { GET_SUBMISSIONS_FOR_COMMUNITY } from '../../graphql/queries'
+import { GET_MESSAGES_BY_COMMUNITY } from '../../graphql/queries'
 import { CommunityCardForChat } from '../community/communityCard'
 import { COMMUNITY_TOKEN_ABI } from '../../lib/config'
 import { ICommunity, IMessage } from '../../types'
 import Lock from '../svg/lock'
+import { INSERT_MESSAGE_ONE } from '../../graphql/mutations'
+import toast from 'react-hot-toast'
 
 interface IProps {
   community: ICommunity
@@ -16,84 +18,35 @@ interface IProps {
 }
 
 export default function CommunityChat({ community, communityTokenAddress }: IProps) {
-  const { data, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, { variables: { id: community.id } })
   const { address, isConnected } = useAccount()
-  const defaultMessages: IMessage[] = [
-    {
-      updated_at: new Date().toString(),
-      created_at: new Date().toString(),
+  const [insertMessage] = useMutation(INSERT_MESSAGE_ONE)
+  const [draft, setDraft] = useState<string>('')
 
-      id: '1',
-      text: 'Hello!',
-      from: '0x1234567890123456789012345678901234567890',
-      community_id: '0x1234567890123456789012345678901234567890',
-    },
-    {
-      updated_at: new Date().toString(),
-      created_at: new Date().toString(),
+  // Fetch all messages for this community
+  const { data, refetch } = useQuery(GET_MESSAGES_BY_COMMUNITY, { variables: { community_id: community.id } })
+  const messages: IMessage[] = data?.messages || []
 
-      id: '1',
-      text: 'Messaging stuff is hard.',
-      from: '0x1234567890123456789012345678901234567890',
-      community_id: '0x1234567890123456789012345678901234567890',
-    },
-    {
-      updated_at: new Date().toString(),
-      created_at: new Date().toString(),
+  // Some ref's to manipulate scroll position
+  const messageEndRef = useRef<HTMLInputElement>(null)
+  const inputEl = useRef<HTMLInputElement>(null)
 
-      id: '1',
-      text: 'This is me!',
-      from: String(address),
-      community_id: '0x1234567890123456789012345678901234567890',
-    },
-    {
-      updated_at: new Date().toString(),
-      created_at: new Date().toString(),
-
-      id: '1',
-      text: 'Messaging stuff',
-      from: '0x1234567890123456789012345678901234567890',
-      community_id: '0x1234567890123456789012345678901234567890',
-    },
-    {
-      updated_at: new Date().toString(),
-      created_at: new Date().toString(),
-
-      id: '1',
-      text: 'Messaging stuff',
-      from: String(address),
-      community_id: '0x1234567890123456789012345678901234567890',
-    },
-  ]
-  const [messages, setMessages] = useState<IMessage[]>(defaultMessages)
-  const [draft, setDraft] = useState<string>()
-
+  // Determine whether the current signer is a member of this community by fetching token balance from contract
   const { data: contractData } = useContractRead({
     addressOrName: communityTokenAddress,
     contractInterface: COMMUNITY_TOKEN_ABI,
     functionName: 'balanceOf',
     args: [address, community.contract_id],
   })
+  const isOwner = contractData ? contractData.toNumber() > 0 : false
 
   const onEnter: KeyboardEventHandler = (e) => {
     if (draft && e.key === 'Enter') {
-      setMessages([
-        ...messages,
-        {
-          id: '1',
-          text: draft,
-          from: String(address),
-          community_id: community.id,
-          updated_at: new Date().toString(),
-          created_at: new Date().toString(),
-        },
-      ])
+      if (!isConnected || !address) return toast.error('Not signed in!')
+      const newMessage = { from: address, text: draft, community_id: community.id }
+      insertMessage({ variables: { newMessage } }).then(() => refetch())
       setDraft('')
     }
   }
-
-  const messageEndRef = useRef<HTMLInputElement>(null)
-  const inputEl = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     inputEl.current && inputEl.current?.focus()
@@ -104,23 +57,14 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
     if (messageEndRef.current) messageEndRef.current.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 4)}...${address.slice(-2)}`
-  }
+  const formatAddress = (address: string) => `${address.slice(0, 4)}...${address.slice(-2)}`
 
-  interface IMessageProps {
-    message: IMessage
-    isThreadContinuation: boolean
-  }
-  const Message = ({ message, isThreadContinuation }: IMessageProps) => {
+  // Component to render a single message
+  const Message = ({ message, isThreadContinuation }: { message: IMessage; isThreadContinuation: boolean }) => {
     const fromName = message.from === address ? 'You' : formatAddress(message.from)
     return (
       <div className="w-full flex justify-between items-center">
-        <div
-          className={classNames('w-80 flex items-center space-x-4', {
-            'mt-2': !isThreadContinuation,
-          })}
-        >
+        <div className={classNames('w-80 flex items-center space-x-4', { 'mt-2': !isThreadContinuation })}>
           <div className="w-10">
             {!isThreadContinuation && (
               <img
@@ -141,8 +85,6 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
       </div>
     )
   }
-
-  const isOwner = contractData ? contractData.toNumber() > 0 : false
 
   return (
     <>

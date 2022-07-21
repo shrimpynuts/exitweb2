@@ -1,0 +1,22 @@
+table:
+  name: messages
+  schema: public
+insert_permissions:
+- permission:
+    check: {}
+    columns:
+    - community_id
+    - from
+    - text
+  role: public
+select_permissions:
+- permission:
+    columns:
+    - id
+    - created_at
+    - updated_at
+    - text
+    - from
+    - community_id
+    filter: {}
+  role: public

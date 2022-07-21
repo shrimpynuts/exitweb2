@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { CORE_SUBMISSION_FIELDS, CORE_COMMUNITY_FIELDS } from './fragments'
+import { CORE_SUBMISSION_FIELDS, CORE_COMMUNITY_FIELDS, CORE_MESSAGE_FIELDS } from './fragments'
 
 export const GET_SUBMISSIONS = gql`
   ${CORE_SUBMISSION_FIELDS}
@@ -33,6 +33,20 @@ export const GET_COMMUNITY_BY_ID = gql`
   query GetCommunityById($communityId: uuid!) {
     community_by_pk(id: $communityId) {
       ...CoreCommunityFields
+    }
+  }
+`
+
+export const GET_MESSAGES_BY_COMMUNITY = gql`
+  ${CORE_MESSAGE_FIELDS}
+  query MessagesByCommunity($community_id: uuid!) {
+    messages(where: { community_id: { _eq: $community_id } }, order_by: { created_at: asc }) {
+      community_id
+      created_at
+      from
+      id
+      text
+      updated_at
     }
   }
 `
