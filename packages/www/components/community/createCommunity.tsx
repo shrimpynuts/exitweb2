@@ -27,7 +27,7 @@ export default function CreateSubmission({}: IProps) {
     icon_image_url: 'https://cdn-icons-png.flaticon.com/512/124/124021.png',
     banner_image_url:
       'https://daocentral.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdaojones%2Fimage%2Fupload%2Fv1637755736%2FCleanShot_2021-11-24_at_04.08.33_pxl0kp.png&w=3840&q=75',
-    hash: toHex(randomBigInt(31)),
+    key: toHex(randomBigInt(31)),
   })
 
   const handleChange = (event: React.BaseSyntheticEvent) =>
