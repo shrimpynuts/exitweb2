@@ -27,24 +27,33 @@ export default function Home() {
     <>
       {communities && (
         <div className="mx-4 lg:mx-24 mt-8">
-          {contractData && (
-            <div className="p-4 border border-gray-300 rounded my-2">
-              <p className="font-bold text-2xl my-2">Airdrop Smart Contract:</p>
+          <div className="p-4 border border-gray-300 rounded my-2">
+            <p className="font-bold text-2xl my-2">Airdrop Smart Contract:</p>
+            {contractData && contractData[0] ? (
+              <>
+                <div>
+                  <p className="text-lg inline">Contract address: </p>
+                  <CopyCode text={AIRDROP_CONTRACT_ADDRESS} inline />
+                </div>
+                <div>
+                  <p className="text-lg inline">Owner: </p>
+                  <CopyCode text={String(contractData[1])} inline />
+                </div>
+                <div>
+                  <p className="text-lg inline">Community Token:</p>
+                  <CopyCode text={String(contractData[2])} inline />
+                </div>
+                <p className="text-lg">Number of communities: {contractData[0].toNumber()}</p>
+              </>
+            ) : (
               <div>
-                <p className="text-lg inline">Contract address: </p>
-                <CopyCode text={AIRDROP_CONTRACT_ADDRESS} inline />
+                <p className="text-red-500 italic">
+                  Having issue connecting to smart contract at address {AIRDROP_CONTRACT_ADDRESS}.
+                </p>
+                <p>Double-check if it is deployed to this chain.</p>
               </div>
-              <div>
-                <p className="text-lg inline">Owner: </p>
-                <CopyCode text={String(contractData[1])} inline />
-              </div>
-              <div>
-                <p className="text-lg inline">Community Token:</p>
-                <CopyCode text={String(contractData[2])} inline />
-              </div>
-              <p className="text-lg">Number of communities: {contractData[0].toNumber()}</p>
-            </div>
-          )}
+            )}
+          </div>
           <div className="p-4 border border-gray-300 rounded my-2">
             <p className="font-bold text-2xl my-2">Pick The Community:</p>
             <CommunityPickerSmall
