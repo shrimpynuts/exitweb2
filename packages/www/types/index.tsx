@@ -25,3 +25,13 @@ export interface ICommunity {
   icon_image_url?: string
   banner_image_url?: string
 }
+
+export interface IMessage {
+  created_at: string
+  updated_at: string
+
+  id: string
+  text: string
+  from: string
+  community_id: string
+}

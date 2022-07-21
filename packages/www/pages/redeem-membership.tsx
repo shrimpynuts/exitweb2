@@ -23,6 +23,7 @@ export default function RedeemMembership() {
 
   const [secretKeys, setSecretKeys] = useState<IState>()
 
+  // Fetch secret keys for each community
   useEffect(() => {
     if (communities) {
       const secretKeys = communities.reduce((acc: IState, community) => {

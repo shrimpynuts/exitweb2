@@ -24,7 +24,7 @@ export default function CommunityPicker({ communities, selectedCommunity, setSel
               }
               key={i}
             >
-              <CommunityCard community={community} />
+              <CommunityCard community={community} withRequirement={false} />
             </div>
           ))}
         </div>
