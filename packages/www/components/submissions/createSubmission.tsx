@@ -31,14 +31,19 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
     setFormState({ ...formState, [event.target.name]: event.target.value })
 
   const onClick = async () => {
-    // Generate secret and store into localStorage under "DEFAULT_COMMUNITY_ID"
-    const secretKey = randomBigInt(31)
-    localStorage.setItem(`exitweb2/community/${community.id}`, toHex(secretKey))
+    const secret = randomBigInt(31)
+    const nullifier = randomBigInt(31)
 
-    const nullifier = BigInt(community.key)
+    localStorage.setItem(
+      `exitweb2/community/${community.id}`,
+      JSON.stringify({
+        secret: toHex(secret),
+        nullifier: toHex(nullifier),
+      }),
+    )
 
     // Calculate commitment and create the submission object
-    const commitment = toHex(pedersenHashConcat(nullifier, secretKey))
+    const commitment = toHex(pedersenHashConcat(nullifier, secret))
     const submission = { ...formState, commitment }
 
     // Insert submission into database

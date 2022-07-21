@@ -11,12 +11,11 @@ import { CommunityCardSmallVertical } from '../components/community/communityCar
 
 interface IState {
   [communityId: string]: {
-    secretKey: string
+    secret: string
+    nullifier: string
     community: ICommunity
   }
 }
-
-const DEFAULT_CONTRACT_ID = 0
 
 export default function RedeemMembership() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -27,9 +26,10 @@ export default function RedeemMembership() {
   useEffect(() => {
     if (communities) {
       const secretKeys = communities.reduce((acc: IState, community) => {
-        const secretKey = localStorage.getItem(`exitweb2/community/${community.id}`)
-        if (secretKey) {
-          acc[community.id] = { secretKey, community }
+        const data = localStorage.getItem(`exitweb2/community/${community.id}`)
+        if (data) {
+          const { secret, nullifier } = JSON.parse(data)
+          acc[community.id] = { secret, nullifier, community }
         }
         return acc
       }, {})
@@ -61,8 +61,8 @@ export default function RedeemMembership() {
                       {secretKeys && secretKeys[community.id] && (
                         <GenerateProof
                           community={community}
-                          secretKey={secretKeys[community.id].secretKey}
-                          contract_id={DEFAULT_CONTRACT_ID}
+                          secret={secretKeys[community.id].secret}
+                          nullifier={secretKeys[community.id].nullifier}
                         />
                       )}
                     </div>

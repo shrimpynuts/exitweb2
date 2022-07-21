@@ -12,11 +12,11 @@ import Button from '../util/button'
 
 interface IProps {
   community: ICommunity
-  secretKey: string
-  contract_id: number
+  secret: string
+  nullifier: string
 }
 
-export default function GenerateProof({ community, secretKey, contract_id }: IProps) {
+export default function GenerateProof({ community, secret, nullifier }: IProps) {
   const [proof, setProof] = useState<string>()
   const { address, isConnected } = useAccount()
 
@@ -33,20 +33,14 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       let WASM_BUFF = await getFileBuffer(`${domain}/circuit_13.wasm`)
       let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
 
-      // Fetch key (nullifier stored in community database) and secret (stored in local storage)
-      const communityKey = BigInt(community.key)
-      const secret = BigInt(secretKey)
-
-      const nullifier = communityKey
-
       // Check if leaf is even in the merkle tree
       const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
-      const computedCommitment = toHex(pedersenHashConcat(nullifier, secret))
+      const computedCommitment = toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))
       if (!merkleTree.leafExists(BigInt(computedCommitment)))
         return Promise.reject(new Error('Commitment not found in merkle tree!'))
 
       // Generate proof and setState
-      return generateProofCallData(merkleTree, nullifier, secret, address, WASM_BUFF, ZKEY_BUFF)
+      return generateProofCallData(merkleTree, BigInt(nullifier), BigInt(secret), address, WASM_BUFF, ZKEY_BUFF)
         .then(setProof)
         .catch((err) => Promise.reject(`Failed to generate proof! ${err}`))
     } catch (err: any) {
@@ -69,7 +63,13 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       <p>Found secret key corresponding to this community in local storage.</p>
 
       <p>Secret:</p>
-      <CopyCode text={secretKey} />
+      <CopyCode text={secret} />
+
+      <p>Nullifier:</p>
+      <CopyCode text={nullifier} />
+
+      <p>Commitment:</p>
+      <CopyCode text={toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))} />
 
       {community?.merkle_tree ? (
         <>
@@ -85,12 +85,7 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       {proof && (
         <>
           <CopyCode text={proof} />
-          <ClaimToken
-            community={community}
-            proof={proof}
-            contract_id={contract_id}
-            nullifierHash={toHex(pedersenHash(BigInt(community.key)))}
-          />
+          <ClaimToken proof={proof} community={community} nullifier={nullifier} />
         </>
       )}
     </div>

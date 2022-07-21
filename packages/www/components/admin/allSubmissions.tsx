@@ -64,7 +64,7 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
         </div>
       </div>
       {submissions && (
-        <div className="space-y-0 flex-col border border-gray-300 rounded overflow-hidden h-96">
+        <div className="space-y-0 flex-col border border-gray-300 rounded overflow-auto h-96">
           {submissions.length > 0 ? (
             <div className="divide-y">
               {submissions.map((submission, idx: number) => (
