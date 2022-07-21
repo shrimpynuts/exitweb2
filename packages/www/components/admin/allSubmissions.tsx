@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import { useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { toast } from 'react-hot-toast'
 
 import { UPDATE_SUBMISSION_APPROVAL } from '../../graphql/mutations'
-import { GET_SUBMISSIONS_FOR_COMMUNITY } from '../../graphql/queries'
-import CreateMerkleTree from '../submissions/createMerkleTree'
 import { ICommunity, ISubmission } from '../../types'
 import Submission from '../submissions/submission'
 import Button from '../util/button'
-import { toast } from 'react-hot-toast'
-import CopyCode from '../util/copyableCode'
 
 interface IProps {
   community: ICommunity
@@ -67,9 +64,9 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
         </div>
       </div>
       {submissions && (
-        <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden h-96">
+        <div className="space-y-0 flex-col border border-gray-300 rounded overflow-hidden h-96">
           {submissions.length > 0 ? (
-            <div>
+            <div className="divide-y">
               {submissions.map((submission, idx: number) => (
                 <Submission
                   onClick={() => onSelect(parseInt(submission.id))}
