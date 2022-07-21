@@ -12,9 +12,10 @@ import CopyCode from '../util/copyableCode'
 
 interface IProps {
   community: ICommunity
+  contract_id: number
 }
 
-export default function AllSubmissions({ community }: IProps) {
+export default function AllSubmissions({ community, contract_id }: IProps) {
   const [selectedIds, setSelectedIds] = useState<{ [id: number]: boolean }>({})
   const { data, loading, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, {
     variables: { id: community.id },
@@ -68,7 +69,7 @@ export default function AllSubmissions({ community }: IProps) {
           </Button>
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-0 flex-col divide-y border border-gray-300 rounded overflow-hidden">
         {data &&
           !loading &&
           data.submissions &&
@@ -81,17 +82,17 @@ export default function AllSubmissions({ community }: IProps) {
             />
           ))}
       </div>
-      {community.merkle_tree ? (
-        <div className="overflow-hidden">
-          <p className="font-bold text-lg my-2">Merkle Tree:</p>
+      <div className="overflow-hidden">
+        <p className="font-bold text-lg my-2">Merkle Tree (in database):</p>
+        {community.merkle_tree ? (
           <CopyCode text={community.merkle_tree} />
-        </div>
-      ) : (
-        <div>
-          <p className="text-red-600 italic">No merkle tree generated yet.</p>
-        </div>
-      )}
-      <CreateMerkleTree submissions={data?.submissions} community={community} />
+        ) : (
+          <div>
+            <p className="text-red-600 italic">No merkle tree generated yet.</p>
+          </div>
+        )}
+      </div>
+      <CreateMerkleTree submissions={data?.submissions} community={community} contract_id={contract_id} />
     </div>
   )
 }

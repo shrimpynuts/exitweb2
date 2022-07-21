@@ -25,5 +25,6 @@ export const CORE_COMMUNITY_FIELDS = gql`
     merkle_tree
     icon_image_url
     banner_image_url
+    contract_id
   }
 `

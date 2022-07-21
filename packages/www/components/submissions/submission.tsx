@@ -12,8 +12,8 @@ interface IProps {
 export default function Submission({ submission, selected, onClick }: IProps) {
   return (
     <div
-      className={classNames('p-3 border focus-within:border-gray-300 flex justify-between space-x-8 cursor-pointer', {
-        'bg-blue-50 border-blue-300': selected,
+      className={classNames('p-3  focus-within:border-gray-300 flex justify-between space-x-8 cursor-pointer', {
+        'bg-blue-50 ': selected,
       })}
       onClick={onClick}
     >

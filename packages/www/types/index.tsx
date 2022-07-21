@@ -19,6 +19,7 @@ export interface ICommunity {
   hash: string
   description: string
   requirement: string
+  contract_id?: number
 
   merkle_tree?: string
   icon_image_url?: string

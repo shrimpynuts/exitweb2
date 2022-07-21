@@ -8,6 +8,8 @@ import { randomBigInt, toHex } from '../../lib/zkp/util'
 import Button from '../util/button'
 import { ICommunity } from '../../types'
 import CommunityCard from './communityCard'
+import { getAirdropContractWithSigner } from '../../lib/config'
+import { useSigner } from 'wagmi'
 
 interface IProps {}
 
@@ -15,6 +17,7 @@ type IState = Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
 
 export default function CreateSubmission({}: IProps) {
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
+  const { data: signer } = useSigner()
 
   const [formState, setFormState] = useState<IState>({
     name: 'Twitter OGs',
@@ -36,13 +39,24 @@ export default function CreateSubmission({}: IProps) {
       hash,
     }
 
-    insertCommunity({ variables: { newCommunity } })
-      // Handle successful response
-      .then((res) => {
-        toast.success('Submitted new community, pending approval.')
-      })
-      // Handle error response
-      .catch((err) => toast.error(`Failed to submit community! ${err}`))
+    try {
+      await insertCommunity({ variables: { newCommunity } })
+        // Handle successful response
+        .then((res) => toast.success('Submitted new community, pending approval.'))
+    } catch (err) {
+      toast.error(`Failed to submit community to database! ${err}`)
+      return
+    }
+
+    try {
+      if (!signer) return toast.error('Not signed in with Ethereum!')
+      let airdropContract = getAirdropContractWithSigner(signer)
+      let tx = await airdropContract.registerCommunity(formState.name)
+      await tx.wait().then(() => toast.success('Added community to smart contract.'))
+    } catch (err) {
+      toast.error(`Failed to add community to smart contract! ${err}`)
+      return
+    }
   }
 
   const inputClassName = 'rounded border mb-2 border-gray-300'
@@ -106,7 +120,7 @@ export default function CreateSubmission({}: IProps) {
         />
 
         <Button classOverrides="mt-2" onClick={onSubmitClick}>
-          Submit for review
+          Submit
         </Button>
       </div>
 

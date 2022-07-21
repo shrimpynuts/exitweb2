@@ -16,6 +16,8 @@ interface IState {
   }
 }
 
+const DEFAULT_CONTRACT_ID = 0
+
 export default function RedeemMembership() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
   const communities: ICommunity[] = data?.community
@@ -57,7 +59,11 @@ export default function RedeemMembership() {
                         <CommunityCardSmallVertical community={community} />
                       </div>
                       {secretKeys && secretKeys[community.id] && (
-                        <GenerateProof community={community} secretKey={secretKeys[community.id].secretKey} />
+                        <GenerateProof
+                          community={community}
+                          secretKey={secretKeys[community.id].secretKey}
+                          contract_id={DEFAULT_CONTRACT_ID}
+                        />
                       )}
                     </div>
                   )
