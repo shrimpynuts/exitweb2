@@ -20,7 +20,13 @@ export default function ClaimToken({ community, proof, contract_id, nullifierHas
   })
 
   const claimToken = async () => {
-    return claim().catch((error) => Promise.reject(`Error claiming tokens: ${error.message}`))
+    return claim().catch((error) => {
+      if (error.data.message.includes('Airdrop already redeemed')) {
+        return Promise.reject(`Token has already been claimed!`)
+      } else {
+        return Promise.reject(`Error claiming tokens: ${error.data.message}`)
+      }
+    })
   }
 
   // Onclick handler for claiming tokens

@@ -53,11 +53,16 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
     for (let i = commitments.length; i < 2 ** DEFAULT_HEIGHT; i++) commitments.push(randomBigInt(31))
     const merkleTree = MerkleTree.createFromLeaves(commitments)
     setMerkleTree(merkleTree)
+    const numLeaves = 2 ** DEFAULT_HEIGHT
+    toast.success(
+      `Generated merkle tree with ${approvedSubmissions.length} approved submissions and ${numLeaves} leaves.`,
+      { duration: 4000 },
+    )
   }
 
   const onUploadClick = () => {
     updateCommunityMerkleTree({ variables: { merkle_tree: merkleTreeStorageString, id: community.id } })
-      .then(() => toast.success('Merkle tree uploaded!'))
+      .then(() => toast.success('Merkle tree updated in database!'))
       .catch((e) => toast.error(e.message))
   }
 
