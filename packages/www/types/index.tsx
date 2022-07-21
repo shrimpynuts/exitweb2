@@ -16,7 +16,7 @@ export interface ICommunity {
   id: string
 
   name: string
-  hash: string
+  key: string
   description: string
   requirement: string
   contract_id?: number

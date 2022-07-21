@@ -17,7 +17,7 @@ export default function HashCalculator({ community }: IProps) {
   const [result, setResult] = useState<string>()
   const [formState, setFormState] = useState<IState>({
     secret: '',
-    community_hash: community.hash,
+    community_hash: community.key,
   })
 
   useEffect(() => {

@@ -7,7 +7,7 @@ insert_permissions:
     columns:
     - banner_image_url
     - description
-    - hash
+    - key
     - icon_image_url
     - merkle_tree
     - name
@@ -20,7 +20,7 @@ select_permissions:
     - contract_id
     - created_at
     - description
-    - hash
+    - key
     - icon_image_url
     - id
     - merkle_tree

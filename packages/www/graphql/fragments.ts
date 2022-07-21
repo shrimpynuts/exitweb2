@@ -21,7 +21,7 @@ export const CORE_COMMUNITY_FIELDS = gql`
     name
     description
     requirement
-    hash
+    key
     merkle_tree
     icon_image_url
     banner_image_url

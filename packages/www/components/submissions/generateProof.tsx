@@ -35,7 +35,7 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
 
       // Fetch key (nullifier stored in community database) and secret (stored in local storage)
-      const communityKey = BigInt(community.hash)
+      const communityKey = BigInt(community.key)
       const secret = BigInt(secretKey)
       const nullifier = pedersenHashConcat(communityKey, secret)
 
@@ -89,7 +89,7 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
             community={community}
             proof={proof}
             contract_id={contract_id}
-            nullifierHash={toHex(pedersenHash(BigInt(community.hash)))}
+            nullifierHash={toHex(pedersenHash(BigInt(community.key)))}
           />
         </>
       )}

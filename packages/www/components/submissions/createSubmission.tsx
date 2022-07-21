@@ -35,7 +35,7 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
     const secretKey = randomBigInt(31)
     localStorage.setItem(`exitweb2/community/${community.id}`, toHex(secretKey))
 
-    const nullifier = BigInt(community.hash)
+    const nullifier = BigInt(community.key)
 
     // Calculate commitment and create the submission object
     const commitment = toHex(pedersenHashConcat(nullifier, secretKey))
