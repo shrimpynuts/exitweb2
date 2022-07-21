@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router'
+import Link from 'next/link'
 import Button from '../util/button'
 
 export default function Home() {
@@ -35,11 +36,13 @@ export default function Home() {
 
         <div className="flex flex-col p-4 border border-gray-300 rounded">
           <h1 className="text-2xl font-bold">Admin Panel</h1>
-          <a href="/admin" target="_blank" rel="noopener noreferrer" className="w-full">
-            <Button classOverrides="mt-4 w-full" bgColor="bg-yellow-500">
-              Open admin panel
-            </Button>
-          </a>
+          <Link href="/admin" passHref>
+            <a target="_blank" rel="noopener noreferrer" className="w-full">
+              <Button classOverrides="mt-4 w-full" bgColor="bg-yellow-500">
+                Open admin panel
+              </Button>
+            </a>
+          </Link>
         </div>
       </div>
     </div>
