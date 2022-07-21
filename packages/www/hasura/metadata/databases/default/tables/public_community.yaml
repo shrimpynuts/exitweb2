@@ -33,6 +33,7 @@ update_permissions:
 - permission:
     check: null
     columns:
+    - contract_id
     - merkle_tree
     filter: {}
   role: public
