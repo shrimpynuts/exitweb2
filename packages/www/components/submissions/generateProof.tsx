@@ -1,4 +1,3 @@
-import { BigNumber, Contract } from 'ethers'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
@@ -37,7 +36,8 @@ export default function GenerateProof({ community, secretKey, contract_id }: IPr
       // Fetch key (nullifier stored in community database) and secret (stored in local storage)
       const communityKey = BigInt(community.key)
       const secret = BigInt(secretKey)
-      const nullifier = pedersenHashConcat(communityKey, secret)
+
+      const nullifier = communityKey
 
       // Check if leaf is even in the merkle tree
       const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
