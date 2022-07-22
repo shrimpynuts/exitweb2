@@ -13,7 +13,7 @@ const HomePage: NextPage = () => {
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <Head>
             <title>Exit Web2</title>
-            <meta name="description" content="Monitor the performance of your Ethereum NFTs using Opensea data." />
+            <meta name="description" content="" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar />

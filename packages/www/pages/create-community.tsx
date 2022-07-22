@@ -12,7 +12,7 @@ const Admin: NextPage = () => {
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <Head>
             <title>Create A Community</title>
-            <meta name="description" content="Monitor the performance of your Ethereum NFTs using Opensea data." />
+            <meta name="description" content="" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar />
