@@ -12,7 +12,7 @@ interface IProps {
 const Navbar = ({ displayConnectButton = true }: IProps) => {
   return (
     <>
-      <nav className="w-full px-4 pt-8 md:py-8 items-center">
+      <nav className="w-full px-4 pt-8 md:py-6 items-center">
         <div className="flex justify-between">
           <div className="flex items-center space-x-2">
             {/* Logo */}
