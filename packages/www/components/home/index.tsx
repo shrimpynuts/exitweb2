@@ -1,5 +1,4 @@
 import { useRouter } from 'next/dist/client/router'
-import Link from 'next/link'
 import Button from '../util/button'
 
 export default function Home() {
@@ -21,16 +20,6 @@ export default function Home() {
           <p className="mt-2">Bootstrap a new web3 community by privately airdropping tokens to members.</p>
           <Button classOverrides="mt-4" onClick={() => router.push('/create-community')}>
             Create a new community
-          </Button>
-        </div>
-        <div className="flex flex-col p-4 border border-gray-300 rounded">
-          <h1 className="text-2xl font-bold">Redeem membership</h1>
-          <p className="mt-2">
-            After your request to join a community has been approved, you can redeem your membership here by claiming
-            your token.
-          </p>
-          <Button classOverrides="mt-4" onClick={() => router.push('/redeem-membership')}>
-            Redeem membership
           </Button>
         </div>
       </div>
