@@ -10,9 +10,9 @@ interface IProps {
 export default function CommunityList({ popularCommunities, growingCommunities, newestCommunities }: IProps) {
   return (
     <div className="flex flex-col md:flex-row space-x-4">
-      <SingleCommunityList communities={popularCommunities} title="Popular Communities" />
-      <SingleCommunityList communities={popularCommunities} title="Growing Communities" />
-      <SingleCommunityList communities={popularCommunities} title="Newest Communities " />
+      <SingleCommunityList communities={popularCommunities} title="Popular Communities 🔥" />
+      <SingleCommunityList communities={popularCommunities} title="Growing Communities 📈" />
+      <SingleCommunityList communities={popularCommunities} title="Newest Communities ✨" />
     </div>
   )
 }
