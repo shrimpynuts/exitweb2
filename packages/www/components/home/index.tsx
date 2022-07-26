@@ -33,24 +33,6 @@ export default function Home() {
             Redeem membership
           </Button>
         </div>
-
-        <div className="flex flex-col p-4 border border-gray-300 rounded">
-          <h1 className="text-2xl font-bold">Other</h1>
-          <Link href="/admin" passHref>
-            <a target="_blank" rel="noopener noreferrer" className="w-full">
-              <Button classOverrides="mt-4 w-full" bgColor="bg-yellow-500">
-                Open admin panel
-              </Button>
-            </a>
-          </Link>
-          <Link href="/chat" passHref>
-            <a className="w-full">
-              <Button classOverrides="mt-4 w-full" bgColor="bg-green-600">
-                Chat App
-              </Button>
-            </a>
-          </Link>
-        </div>
       </div>
     </div>
   )
