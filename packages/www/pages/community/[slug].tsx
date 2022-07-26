@@ -18,6 +18,7 @@ interface IProps {
 }
 
 function CommunityPage({ community }: IProps) {
+  console.log({ community })
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -92,11 +93,11 @@ function CommunityPage({ community }: IProps) {
   )
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const slug = context.query.slug
+CommunityPage.getInitialProps = async ({ query }: NextPageContext) => {
+  const slug = query.slug
   const result = await client.query({ query: GET_COMMUNITY_BY_SLUG, variables: { slug } })
   const community = result.data.community[0]
-  return { props: { community } }
+  return { community }
 }
 
 export default CommunityPage
