@@ -62,18 +62,6 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
     <div className="flex flex-col mx-auto p-12 rounded">
       <label className="text-xl font-bold">Generate a proof.</label>
       <p>Found secret key corresponding to this community in local storage.</p>
-
-      {community?.merkle_tree ? (
-        <>
-          <p className="mt-2">See if this key corresponds to an approved request:</p>
-          <Button disabled={!community?.merkle_tree} classOverrides="mt-2" onClick={onGenerateProofClick}>
-            Generate Proof
-          </Button>
-        </>
-      ) : (
-        <p className="italic text-red-500">Community has not generated a merkle tree yet.</p>
-      )}
-
       {proof && (
         <>
           <CopyCode text={proof} />
