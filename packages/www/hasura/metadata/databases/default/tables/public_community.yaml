@@ -1,45 +1,47 @@
 table:
-  name: community
   schema: public
+  name: community
 insert_permissions:
-- permission:
-    check: {}
-    columns:
-    - banner_image_url
-    - contract_id
-    - description
-    - icon_image_url
-    - key
-    - merkle_tree
-    - name
-    - requirement
-  role: public
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - banner_image_url
+        - contract_id
+        - description
+        - icon_image_url
+        - key
+        - merkle_tree
+        - name
+        - requirement
+        - slug
 select_permissions:
-- permission:
-    columns:
-    - banner_image_url
-    - contract_id
-    - created_at
-    - description
-    - key
-    - icon_image_url
-    - id
-    - merkle_tree
-    - name
-    - requirement
-    - updated_at
-    filter: {}
-  role: public
+  - role: public
+    permission:
+      columns:
+        - banner_image_url
+        - contract_id
+        - created_at
+        - description
+        - icon_image_url
+        - id
+        - key
+        - merkle_tree
+        - name
+        - requirement
+        - slug
+        - updated_at
+      filter: {}
 update_permissions:
-- permission:
-    check: null
-    columns:
-    - contract_id
-    - merkle_tree
-    filter: {}
-  role: public
+  - role: public
+    permission:
+      columns:
+        - contract_id
+        - merkle_tree
+      filter: {}
+      check: null
 delete_permissions:
-- permission:
-    backend_only: false
-    filter: {}
-  role: public
+  - role: public
+    permission:
+      backend_only: false
+      filter: {}

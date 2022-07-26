@@ -29,6 +29,7 @@ export default function CreateSubmission({}: IProps) {
     banner_image_url:
       'https://daocentral.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdaojones%2Fimage%2Fupload%2Fv1637755736%2FCleanShot_2021-11-24_at_04.08.33_pxl0kp.png&w=3840&q=75',
     key: toHex(randomBigInt(31)),
+    slug: 'twitter-og',
   })
 
   const { data: numContractCommunities } = useContractRead({
@@ -85,6 +86,17 @@ export default function CreateSubmission({}: IProps) {
           name="name"
           placeholder="Crypto Twitter OGs"
           value={formState.name}
+          required
+          onChange={handleChange}
+        />
+
+        <label className="mt-2">Slug</label>
+        <input
+          className={inputClassName}
+          type="text"
+          name="name"
+          placeholder=""
+          value={formState.slug}
           required
           onChange={handleChange}
         />

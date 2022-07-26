@@ -19,6 +19,7 @@ export interface ICommunity {
   key: string
   description: string
   requirement: string
+  slug: string
   contract_id?: number
 
   merkle_tree?: string

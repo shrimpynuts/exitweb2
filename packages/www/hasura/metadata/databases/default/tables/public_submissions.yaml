@@ -1,32 +1,32 @@
 table:
-  name: submissions
   schema: public
+  name: submissions
 insert_permissions:
-- permission:
-    check: {}
-    columns:
-    - commitment
-    - community_id
-    - proof_of_account_ownership
-    - proof_of_interaction
-  role: public
+  - role: public
+    permission:
+      check: {}
+      columns:
+        - commitment
+        - community_id
+        - proof_of_account_ownership
+        - proof_of_interaction
 select_permissions:
-- permission:
-    columns:
-    - approved
-    - commitment
-    - community_id
-    - created_at
-    - id
-    - proof_of_account_ownership
-    - proof_of_interaction
-    - updated_at
-    filter: {}
-  role: public
+  - role: public
+    permission:
+      columns:
+        - approved
+        - commitment
+        - community_id
+        - created_at
+        - id
+        - proof_of_account_ownership
+        - proof_of_interaction
+        - updated_at
+      filter: {}
 update_permissions:
-- permission:
-    check: null
-    columns:
-    - approved
-    filter: {}
-  role: public
+  - role: public
+    permission:
+      columns:
+        - approved
+      filter: {}
+      check: null

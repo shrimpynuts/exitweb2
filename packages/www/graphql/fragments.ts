@@ -19,6 +19,7 @@ export const CORE_COMMUNITY_FIELDS = gql`
     id
 
     name
+    slug
     description
     requirement
     key
