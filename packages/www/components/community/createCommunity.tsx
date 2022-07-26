@@ -94,7 +94,7 @@ export default function CreateCommunity({}: IProps) {
         <input
           className={inputClassName}
           type="text"
-          name="name"
+          name="slug"
           placeholder=""
           value={formState.slug}
           required
