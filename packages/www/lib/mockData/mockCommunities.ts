@@ -43,7 +43,7 @@ export const mockCommunities: Omit<ICommunity, 'created_at' | 'updated_at' | 'id
   {
     name: 'Bitcoin Core Contributors',
     description: 'Code contributors to the Bitcoin Core Github.',
-    requirement: '...',
+    requirement: 'Post a link to a Pull Request in the Bitcoin Core Github that was merged before 2020.',
     icon_image_url: 'https://bitcoin.org/img/icons/opengraph.png?1657703267',
     banner_image_url: 'https://wallpaperaccess.com/full/395434.jpg',
     key: '0x0000000000000000000000000000000000000000',

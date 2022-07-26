@@ -57,10 +57,10 @@ function CommunityPage({ community }: IProps) {
                   Discussion Board
                 </div>
                 <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
-                  Tweets
+                  News
                 </div>
                 <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
-                  News
+                  Pool
                 </div>
               </div>
             </div>
