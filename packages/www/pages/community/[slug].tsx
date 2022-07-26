@@ -1,21 +1,24 @@
+import { useEffect, useState } from 'react'
+import type { NextPageContext } from 'next'
 import { Toaster } from 'react-hot-toast'
-import type { NextPage, NextPageContext } from 'next'
+import moment from 'moment'
 import Head from 'next/head'
 
-import AdminPage from '../../components/admin'
-import Navbar from '../../components/layout/navbar'
+import CommunityChat from '../../components/chat/communityChat'
 import { GET_COMMUNITY_BY_SLUG } from '../../graphql/queries'
+import Navbar from '../../components/layout/navbar'
 import client from '../../lib/apollo-client'
 import { ICommunity } from '../../types'
-import CommunityChat from '../../components/chat/communityChat'
-import Button from '../../components/util/button'
-import moment from 'moment'
+import { CreateSubmissionButton } from '../../components/submissions/createSubmission'
+import { GenerateProofButton } from '../../components/submissions/generateProof'
 
 interface IProps {
   community: ICommunity
 }
 
 function CommunityPage({ community }: IProps) {
+  useEffect(() => {}, [])
+
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -41,9 +44,9 @@ function CommunityPage({ community }: IProps) {
               <h1 className="text-2xl font-bold mt-8 ml-4">{community.name}</h1>
             </div>
 
-            <div className="mt-8 flex space-x-4">
-              <Button>Join</Button>
-              <Button bgColor="bg-yellow-600">Redeem</Button>
+            <div className="mt-8 flex space-x-2">
+              <CreateSubmissionButton community={community} />
+              <GenerateProofButton community={community} secret={''} nullifier={''} />
             </div>
           </div>
 
@@ -55,10 +58,10 @@ function CommunityPage({ community }: IProps) {
                   Chat
                 </div>
                 <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
-                  Discussion Board
+                  Announcements
                 </div>
                 <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
-                  News
+                  Discussion Board
                 </div>
                 <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Pool

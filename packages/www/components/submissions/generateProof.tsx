@@ -9,6 +9,7 @@ import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
 import ClaimToken from './claimToken'
 import Button from '../util/button'
+import Modal from '../util/modal'
 
 interface IProps {
   community: ICommunity
@@ -58,18 +59,9 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
   }
 
   return (
-    <div className="flex flex-col w-96 mx-auto p-4 border border-gray-300 rounded ">
+    <div className="flex flex-col mx-auto p-12 rounded">
       <label className="text-xl font-bold">Generate a proof.</label>
       <p>Found secret key corresponding to this community in local storage.</p>
-
-      <p>Secret:</p>
-      <CopyCode text={secret} />
-
-      <p>Nullifier:</p>
-      <CopyCode text={nullifier} />
-
-      <p>Commitment:</p>
-      <CopyCode text={toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))} />
 
       {community?.merkle_tree ? (
         <>
@@ -89,5 +81,19 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
         </>
       )}
     </div>
+  )
+}
+
+export function GenerateProofButton({ community, secret, nullifier }: IProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <GenerateProof community={community} secret={secret} nullifier={nullifier} />
+      </Modal>
+      <Button bgColor="bg-yellow-600" onClick={() => setIsOpen(true)}>
+        Redeem
+      </Button>
+    </>
   )
 }

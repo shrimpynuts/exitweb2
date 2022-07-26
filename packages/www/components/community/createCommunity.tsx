@@ -16,7 +16,7 @@ interface IProps {}
 
 type IState = Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
 
-export default function CreateSubmission({}: IProps) {
+export default function CreateCommunity({}: IProps) {
   const [deleteCommunity] = useMutation(DELETE_COMMUNITY_BY_ID)
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
   const { data: signer } = useSigner()

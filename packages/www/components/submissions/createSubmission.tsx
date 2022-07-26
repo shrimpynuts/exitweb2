@@ -8,6 +8,7 @@ import ShareTweetButton from '../util/shareTweetButton'
 import { ICommunity, ISubmission } from '../../types'
 import { randomBigInt } from '../../lib/zkp/util'
 import Button from '../util/button'
+import Modal from '../util/modal'
 
 interface IProps {
   community: ICommunity
@@ -64,7 +65,7 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
   )}&tw_p=tweetbutton`
 
   return (
-    <div className="flex flex-col justify-between h-80 my-auto w-1/2 mx-auto p-4 border border-gray-300 rounded">
+    <div className="flex flex-col justify-between h-90 p-12 rounded">
       {!step1Finished ? (
         <>
           <div>
@@ -122,5 +123,21 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
         </>
       )}
     </div>
+  )
+}
+
+interface ICreateSubmissionButtonProps {
+  community: ICommunity
+}
+
+export function CreateSubmissionButton({ community }: ICreateSubmissionButtonProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <CreateSubmission community={community} onFinished={() => setIsOpen(false)} />
+      </Modal>
+      <Button onClick={() => setIsOpen(true)}>Join</Button>
+    </>
   )
 }
