@@ -4,6 +4,7 @@ import Head from 'next/head'
 
 import CreateCommunity from '../components/community/createCommunity'
 import Navbar from '../components/layout/navbar'
+import Footer from '../components/layout/footer'
 
 const Admin: NextPage = () => {
   return (
@@ -26,6 +27,7 @@ const Admin: NextPage = () => {
           </section>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

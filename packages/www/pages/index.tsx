@@ -6,9 +6,9 @@ import Navbar from '../components/layout/navbar'
 import { useQuery } from '@apollo/client'
 import { ICommunity } from '../types'
 import CommunityList from '../components/community/communityList'
-import Home from '../components/home'
 import Button from '../components/util/button'
 import Link from 'next/link'
+import Footer from '../components/layout/footer'
 
 export default function HomePage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -41,6 +41,7 @@ export default function HomePage() {
           </section>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

@@ -11,6 +11,7 @@ import client from '../../lib/apollo-client'
 import { ICommunity } from '../../types'
 import { CreateSubmissionButton } from '../../components/submissions/createSubmission'
 import { GenerateProofButton } from '../../components/submissions/generateProof'
+import Footer from '../../components/layout/footer'
 
 interface IProps {
   community: ICommunity
@@ -88,6 +89,7 @@ function CommunityPage({ community }: IProps) {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   )
 }
