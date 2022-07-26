@@ -18,18 +18,16 @@ interface IProps {
 }
 
 function CommunityPage({ community }: IProps) {
-  useEffect(() => {}, [])
-
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
+        <Head>
+          <title>{community.name}</title>
+          <meta name={community.description} content="" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Navbar />
         <div className="max-w-screen-xl m-auto">
-          <Head>
-            <title>{community.name}</title>
-            <meta name={community.description} content="" />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
         </div>
 
