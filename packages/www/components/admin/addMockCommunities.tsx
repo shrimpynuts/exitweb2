@@ -4,7 +4,6 @@ import { toast } from 'react-hot-toast'
 import { INSERT_COMMUNITY_MULTIPLE } from '../../graphql/mutations'
 import Button from '../util/button'
 import { mockCommunities } from '../../lib/mockData/mockCommunities'
-import { CommunityCardTiny } from '../community/communityCard'
 
 interface IProps {}
 
@@ -19,9 +18,6 @@ export default function addMockCommunities({}: IProps) {
   }
   return (
     <div className="">
-      {mockCommunities.map((community) => (
-        <CommunityCardTiny community={community} />
-      ))}
       <Button bgColor="bg-red-500" onClick={onClick}>
         Load Demo Communities
       </Button>

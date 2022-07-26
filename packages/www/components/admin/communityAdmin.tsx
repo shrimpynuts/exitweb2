@@ -46,7 +46,7 @@ export default function CommunityAdmin({ community, communityTokenAddress }: IPr
             <p className="text-lg">Name: {String(contractData[0])}</p>
             <p className="text-lg inline">Merkle Tree Root:</p>
             <CopyCode text={String(contractData[1])} inline />
-            <p className="text-lg">Total Supply: {contractData[2].toNumber()}</p>
+            <p className="text-lg">Total Supply: {contractData[2]?.toNumber()}</p>
           </div>
         )}
       </div>

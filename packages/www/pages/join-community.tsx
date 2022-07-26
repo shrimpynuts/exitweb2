@@ -2,18 +2,15 @@ import Head from 'next/head'
 import { useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 
-import CreateSubmission from '../components/submissions/createSubmission'
 import { GET_ALL_COMMUNITIES } from '../graphql/queries'
 import Navbar from '../components/layout/navbar'
 import { useQuery } from '@apollo/client'
 import { ICommunity } from '../types'
-import CommunityPicker from '../components/community/communityPicker'
+import CommunityList from '../components/community/communityList'
 
 export default function JoinACommunity() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
   const communities: ICommunity[] = data?.community
-
-  const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -28,17 +25,12 @@ export default function JoinACommunity() {
           <Toaster position="top-center" reverseOrder={false} />
 
           <section>
-            <div className="mt-8 sm:w-4/5 lg:w-3/4 mx-auto">
-              <CommunityPicker
-                communities={communities}
-                selectedCommunity={selectedCommunity}
-                setSelectedCommunity={setSelectedCommunity}
+            <div className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto">
+              <CommunityList
+                popularCommunities={communities}
+                growingCommunities={communities}
+                newestCommunities={communities}
               />
-              {selectedCommunity && (
-                <div className="mt-2 pt-8 h-full ">
-                  <CreateSubmission onFinished={() => setSelectedCommunity(undefined)} community={selectedCommunity} />
-                </div>
-              )}
             </div>
           </section>
         </div>
