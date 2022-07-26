@@ -10,13 +10,13 @@ const Admin: NextPage = () => {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
+        <Head>
+          <title>Create A Community</title>
+          <meta name="description" content="" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Navbar />
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
-          <Head>
-            <title>Create A Community</title>
-            <meta name="description" content="" />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
 
           {/* Body section */}
