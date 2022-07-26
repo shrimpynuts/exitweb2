@@ -1,13 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAccount } from 'wagmi'
+import { useAccount, useContractWrite } from 'wagmi'
 
 import { pedersenHashConcat, toHex, generateProofCallData, pedersenHash } from '../../lib/zkp/Library'
+import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
 import { MerkleTree } from '../../lib/zkp/MerkleTree'
 import { getFileBuffer } from '../../lib/zkp/util'
 import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
-import ClaimToken from './claimToken'
 import Button from '../util/button'
 import Modal from '../util/modal'
 
@@ -49,6 +49,22 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
     }
   }
 
+  const { writeAsync: claim } = useContractWrite({
+    ...AIRDROP_CONTRACT_DATA,
+    functionName: 'collectAirdrop',
+    args: [community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))],
+  })
+
+  const claimToken = async () => {
+    return claim().catch((error) => {
+      if (error.data.message.includes('Airdrop already redeemed')) {
+        return Promise.reject(`Token has already been claimed!`)
+      } else {
+        return Promise.reject(`Error claiming tokens: ${error.data.message}`)
+      }
+    })
+  }
+
   // Onclick handler for proof generation
   const onGenerateProofClick = () => {
     toast.promise(generateProof(), {
@@ -60,28 +76,38 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
 
   return (
     <div className="flex flex-col mx-auto p-12 rounded">
-      <label className="text-xl font-bold">Generate a proof.</label>
-      <p>Found secret key corresponding to this community in local storage.</p>
-      {proof && (
-        <>
-          <CopyCode text={proof} />
-          <ClaimToken proof={proof} community={community} nullifier={nullifier} />
-        </>
-      )}
+      <label className="text-xl font-bold mb-4">Redeem your membership!</label>
+      <Button onClick={onGenerateProofClick} bgColor="bg-green-500">
+        Claim Tokens
+      </Button>
     </div>
   )
 }
 
-export function GenerateProofButton({ community, secret, nullifier }: IProps) {
+export function GenerateProofButton({ community }: IProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [state, setState] = useState<{ secret: string; nullifier: string }>({ secret: '', nullifier: '' })
+
+  useEffect(() => {
+    const data = localStorage.getItem(`exitweb2/community/${community.id}`)
+    if (data) {
+      const { secret, nullifier } = JSON.parse(data)
+      if (secret && nullifier) {
+        setState({ secret, nullifier })
+      }
+    }
+  }, [])
+
   return (
     <>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <GenerateProof community={community} secret={secret} nullifier={nullifier} />
+        <GenerateProof community={community} secret={String(state.secret)} nullifier={String(state.nullifier)} />
       </Modal>
-      <Button bgColor="bg-yellow-600" onClick={() => setIsOpen(true)}>
-        Redeem
-      </Button>
+      {state.secret && state.nullifier && (
+        <Button bgColor="bg-yellow-600" onClick={() => setIsOpen(true)}>
+          Redeem
+        </Button>
+      )}
     </>
   )
 }
