@@ -50,16 +50,16 @@ function CommunityPage({ community }: IProps) {
             <div className="grid grid-cols-3 gap-4 h-full">
               <div></div>
               <div className="col-span-2 flex space-x-4 mx-4">
-                <div className="bg-gray-100 border border-b-0 border-gray-300 rounded-t-xl px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
+                <div className="bg-gray-100 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
                   Chat
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t-xl px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Discussion Board
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t-xl px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Tweets
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t-xl px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   News
                 </div>
               </div>
