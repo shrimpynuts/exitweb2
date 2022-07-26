@@ -7,7 +7,7 @@ import { mockCommunities } from '../../lib/mockData/mockCommunities'
 
 interface IProps {}
 
-export default function addMockCommunities({}: IProps) {
+export default function AddMockCommunities({}: IProps) {
   const [insertCommunities] = useMutation(INSERT_COMMUNITY_MULTIPLE)
   const onClick = () => {
     toast.promise(insertCommunities({ variables: { communities: mockCommunities } }), {
