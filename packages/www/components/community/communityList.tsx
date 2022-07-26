@@ -29,8 +29,8 @@ function SingleCommunityList({ communities, title }: ISingleCommuntyListProps) {
       {communities && communities.length > 0 ? (
         <div className="flex flex-col space-y-0 border border-gray-300 rounded-lg">
           {communities.map((community, i) => (
-            <Link href={`/community/${community.slug}`}>
-              <div className=" cursor-pointer hover:bg-gray-100 " key={i}>
+            <Link href={`/community/${community.slug}`} key={i}>
+              <div className=" cursor-pointer hover:bg-gray-100 ">
                 <CommunityCardTiny community={community} withRequirement={false} />
               </div>
             </Link>
