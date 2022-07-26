@@ -89,7 +89,7 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
   return (
     <>
       {!isOwner && (
-        <div className="blur-none text-center text-2xl absolute z-10 w-96 mx-auto left-0 right-0 mt-32 ">
+        <div className="blur-none text-center text-2xl absolute z-10 w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
           <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
             <div className="text-center mx-auto w-8 ">
               <Lock />
@@ -99,7 +99,9 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
         </div>
       )}
       <div
-        className="border border-gray-300 rounded-lg overflow-hidden blurred"
+        className={classNames('border border-gray-300 rounded-lg overflow-hidden', {
+          'select-none cursor-not-allowed': !isOwner,
+        })}
         style={!isOwner ? { filter: 'blur(4px)' } : {}}
       >
         <div className="flex flex-col h-96 space-y-1 p-4 -mr-4 overflow-y-scroll">
