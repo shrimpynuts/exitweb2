@@ -9,6 +9,7 @@ import client from '../../lib/apollo-client'
 import { ICommunity } from '../../types'
 import CommunityChat from '../../components/chat/communityChat'
 import Button from '../../components/util/button'
+import moment from 'moment'
 
 interface IProps {
   community: ICommunity
@@ -73,6 +74,8 @@ function CommunityPage({ community }: IProps) {
                   <p className="">{community.description}</p>
                   <h3 className="leading-loose text-lg font-semibold">Requirement</h3>
                   <p className="">{community.requirement}</p>
+                  <h3 className="leading-loose text-lg font-semibold">Created</h3>
+                  <p className="">{moment(community.created_at).format('MMMM Do, YYYY')}</p>
                 </div>
               </div>
               <div className="col-span-2 flex flex-col p-4 border border-gray-300 rounded relative">
