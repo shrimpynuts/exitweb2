@@ -89,7 +89,7 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
   return (
     <>
       {!isOwner && (
-        <div className="blur-none text-center text-2xl absolute z-10 w-96 mx-auto left-0 right-0 mt-56 ">
+        <div className="blur-none text-center text-2xl absolute z-10 w-96 mx-auto left-0 right-0 mt-32 ">
           <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
             <div className="text-center mx-auto w-8 ">
               <Lock />
@@ -102,7 +102,6 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
         className="border border-gray-300 rounded-lg overflow-hidden blurred"
         style={!isOwner ? { filter: 'blur(4px)' } : {}}
       >
-        <CommunityCardForChat community={community} withRequirement={false} />
         <div className="flex flex-col h-96 space-y-1 p-4 -mr-4 overflow-y-scroll">
           {messages.map((message, i) => {
             const isThreadContinuation = i > 0 && message.from === messages[i - 1].from

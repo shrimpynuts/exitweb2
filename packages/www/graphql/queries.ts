@@ -37,6 +37,15 @@ export const GET_COMMUNITY_BY_ID = gql`
   }
 `
 
+export const GET_COMMUNITY_BY_SLUG = gql`
+  ${CORE_COMMUNITY_FIELDS}
+  query GetCommunityBySlug($slug: String!) {
+    community(where: { slug: { _eq: $slug } }) {
+      ...CoreCommunityFields
+    }
+  }
+`
+
 export const GET_MESSAGES_BY_COMMUNITY = gql`
   ${CORE_MESSAGE_FIELDS}
   query MessagesByCommunity($community_id: uuid!) {
