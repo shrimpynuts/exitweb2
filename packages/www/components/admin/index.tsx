@@ -8,6 +8,7 @@ import CommunityAdmin from './communityAdmin'
 import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
 import { useContractReads } from 'wagmi'
+import AddMockCommunities from './addMockCommunities'
 
 export default function Home() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -53,6 +54,7 @@ export default function Home() {
                 <p>Double-check if it is deployed to this chain.</p>
               </div>
             )}
+            <AddMockCommunities />
           </div>
           <div className="p-4 border border-gray-300 rounded my-2">
             <p className="font-bold text-2xl my-2">Pick The Community:</p>

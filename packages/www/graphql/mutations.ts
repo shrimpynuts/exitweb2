@@ -51,3 +51,11 @@ export const INSERT_MESSAGE_ONE = gql`
     }
   }
 `
+
+export const INSERT_COMMUNITY_MULTIPLE = gql`
+  mutation InsertCommunityMultiple($communities: [community_insert_input!]!) {
+    insert_community(objects: $communities) {
+      affected_rows
+    }
+  }
+`
