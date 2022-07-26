@@ -116,13 +116,16 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
             name="message"
             type="text"
             ref={inputEl}
-            className="border-0 bg-gray-100 px-6 py-2 w-full focus:outline-0 focus:ring-0"
+            className={classNames('border-0 bg-gray-100 px-6 py-2 w-full focus:outline-0 focus:ring-0', {
+              'select-none cursor-not-allowed': !isOwner,
+            })}
             placeholder="Write a message..."
             value={draft}
             onChange={(e: React.BaseSyntheticEvent) => setDraft(e.target.value)}
             autoFocus
             onKeyPress={onEnter}
             autoComplete="off"
+            disabled={!isOwner}
           />
         </form>
         <style jsx>{`
