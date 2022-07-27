@@ -137,7 +137,7 @@ export function CreateSubmissionButton({ community }: ICreateSubmissionButtonPro
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         <CreateSubmission community={community} onFinished={() => setIsOpen(false)} />
       </Modal>
-      <Button onClick={() => setIsOpen(true)}>Join</Button>
+      <Button onClick={() => setIsOpen(true)}>Request to Join</Button>
     </>
   )
 }
