@@ -71,7 +71,7 @@ function CommunityPage({ community }: IProps) {
 
             <div className="grid grid-cols-3 gap-4 h-full">
               <div className="flex flex-col border border-gray-300 rounded">
-                <div className="text-xl font-semibold border-b border-gray-300 p-4">About this community</div>
+                <div className="text-xl font-semibold border-b border-gray-300 px-4 py-2">About this community</div>
                 <div className="p-4">
                   <h3 className="leading-loose text-lg font-semibold">Description</h3>
                   <p className="">{community.description}</p>
