@@ -35,23 +35,23 @@ function CommunityPage({ community }: IProps) {
         <section>
           <img className="w-full -mb-12 h-60 object-cover" src={community.banner_image_url} />
 
-          <div className="flex justify-between items-center max-w-screen-xl mx-auto px-8">
-            <div className="py-0 px-4 h-full flex flex-row items-center ">
+          <div className="flex justify-between items-center max-w-screen-xl mx-auto px-2 md:px-8">
+            <div className="py-0 md:px-4 h-full flex flex-row items-center ">
               <img
                 className="w-32 h-32 rounded-full border-4 border-white object-contain bg-white"
                 src={community.icon_image_url}
               />
-              <h1 className="text-2xl font-bold mt-8 ml-4">{community.name}</h1>
+              <h1 className="hidden sm:block text-2xl font-bold mt-8 ml-4">{community.name}</h1>
             </div>
-
             <div className="mt-8 flex space-x-2">
               <CreateSubmissionButton community={community} />
               <GenerateProofButton community={community} secret={''} nullifier={''} />
             </div>
           </div>
+          <h1 className="block sm:hidden text-2xl font-bold mt-2 ml-4">{community.name}</h1>
 
-          <div className="max-w-screen-xl mx-auto">
-            <div className="grid grid-cols-3 gap-4 h-full">
+          <div className="mt-8 md:mt-0 max-w-screen-xl mx-auto px-4">
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
               <div></div>
               <div className="col-span-2 flex space-x-2 mx-4">
                 <div className="bg-gray-100 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
@@ -69,7 +69,7 @@ function CommunityPage({ community }: IProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-4 h-full">
               <div className="flex flex-col border border-gray-300 rounded">
                 <div className="text-xl font-semibold border-b border-gray-300 px-4 py-2">About this community</div>
                 <div className="p-4">
