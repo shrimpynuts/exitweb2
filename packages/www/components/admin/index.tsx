@@ -17,14 +17,6 @@ import Button from '../util/button'
 export default function AdminPage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
 
-  const { data: submissions, error } = useQuery(GET_SUBMISSIONS, {
-    onError: (error) => {
-      toast.error(`Couldn\'t fetch submissions, ${error.message}`)
-    },
-  })
-
-  console.log({ submissions })
-
   const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
   const communities: ICommunity[] = data?.community
 
