@@ -23,8 +23,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const token = generateUserToken(fields.address)
 
         res.json({ ok: true, token })
-      } catch (_error) {
-        console.log({ _error })
+      } catch (error) {
+        console.log({ error })
         res.json({ ok: false })
       }
       break

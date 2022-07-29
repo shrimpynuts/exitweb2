@@ -18,7 +18,6 @@ interface IProps {
 }
 
 function CommunityPage({ community }: IProps) {
-  console.log({ community })
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>

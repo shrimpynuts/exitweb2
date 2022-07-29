@@ -19,9 +19,7 @@ export const clientFactory = ({ url, accessKey }: IClientFactory) => {
     fetch: fetch,
   })
 
-  console.log(`
-    Backend connected to: ${url}
-  `)
+  console.log(`Backend connected to: ${url}`)
 
   // Error handling for the apollo client
   const errorLink = onError(({ graphQLErrors, networkError }) => {
