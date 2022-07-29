@@ -14,6 +14,7 @@ import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
 import Button from '../util/button'
 import Lock from '../svg/lock'
+import toast from 'react-hot-toast'
 
 export default function AdminPage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -37,10 +38,9 @@ export default function AdminPage() {
       try {
         const res = await fetch('/api/me')
         const json = await res.json()
-        console.log({ json })
         setState((x) => ({ ...x, address: json.address }))
-      } catch (_error) {
-        console.log({ _error })
+      } catch (error: any) {
+        toast.error(`Error fetching signed in user: ${error.message}`)
       }
     }
     // 1. page loads
