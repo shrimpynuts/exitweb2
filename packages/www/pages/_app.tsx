@@ -10,7 +10,7 @@ import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 
-import client from '../lib/apollo-client'
+import apolloClient from '../lib/apollo-client'
 
 const { chains, provider } = configureChains(
   [
@@ -41,7 +41,7 @@ function App({ Component, pageProps }: AppProps) {
             borderRadius: 'small',
           })}
         >
-          <ApolloProvider client={client}>
+          <ApolloProvider client={apolloClient}>
             <div className="min-h-screen bg-white dark:bg-blackPearl dark:text-white">
               <Component {...pageProps} />
             </div>
