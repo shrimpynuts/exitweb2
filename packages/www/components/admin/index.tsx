@@ -19,7 +19,7 @@ export default function AdminPage() {
 
   const { data: submissions, error } = useQuery(GET_SUBMISSIONS, {
     onError: (error) => {
-      toast.error(`Couldn't fetch submissions, ${error.message}`)
+      toast.error(`Couldn\'t fetch submissions, ${error.message}`)
     },
   })
 
@@ -103,7 +103,7 @@ export default function AdminPage() {
                 <p className="text-red-500 italic">
                   Having issue connecting to smart contract at address {AIRDROP_CONTRACT_ADDRESS}.
                 </p>
-                <p>Double-check if you're connected to the right network.</p>
+                <p>Double-check if you are connected to the right network.</p>
               </div>
             )}
             <AddMockCommunities />
