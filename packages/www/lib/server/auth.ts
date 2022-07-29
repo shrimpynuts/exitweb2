@@ -5,8 +5,8 @@ const getPublicKey = () => {
   if (process.env.JWT_PUBLIC_KEY === undefined) {
     throw `JWT_PUBLIC_KEY not set in the environment variables!`
   }
-  // return process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n')
-  return process.env.JWT_PUBLIC_KEY
+  return process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n')
+  // return process.env.JWT_PUBLIC_KEY
 }
 
 const getPrivateKey = () => {
@@ -15,8 +15,8 @@ const getPrivateKey = () => {
   }
   // There's a weird issue where '\n' is getting escaped with an extra \ during the build
   // So I need to fix it via this.
-  // return process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n')
-  return process.env.JWT_PRIVATE_KEY
+  return process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n')
+  // return process.env.JWT_PRIVATE_KEY
 }
 
 const SRIKAR_ADMIN = '0x56e47337E6E60E08726aA9a682dCBd72312c5d32'
