@@ -5,7 +5,6 @@ import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 
 import { GET_MESSAGES_BY_COMMUNITY } from '../../graphql/queries'
-import { CommunityCardForChat } from '../community/communityCard'
 import { COMMUNITY_TOKEN_ABI } from '../../lib/config'
 import { ICommunity, IMessage } from '../../types'
 import Lock from '../svg/lock'
