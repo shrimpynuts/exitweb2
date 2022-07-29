@@ -7,6 +7,8 @@ import { AIRDROP_CONTRACT_DATA, COMMUNITY_TOKEN_ABI } from '../../lib/config'
 import { ICommunity, ISubmission } from '../../types'
 import AllSubmissions from './allSubmissions'
 import CopyCode from '../util/copyableCode'
+import { onError } from '@apollo/client/link/error'
+import toast from 'react-hot-toast'
 
 interface IProps {
   community: ICommunity
@@ -14,7 +16,10 @@ interface IProps {
 }
 
 export default function CommunityAdmin({ community, communityTokenAddress }: IProps) {
-  const { data, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, { variables: { id: community.id } })
+  const { data, refetch } = useQuery(GET_SUBMISSIONS_FOR_COMMUNITY, {
+    variables: { id: community.id },
+    onError: (error) => toast.error(`Error fetching submissions ${error.message}`),
+  })
   const submissions: ISubmission[] = data?.submissions
 
   const { data: contractData } = useContractReads({

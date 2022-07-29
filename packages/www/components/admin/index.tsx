@@ -17,7 +17,9 @@ import Lock from '../svg/lock'
 import toast from 'react-hot-toast'
 
 export default function AdminPage() {
-  const { data } = useQuery(GET_ALL_COMMUNITIES)
+  const { data } = useQuery(GET_ALL_COMMUNITIES, {
+    onError: (error) => toast.error(`Error fetching communities ${error.message}`),
+  })
 
   const [selectedCommunity, setSelectedCommunity] = useState<ICommunity>()
   const communities: ICommunity[] = data?.community
