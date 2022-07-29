@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { useContractReads } from 'wagmi'
-import toast from 'react-hot-toast'
 
 import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS } from '../../lib/config'
-import { GET_ALL_COMMUNITIES, GET_SUBMISSIONS } from '../../graphql/queries'
+import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
 import { CommunityPickerSmall } from '../community/communityPicker'
 import AddMockCommunities from './addMockCommunities'
 import CommunityAdmin from './communityAdmin'
@@ -13,6 +12,7 @@ import { ICommunity } from '../../types'
 import SignInButton from '../util/signInWithEthereum'
 import { removeUserToken } from '../../lib/client/auth'
 import Button from '../util/button'
+import Lock from '../svg/lock'
 
 export default function AdminPage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -47,12 +47,14 @@ export default function AdminPage() {
     return () => window.removeEventListener('focus', handler)
   }, [])
 
+  const isSignedInWithEthereum = !!state.address
+
   return (
     <>
       {communities && (
         <div className="mx-4 lg:mx-24 mt-8 space-y-4">
           <div className="p-4 border border-gray-300 rounded">
-            {state.address ? (
+            {isSignedInWithEthereum ? (
               <div className="flex space-x-4">
                 <Button
                   onClick={async () => {
@@ -100,7 +102,23 @@ export default function AdminPage() {
             )}
             {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
           </div>
-          <div className="border border-gray-300 rounded flex divide-x">
+
+          {!isSignedInWithEthereum && (
+            <div>
+              <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
+                <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
+                  <div className="text-center mx-auto w-8 ">
+                    <Lock />
+                  </div>
+                  Not signed in with Ethereum as admin!
+                </div>
+              </div>
+            </div>
+          )}
+          <div
+            className="border border-gray-300 rounded flex divide-x"
+            style={!isSignedInWithEthereum ? { filter: 'blur(4px)', pointerEvents: 'none' } : {}}
+          >
             <CommunityPickerSmall
               selectedCommunity={selectedCommunity}
               setSelectedCommunity={setSelectedCommunity}
