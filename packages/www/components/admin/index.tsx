@@ -3,14 +3,15 @@ import { useQuery } from '@apollo/client'
 import { useContractReads } from 'wagmi'
 
 import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS } from '../../lib/config'
-import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
 import { CommunityPickerSmall } from '../community/communityPicker'
+import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
+import { removeUserToken } from '../../lib/client/auth'
+import SignInButton from '../util/signInWithEthereum'
 import AddMockCommunities from './addMockCommunities'
+import { isAdmin } from '../../lib/common/auth'
 import CommunityAdmin from './communityAdmin'
 import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
-import SignInButton from '../util/signInWithEthereum'
-import { removeUserToken } from '../../lib/client/auth'
 import Button from '../util/button'
 import Lock from '../svg/lock'
 
@@ -36,8 +37,11 @@ export default function AdminPage() {
       try {
         const res = await fetch('/api/me')
         const json = await res.json()
+        console.log({ json })
         setState((x) => ({ ...x, address: json.address }))
-      } catch (_error) {}
+      } catch (_error) {
+        console.log({ _error })
+      }
     }
     // 1. page loads
     handler()
@@ -47,14 +51,14 @@ export default function AdminPage() {
     return () => window.removeEventListener('focus', handler)
   }, [])
 
-  const isSignedInWithEthereum = !!state.address
+  const isSignedInAsAdmin = state.address && isAdmin(state.address)
 
   return (
     <>
       {communities && (
         <div className="mx-4 lg:mx-24 mt-8 space-y-4">
           <div className="p-4 border border-gray-300 rounded">
-            {isSignedInWithEthereum ? (
+            {state.address ? (
               <div className="flex space-x-4">
                 <Button
                   onClick={async () => {
@@ -103,21 +107,35 @@ export default function AdminPage() {
             {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
           </div>
 
-          {!isSignedInWithEthereum && (
+          {!state.address && (
             <div>
               <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
                 <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
                   <div className="text-center mx-auto w-8 ">
                     <Lock />
                   </div>
-                  Not signed in with Ethereum as admin!
+                  Not signed in with Ethereum!
                 </div>
               </div>
             </div>
           )}
+
+          {state.address && !isSignedInAsAdmin && (
+            <div>
+              <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
+                <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
+                  <div className="text-center mx-auto w-8 ">
+                    <Lock />
+                  </div>
+                  Not admin account!
+                </div>
+              </div>
+            </div>
+          )}
+
           <div
             className="border border-gray-300 rounded flex divide-x"
-            style={!isSignedInWithEthereum ? { filter: 'blur(4px)', pointerEvents: 'none' } : {}}
+            style={!isSignedInAsAdmin ? { filter: 'blur(4px)', pointerEvents: 'none' } : {}}
           >
             <CommunityPickerSmall
               selectedCommunity={selectedCommunity}
