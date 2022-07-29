@@ -98,7 +98,7 @@ export default function AdminPage() {
                 <p>Double-check if you are connected to the right network.</p>
               </div>
             )}
-            <AddMockCommunities />
+            {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
           </div>
           <div className="border border-gray-300 rounded flex divide-x">
             <CommunityPickerSmall
