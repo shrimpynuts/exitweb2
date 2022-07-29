@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { ICommunity } from '../../types'
-import CommunityCard, { CommunityCardSmall } from './communityCard'
+import CommunityCard, { CommunityCardSmall, CommunityCardTiny } from './communityCard'
 
 interface IProps {
   communities: ICommunity[]
@@ -41,18 +41,18 @@ export function CommunityPickerSmall({ communities, selectedCommunity, setSelect
   return (
     <div>
       {communities && communities.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="flex flex-col w-80 border-b rounded">
           {communities.map((community, i) => (
             <div
-              className={classNames('mx-2 my-1 duration-100 ease-out cursor-pointer ', {
-                ' bg-blue-50': community == selectedCommunity,
+              className={classNames('py-1 duration-100 ease-out cursor-pointer hover:bg-blue-200 ', {
+                ' bg-blue-100': community == selectedCommunity,
               })}
               onClick={() =>
                 community == selectedCommunity ? setSelectedCommunity(undefined) : setSelectedCommunity(community)
               }
               key={i}
             >
-              <CommunityCardSmall community={community} />
+              <CommunityCardTiny community={community} />
             </div>
           ))}
         </div>

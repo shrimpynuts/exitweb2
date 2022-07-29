@@ -10,7 +10,7 @@ import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 
-import apolloClient from '../lib/apollo-client'
+import apolloClient from '../lib/client/apollo-client'
 
 const { chains, provider } = configureChains(
   [

@@ -31,26 +31,36 @@ export default function CommunityAdmin({ community, communityTokenAddress }: IPr
   })
 
   return (
-    <div className="">
+    <>
       <AllSubmissions community={community} submissions={submissions} refetch={refetch} />
-      <div className="overflow-hidden my-2">
+      <div className="overflow-hidden my-2 px-4">
         <div className="my-2">
           <p className="font-bold text-2xl my-2">Database Data:</p>
-          <p className="text-lg inline">Merkle Tree Root: </p>
-          {community.merkle_tree ? <CopyCode text={community.merkle_tree} inline /> : 'Not generated yet'}
-          <p className="text-lg">Contract ID: {community.contract_id}</p>
+          <p className=" inline">Merkle Tree Root: </p>
+          {community.merkle_tree ? (
+            <CopyCode text={community.merkle_tree} truncateDisplay={20} inline />
+          ) : (
+            'Not generated yet'
+          )}
+          <p className="">Contract ID: {community.contract_id}</p>
         </div>
         <p className="font-bold text-2xl my-2">Contract Data:</p>
         {contractData && (
           <div className="my-2">
-            <p className="text-lg">Name: {String(contractData[0])}</p>
-            <p className="text-lg inline">Merkle Tree Root:</p>
-            <CopyCode text={String(contractData[1])} inline />
-            <p className="text-lg">Total Supply: {contractData[2]?.toNumber()}</p>
+            <p className="">Name: {String(contractData[0])}</p>
+            <p className=" inline">Merkle Tree Root: </p>
+            {contractData[1] ? (
+              <CopyCode text={String(contractData[1])} truncateDisplay={20} inline />
+            ) : (
+              'Not generated yet'
+            )}
+            <p className="">Total Supply: {contractData[2]?.toNumber()}</p>
           </div>
         )}
       </div>
-      <CreateMerkleTree submissions={submissions} community={community} />
-    </div>
+      <div className="px-4 pt-4">
+        <CreateMerkleTree submissions={submissions} community={community} />
+      </div>
+    </>
   )
 }

@@ -73,14 +73,14 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
   }
 
   return (
-    <div>
+    <>
       <Button onClick={onGenerateClick}>Generate New Merkle Tree</Button>
       <div>
         {merkleTree && (
           <div>
             <p className="font-bold text-lg my-2">Newly Generated Merkle Tree:</p>
-            <CopyCode text={merkleTree.getStorageString()} />
-            <CopyCode text={merkleTreeRoot} />
+            <CopyCode text={merkleTree.getStorageString()} truncateDisplay={20} />
+            {/* <CopyCode text={merkleTreeRoot} truncateDisplay={10} /> */}
             <div className="flex space-x-2 mt-4">
               <Button bgColor="bg-green-500" onClick={onUploadClick}>
                 Update Merkle Tree in Database
@@ -92,6 +92,6 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }

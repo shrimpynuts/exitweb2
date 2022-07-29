@@ -71,12 +71,12 @@ export function CommunityCardForChat({ community }: IProps) {
 
 export function CommunityCardTiny({ community }: IProps) {
   return (
-    <div className="flex flex-row h-full w-full overflow-hidden rounded-lg items-center m-2 ">
+    <div className="flex flex-row h-full w-full overflow-hidden rounded-lg px-2 py-1 space-x-2">
       <img
-        className="w-12 h-12 rounded-xl border-2 border-gray-300 object-contain bg-white"
+        className="w-14 h-14 rounded-xl border-2 border-gray-300 object-contain bg-white"
         src={community.icon_image_url}
       />
-      <div className="py-0 ml-4 h-full flex flex-col ">
+      <div className="h-full flex flex-col flex-grow">
         <h1 className="text-md font-bold overflow-hidden text-ellipsis line-clamp-1">{community.name}</h1>
         <h3 className="text-xs overflow-hidden text-ellipsis line-clamp-2">{community.description}</h3>
       </div>

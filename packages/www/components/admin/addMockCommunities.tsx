@@ -17,7 +17,7 @@ export default function AddMockCommunities({}: IProps) {
     })
   }
   return (
-    <div className="">
+    <div className="mt-2">
       <Button bgColor="bg-red-500" onClick={onClick}>
         Load Demo Communities
       </Button>

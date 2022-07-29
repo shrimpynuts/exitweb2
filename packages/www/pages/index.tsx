@@ -35,14 +35,12 @@ export default function HomePage() {
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <Toaster position="top-center" reverseOrder={false} />
 
-          <section>
-            <div className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto">
-              <CommunityList
-                popularCommunities={communities}
-                growingCommunities={communities}
-                newestCommunities={communities}
-              />
-            </div>
+          <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto">
+            <CommunityList
+              popularCommunities={communities}
+              growingCommunities={communities}
+              newestCommunities={communities}
+            />
           </section>
         </div>
       </div>
