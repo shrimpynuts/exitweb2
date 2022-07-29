@@ -46,12 +46,12 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
   const onDeselectAll = () => setSelectedIds({})
 
   return (
-    <div className="flex flex-col mt-4 space-y-4">
-      <div className="flex justify-between">
-        <h1 className="text-2xl font-bold">
-          Submissions for <span className="text-blue-600 italic">{community.name}</span>
-        </h1>
-        <div className="flex space-x-2">
+    <div className="flex flex-col p-4 space-y-4">
+      <h1 className="text-2xl font-bold">
+        {submissions?.length} submissions for <span className="text-blue-600 italic">{community.name}</span>
+      </h1>
+      <div>
+        <div className="flex space-x-1">
           <Button onClick={onRefreshClick}>Refresh</Button>
           <Button onClick={onSelectAll}>Select All</Button>
           <Button onClick={onDeselectAll}>Select None</Button>
@@ -63,24 +63,19 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
           </Button>
         </div>
       </div>
-      {submissions && (
-        <div className="space-y-0 flex-col border border-gray-300 rounded overflow-auto h-96">
-          {submissions.length > 0 ? (
-            <div className="divide-y">
-              {submissions.map((submission, idx: number) => (
-                <Submission
-                  onClick={() => onSelect(parseInt(submission.id))}
-                  submission={submission}
-                  key={idx}
-                  selected={selectedIds[parseInt(submission.id)]}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center mt-24 italic">No submissions yet.</div>
-          )}
-        </div>
-      )}
+      <div
+        className="space-y-0 flex-col border border-gray-300 rounded overflow-auto divide-y"
+        style={{ minHeight: 100 }}
+      >
+        {submissions?.map((submission, idx: number) => (
+          <Submission
+            onClick={() => onSelect(parseInt(submission.id))}
+            submission={submission}
+            key={idx}
+            selected={selectedIds[parseInt(submission.id)]}
+          />
+        ))}
+      </div>
     </div>
   )
 }

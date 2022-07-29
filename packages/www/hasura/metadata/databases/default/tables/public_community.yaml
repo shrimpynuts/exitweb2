@@ -32,14 +32,6 @@ select_permissions:
         - slug
         - updated_at
       filter: {}
-update_permissions:
-  - role: public
-    permission:
-      columns:
-        - contract_id
-        - merkle_tree
-      filter: {}
-      check: null
 delete_permissions:
   - role: public
     permission:

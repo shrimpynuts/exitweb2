@@ -12,12 +12,12 @@ interface IProps {
 export default function Submission({ submission, selected, onClick }: IProps) {
   return (
     <div
-      className={classNames('p-3  focus-within:border-gray-300 flex justify-between space-x-8 cursor-pointer', {
+      className={classNames('p-3  focus-within:border-gray-300 flex justify-between space-x-2 cursor-pointer', {
         'bg-blue-50 ': selected,
       })}
       onClick={onClick}
     >
-      <div className="flex-none w-32">
+      <div className="flex-none">
         <div className="">#{submission.id}</div>
         <div className="text-sm text-gray-500 italic mt-1">
           <Moment fromNow>{submission.created_at}</Moment>
@@ -25,11 +25,9 @@ export default function Submission({ submission, selected, onClick }: IProps) {
       </div>
       <div className="flex-1 truncate">
         <p className="truncate">{submission.commitment}</p>
-        <div className="w-64 truncate">{submission.proof_of_interaction}</div>
+        <div className="truncate">{submission.proof_of_interaction}</div>
       </div>
-      <div className="flex-none truncate w-8">
-        {<Emoji label="approval" symbol={submission.approved ? '✅' : '❌'} />}
-      </div>
+      <div className="flex-none truncate">{<Emoji label="approval" symbol={submission.approved ? '✅' : '❌'} />}</div>
     </div>
   )
 }
