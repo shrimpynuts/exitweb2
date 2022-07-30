@@ -56,7 +56,7 @@ export default function HomePage() {
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto flex flex-col">
-            <h3 className="self-start text-2xl mb-2 font-semibold text-gray-900">Trending communities </h3>
+            <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities </h3>
             <SingleCommunityListHorizontal communities={communities} />
             <Link href="/join-community">
               <a className="self-end text-sm mt-2 font-semibold text-gray-600">Explore all communities </a>
@@ -65,7 +65,7 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
-          <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto flex flex-col">
+          <section className="mt-8 sm:w-2/3 lg:w-2/3 mx-auto flex flex-col">
             <FAQ />
           </section>
         </div>
