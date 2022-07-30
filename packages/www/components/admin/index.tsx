@@ -106,7 +106,6 @@ export default function AdminPage() {
                 <p>Double-check if you are connected to the right network.</p>
               </div>
             )}
-            {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
           </div>
 
           {!state.address && (
@@ -121,7 +120,6 @@ export default function AdminPage() {
               </div>
             </div>
           )}
-
           {state.address && !isSignedInAsAdmin && (
             <div>
               <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
@@ -155,6 +153,11 @@ export default function AdminPage() {
               )}
             </div>
           </div>
+
+          {/* <div className="p-4 border border-gray-300 rounded">
+            <p className="italic">This adds a bunch of mock communities to seed the database for testing purposes.</p>
+            {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
+          </div> */}
         </div>
       )}
     </>
