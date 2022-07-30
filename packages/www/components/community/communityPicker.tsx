@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { ICommunity } from '../../types'
-import CommunityCard, { CommunityCardSmall, CommunityCardTiny } from './communityCard'
+import CommunityCard, { CommunityCardSmall, CommunityCardSmall } from './communityCard'
 
 interface IProps {
   communities: ICommunity[]
@@ -52,7 +52,7 @@ export function CommunityPickerSmall({ communities, selectedCommunity, setSelect
               }
               key={i}
             >
-              <CommunityCardTiny community={community} />
+              <CommunityCardSmall community={community} />
             </div>
           ))}
         </div>
