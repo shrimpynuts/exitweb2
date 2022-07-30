@@ -33,7 +33,7 @@ export default function HomePage() {
               {/* Left side */}
               <div className="flex flex-col">
                 <h1 className="text-5xl font-extrabold text-gray-800 tracking-tight">
-                  Bringing web2 communities to web3.
+                  Connect with your tribe.
                 </h1>
                 <h1 className="text-2xl font-semibold my-4 text-gray-500">A new pseudonymous social experience.</h1>
                 <div className="flex space-x-2 my-2">
