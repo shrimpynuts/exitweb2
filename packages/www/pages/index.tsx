@@ -9,6 +9,7 @@ import Button from '../components/util/button'
 import { useQuery } from '@apollo/client'
 import { ICommunity } from '../types'
 import Link from 'next/link'
+import FAQ from '../components/marketing/faq'
 
 export default function HomePage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -55,11 +56,17 @@ export default function HomePage() {
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
           <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto flex flex-col">
-            <h3 className="self-start text-xl mb-2 font-semibold text-gray-900">Trending communities </h3>
+            <h3 className="self-start text-2xl mb-2 font-semibold text-gray-900">Trending communities </h3>
             <SingleCommunityListHorizontal communities={communities} />
             <Link href="/join-community">
               <a className="self-end text-sm mt-2 font-semibold text-gray-600">Explore all communities </a>
             </Link>
+          </section>
+        </div>
+
+        <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
+          <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto flex flex-col">
+            <FAQ />
           </section>
         </div>
       </div>
