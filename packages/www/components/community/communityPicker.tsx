@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { ICommunity } from '../../types'
-import CommunityCard, { CommunityCardSmall, CommunityCardSmall } from './communityCard'
+import CommunityCard, { CommunityCardSmall } from './communityCard'
 
 interface IProps {
   communities: ICommunity[]
