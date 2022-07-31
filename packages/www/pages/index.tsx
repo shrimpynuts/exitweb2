@@ -63,12 +63,6 @@ export default function HomePage() {
             </Link>
           </section>
         </div>
-
-        <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
-          <section className="mt-8 sm:w-2/3 lg:w-2/3 mx-auto flex flex-col">
-            <FAQ />
-          </section>
-        </div>
       </div>
       <Footer />
     </div>

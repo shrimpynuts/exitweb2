@@ -44,20 +44,20 @@ function FAQ() {
         <h2 className="mr-8 w-full text-2xl font-bold pb-4">Frequently-asked questions</h2>
         <dl className="flex flex-col space-y-4 px-2">
           <SingleFAQ
-            question="What is the definition of Lorem Ipsum?"
-            answer="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            question="What does the platform know about me?"
+            answer="We know the mapping between your user id used to generate your community NFT and the social media username that you use to enter the community. However, we delete this information immediately after you claim your NFT, so if you lose access to your community NFT, you will have to repeat the process again."
           />
           <SingleFAQ
-            question="What is the definition of Lorem Ipsum?"
-            answer="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            question="How do the zk-proofs work and how is my identity pseudonymous?"
+            answer="Link to the repo."
           />
           <SingleFAQ
-            question="What is the definition of Lorem Ipsum?"
-            answer="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            question="Can anyone read my chats with my community if they are not part of it?"
+            answer="No, the chats cannot be read by us or anyone who doesn't belong to the community"
           />
           <SingleFAQ
-            question="What is the definition of Lorem Ipsum?"
-            answer="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+            question="What information about me does the platform store after I claim my community NFT?"
+            answer="Nothing. Any information we know is publicly accessible on the Ethereum blockchain."
           />
         </dl>
       </div>
