@@ -57,7 +57,9 @@ export default function HomePage() {
             <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities</h3>
             <SingleCommunityListHorizontal communities={communities} />
             <Link href="/join-community">
-              <a className="self-end text-sm mt-2 font-semibold text-gray-600">Explore all communities </a>
+              <a className="self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800">
+                Explore all communities
+              </a>
             </Link>
           </section>
         </div>
