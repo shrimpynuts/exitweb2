@@ -32,9 +32,7 @@ export default function HomePage() {
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
               {/* Left side */}
               <div className="flex flex-col">
-                <h1 className="text-5xl font-extrabold text-gray-800 tracking-tight">
-                  Connect with your tribe.
-                </h1>
+                <h1 className="text-5xl font-extrabold text-gray-800 tracking-tight">Connect with your tribe.</h1>
                 <h1 className="text-2xl font-semibold my-4 text-gray-500">A new pseudonymous social experience.</h1>
                 <div className="flex space-x-2 my-2">
                   <Link href="/join-community">
@@ -55,8 +53,8 @@ export default function HomePage() {
         </section>
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
-          <section className="mt-8 sm:w-4/5 lg:w-4/5 mx-auto flex flex-col">
-            <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities </h3>
+          <section className="py-8 px-8 md:max-w-6xl mx-auto flex flex-col overflow-hidden">
+            <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities</h3>
             <SingleCommunityListHorizontal communities={communities} />
             <Link href="/join-community">
               <a className="self-end text-sm mt-2 font-semibold text-gray-600">Explore all communities </a>
