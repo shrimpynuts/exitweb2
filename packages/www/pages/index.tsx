@@ -10,6 +10,7 @@ import Footer from '../components/layout/footer'
 import Button from '../components/util/button'
 import { ICommunity } from '../types'
 import Link from 'next/link'
+import { SlowShow } from '../components/util/slowShow'
 
 interface IProps {
   communities: ICommunity[]
@@ -33,20 +34,26 @@ export default function HomePage({ communities }: IProps) {
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
               {/* Left side */}
               <div className="flex flex-col">
-                <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">Connect with your tribe.</h1>
-                <h1 className="text-2xl font-semibold my-4 text-blue-900">A new pseudonymous social experience.</h1>
-                <div className="flex space-x-2 my-2">
-                  <Link href="/join-community">
-                    <Button classOverrides="py-1 text-lg text-blue-50 rounded-lg" bgColor="bg-black">
-                      Join a community
-                    </Button>
-                  </Link>
-                  <Link href="/create-community">
-                    <Button classOverrides="py-1 text-lg text-blue-50 rounded-lg">Start a community</Button>
-                  </Link>
-                </div>
-              </div>
+                <SlowShow step={1}>
+                  <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">Connect with your tribe.</h1>
+                </SlowShow>
+                <SlowShow step={2}>
+                  <h1 className="text-2xl font-semibold my-4 text-blue-900">A new pseudonymous social experience.</h1>
+                </SlowShow>
 
+                <SlowShow step={3}>
+                  <div className="flex space-x-2 my-2">
+                    <Link href="/join-community">
+                      <Button classOverrides="py-1 text-lg text-blue-50 rounded-lg" bgColor="bg-black">
+                        Join a community
+                      </Button>
+                    </Link>
+                    <Link href="/create-community">
+                      <Button classOverrides="py-1 text-lg text-blue-50 rounded-lg">Start a community</Button>
+                    </Link>
+                  </div>
+                </SlowShow>
+              </div>
               {/* Right side */}
               <div></div>
             </div>

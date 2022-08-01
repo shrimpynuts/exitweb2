@@ -56,7 +56,7 @@ const container = {
     scale: 1,
     transition: {
       delayChildren: 0.3,
-      staggerChildren: 0.3,
+      staggerChildren: 0.15,
     },
   },
 }
@@ -72,7 +72,9 @@ const item = {
 export function SingleCommunityListHorizontal({ communities }: Omit<ISingleCommuntyListProps, 'title'>) {
   return (
     <div className="py-8 px-8 md:max-w-6xl mx-auto flex flex-col overflow-hidden">
-      <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities</h3>
+      <SlowShow step={4}>
+        <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities</h3>
+      </SlowShow>
       <SlowShow step={5}>
         <motion.ul variants={container} initial="hidden" animate="visible">
           <div className="flex flex-row space-x-2">
@@ -86,9 +88,11 @@ export function SingleCommunityListHorizontal({ communities }: Omit<ISingleCommu
           </div>
         </motion.ul>
       </SlowShow>
-      <Link href="/join-community">
-        <a className="self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800">Explore all communities</a>
-      </Link>
+      <a className="text-right self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800">
+        <SlowShow step={6}>
+          <Link href="/join-community">Explore all communities</Link>
+        </SlowShow>
+      </a>
     </div>
   )
 }

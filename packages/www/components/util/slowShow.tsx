@@ -1,11 +1,9 @@
+import FadeIn from 'react-fade-in'
+
 interface ISlowShowProps {
   step: number
 }
 export const SlowShow: React.FunctionComponent<ISlowShowProps> = ({ children, step }) => {
-  const num = 2 * step
-  return (
-    <div className="animated fadeIn" style={{ animationDelay: `${num / 10}s` }}>
-      {children}
-    </div>
-  )
+  const delayMilliseconds = 100 * step
+  return <FadeIn delay={delayMilliseconds}>{children}</FadeIn>
 }
