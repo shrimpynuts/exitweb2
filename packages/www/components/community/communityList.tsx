@@ -13,8 +13,8 @@ export default function CommunityList({ popularCommunities, growingCommunities, 
   return (
     <div className="flex flex-col md:flex-row space-x-4">
       <SingleCommunityListVertical communities={popularCommunities} title="Popular Communities 🔥" />
-      <SingleCommunityListVertical communities={popularCommunities} title="Growing Communities 📈" />
-      <SingleCommunityListVertical communities={popularCommunities} title="Newest Communities ✨" />
+      <SingleCommunityListVertical communities={growingCommunities} title="Growing Communities 📈" />
+      <SingleCommunityListVertical communities={newestCommunities} title="Newest Communities ✨" />
     </div>
   )
 }

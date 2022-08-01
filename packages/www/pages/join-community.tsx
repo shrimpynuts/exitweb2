@@ -38,8 +38,10 @@ export default function JoinCommunity() {
           <section className="mt-16 sm:w-4/5 lg:w-4/5 mx-auto">
             <CommunityList
               popularCommunities={communities}
-              growingCommunities={communities}
-              newestCommunities={communities}
+              growingCommunities={communities?.slice().sort((a, b) => (b.name > a.name ? 1 : -1))}
+              newestCommunities={communities
+                ?.slice()
+                .sort((a, b) => (new Date(b.created_at) > new Date(a.created_at) ? 1 : -1))}
             />
           </section>
         </div>
