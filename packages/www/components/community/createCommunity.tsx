@@ -74,7 +74,11 @@ export default function CreateCommunity({}: IProps) {
 
         return toast.error(`Failed to add community to smart contract! ${err}`)
       }
-    } catch (err) {
+    } catch (err: any) {
+      console.log({ err })
+      if (err.message.includes('unique constraint "community_slug_key"')) {
+        return toast.error('Community with that slug already exists!')
+      }
       return toast.error(`Failed to submit community to database! ${err}`)
     }
   }
