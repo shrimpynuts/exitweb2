@@ -25,7 +25,7 @@ export default function JoinCommunity() {
       <div>
         <Navbar>
           <Link href="/create-community">
-            <Button bgColor="hidden lg:block bg-gray-800" classOverrides="text-sm">
+            <Button bgColor="hidden lg:block bg-gray-700" classOverrides="text-sm">
               <div className="flex items-center space-x-2">
                 <Plus /> &nbsp; Create a new community
               </div>
