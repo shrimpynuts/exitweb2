@@ -41,8 +41,8 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
           </>
         ) : (
           <div>
-            {[...Array(10)].map(() => (
-              <CommunityCardSmallSkeleton />
+            {[...Array(10)].map((_, i) => (
+              <CommunityCardSmallSkeleton key={i} />
             ))}
           </div>
         )}
