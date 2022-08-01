@@ -77,7 +77,7 @@ export default function CreateCommunity({}: IProps) {
     } catch (err: any) {
       console.log({ err })
       if (err.message.includes('unique constraint "community_slug_key"')) {
-        return toast.error('Community with that slug already exists!')
+        return toast.error('Community with that slug already exists! Please choose a different slug.')
       }
       return toast.error(`Failed to submit community to database! ${err}`)
     }
