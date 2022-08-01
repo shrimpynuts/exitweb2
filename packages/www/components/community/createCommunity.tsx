@@ -85,6 +85,7 @@ export default function CreateCommunity({}: IProps) {
 
   const inputClassName = 'rounded border mb-2 border-gray-300'
 
+  console.log({ router })
   return (
     <div className="flex space-x-8 mx-4">
       <div className="flex flex-col w-96 p-4 border border-gray-300 rounded">
@@ -104,7 +105,7 @@ export default function CreateCommunity({}: IProps) {
         <label className="mt-2">
           Slug{' '}
           <span className="italic text-xs">
-            ({window.location.origin}/{formState.slug})
+            ({window && window.location.origin}/{formState.slug})
           </span>
         </label>
         <input
