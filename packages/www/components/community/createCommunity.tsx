@@ -84,8 +84,8 @@ export default function CreateCommunity({}: IProps) {
   }
 
   const inputClassName = 'rounded border mb-2 border-gray-300'
+  const windowUrl = process.env.NODE_ENV === 'development' ? 'localhost:3000/' : 'https://www.exitweb2.xyz/'
 
-  console.log({ router })
   return (
     <div className="flex space-x-8 mx-4">
       <div className="flex flex-col w-96 p-4 border border-gray-300 rounded">
@@ -105,7 +105,8 @@ export default function CreateCommunity({}: IProps) {
         <label className="mt-2">
           Slug{' '}
           <span className="italic text-xs">
-            ({window && window.location.origin}/{formState.slug})
+            ({windowUrl}
+            {formState.slug})
           </span>
         </label>
         <input
