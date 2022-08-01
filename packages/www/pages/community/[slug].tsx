@@ -50,9 +50,9 @@ function CommunityPage({ community }: IProps) {
           <h1 className="block sm:hidden text-2xl font-bold mt-2 ml-4">{community.name}</h1>
 
           <div className="mt-8 md:mt-0 max-w-screen-xl mx-auto px-4">
-            <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-4 gap-4 h-full">
               <div></div>
-              <div className="col-span-2 flex space-x-2 mx-4">
+              <div className="col-span-3 flex space-x-2 mx-4">
                 <div className="bg-gray-100 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
                   Chat
                 </div>
@@ -68,7 +68,7 @@ function CommunityPage({ community }: IProps) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-4 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-4 h-full">
               <div className="flex flex-col border border-gray-300 rounded">
                 <div className="text-xl font-semibold border-b border-gray-300 px-4 py-2">About this community</div>
                 <div className="p-4">
@@ -80,7 +80,7 @@ function CommunityPage({ community }: IProps) {
                   <p className="">{moment(community.created_at).format('MMMM Do, YYYY')}</p>
                 </div>
               </div>
-              <div className="col-span-2 flex flex-col p-4 border border-gray-300 rounded relative">
+              <div className="col-span-3 flex flex-col p-4 border border-gray-300 rounded relative">
                 <CommunityChat community={community} communityTokenAddress={''} />
               </div>
             </div>
