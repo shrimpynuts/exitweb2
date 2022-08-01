@@ -29,7 +29,7 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
     <div>
       <h2 className="text-lg font-bold mb-1">{title}</h2>
       <div className="flex flex-col space-y-0 border border-gray-300 rounded-lg md:w-80">
-        {communities && communities.length > 0 ? (
+        {communities && communities.length > 20 ? (
           <>
             {communities.map((community, i) => (
               <Link href={`/community/${community.slug}`} key={i}>
