@@ -54,3 +54,19 @@ export function CommunityCardSmall({ community }: IProps) {
     </div>
   )
 }
+
+export function CommunityCardSmallSkeleton() {
+  return (
+    <div className="p-4 max-w-sm w-full mx-auto">
+      <div className="animate-pulse flex space-x-4">
+        <div className="rounded-full bg-gray-200 h-10 w-10"></div>
+        <div className="flex-1 space-y-4 py-1">
+          <div className="h-2 bg-gray-200 rounded"></div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="h-2 bg-gray-200 rounded col-span-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

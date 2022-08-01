@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ICommunity } from '../../types'
 import { SlowShow } from '../util/slowShow'
-import { CommunityCardSmallVertical, CommunityCardSmall } from './communityCard'
+import { CommunityCardSmallVertical, CommunityCardSmall, CommunityCardSmallSkeleton } from './communityCard'
 import { motion } from 'framer-motion'
 
 interface IProps {
@@ -41,7 +41,9 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
           </>
         ) : (
           <div>
-            <h1 className="text-center py-8">No communities found :/</h1>
+            {[...Array(10)].map(() => (
+              <CommunityCardSmallSkeleton />
+            ))}
           </div>
         )}
       </div>
