@@ -1,20 +1,21 @@
 import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
+import { GetStaticProps, GetStaticPropsContext } from 'next'
 
 import { SingleCommunityListHorizontal } from '../components/community/communityList'
 import { GET_ALL_COMMUNITIES } from '../graphql/queries'
+import client from '../lib/client/apollo-client'
 import Navbar from '../components/layout/navbar'
 import Footer from '../components/layout/footer'
 import Button from '../components/util/button'
-import { useQuery } from '@apollo/client'
 import { ICommunity } from '../types'
 import Link from 'next/link'
-import FAQ from '../components/marketing/faq'
 
-export default function HomePage() {
-  const { data } = useQuery(GET_ALL_COMMUNITIES)
-  const communities: ICommunity[] = data?.community.slice(0, 6)
+interface IProps {
+  communities: ICommunity[]
+}
 
+export default function HomePage({ communities }: IProps) {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <Head>
@@ -52,19 +53,19 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
-          <section className="py-8 px-8 md:max-w-6xl mx-auto flex flex-col overflow-hidden">
-            <h3 className="self-start text-2xl mb-2 font-semibold">Trending communities</h3>
-            <SingleCommunityListHorizontal communities={communities} />
-            <Link href="/join-community">
-              <a className="self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800">
-                Explore all communities
-              </a>
-            </Link>
-          </section>
-        </div>
+        <section className="max-w-screen-xl m-auto pb-4 md:pb-12">
+          <SingleCommunityListHorizontal communities={communities} />
+        </section>
       </div>
       <Footer />
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (_ctx: GetStaticPropsContext) => {
+  const { data } = await client.query({ query: GET_ALL_COMMUNITIES })
+  const communities: ICommunity[] = data?.community.slice(0, 6)
+  return {
+    props: { communities },
+  }
 }
