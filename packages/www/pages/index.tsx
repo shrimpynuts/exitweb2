@@ -27,7 +27,7 @@ export default function HomePage() {
         <Toaster position="top-center" reverseOrder={false} />
 
         {/* Hero section */}
-        <section className="bg-blue-200 h-full">
+        <section className="bg-blue-100 h-full">
           <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
               {/* Left side */}
