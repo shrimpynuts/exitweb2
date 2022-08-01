@@ -101,7 +101,12 @@ export default function CreateCommunity({}: IProps) {
           onChange={handleChange}
         />
 
-        <label className="mt-2">Slug</label>
+        <label className="mt-2">
+          Slug{' '}
+          <span className="italic text-xs">
+            ({window.location.origin}/{formState.slug})
+          </span>
+        </label>
         <input
           className={inputClassName}
           type="text"
