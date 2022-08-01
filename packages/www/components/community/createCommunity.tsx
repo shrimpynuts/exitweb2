@@ -8,9 +8,11 @@ import { AIRDROP_CONTRACT_DATA, getAirdropContractWithSigner } from '../../lib/c
 import { INSERT_COMMUNITY_ONE, DELETE_COMMUNITY_BY_ID } from '../../graphql/mutations'
 import { randomBigInt } from '../../lib/zkp/util'
 import { toHex } from '../../lib/zkp/Library'
-import CommunityCard from './communityCard'
+import CommunityCard, { CommunityCardSmall, CommunityCardSmallVertical } from './communityCard'
 import { ICommunity } from '../../types'
 import Button from '../util/button'
+import { Widget } from '@uploadcare/react-widget'
+import { useRouter } from 'next/dist/client/router'
 
 interface IProps {}
 
@@ -20,6 +22,8 @@ export default function CreateCommunity({}: IProps) {
   const [deleteCommunity] = useMutation(DELETE_COMMUNITY_BY_ID)
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
   const { data: signer } = useSigner()
+
+  const router = useRouter()
 
   const [formState, setFormState] = useState<IState>({
     name: 'Twitter OGs',
@@ -57,7 +61,10 @@ export default function CreateCommunity({}: IProps) {
         if (!signer) return toast.error('Not signed in with Ethereum!')
         let airdropContract = getAirdropContractWithSigner(signer)
         let tx = await airdropContract.registerCommunity(formState.name)
-        await tx.wait().then(() => toast.success('Added community to smart contract.'))
+        await tx
+          .wait()
+          .then(() => toast.success('Added community to smart contract.'))
+          .then(() => router.push(`/community/${formState.slug}`))
       } catch (err) {
         // If we've added the community to our database, but couldn't add it to the smart contract,
         // we should delete the community from the database.
@@ -123,34 +130,39 @@ export default function CreateCommunity({}: IProps) {
           onChange={handleChange}
         />
 
-        <label className="mt-2">Icon Image URL</label>
-        <input
-          className={inputClassName}
-          type="text"
-          placeholder="https://example.com/icon.png"
-          name="icon_image_url"
-          value={formState.icon_image_url}
-          onChange={handleChange}
+        <label className="mt-2">Icon Image</label>
+        <Widget
+          publicKey="d1944ff5dd0b82f570fa"
+          onChange={(file) => {
+            if (file) {
+              if (file.cdnUrl === null) return toast.error('Could not upload file. Please try again.')
+              setFormState({ ...formState, icon_image_url: file.cdnUrl })
+            }
+          }}
         />
 
-        <label className="mt-2">Banner Image URL</label>
-        <input
-          className={inputClassName}
-          type="text"
-          placeholder="https://example.com/icon.png"
-          name="banner_image_url"
-          value={formState.banner_image_url}
-          onChange={handleChange}
+        <label className="mt-2">Banner Image</label>
+        <Widget
+          publicKey="d1944ff5dd0b82f570fa"
+          onChange={(file) => {
+            if (file) {
+              if (file.cdnUrl === null) return toast.error('Could not upload file. Please try again.')
+              setFormState({ ...formState, banner_image_url: file.cdnUrl })
+            }
+          }}
         />
 
-        <Button classOverrides="mt-2" onClick={onSubmitClick}>
+        <Button classOverrides="mt-4" onClick={onSubmitClick}>
           Submit
         </Button>
       </div>
 
       <div className="flex flex-col w-96 p-4 border border-gray-300 rounded">
-        <h1 className="text-2xl mb-4 font-bold">Preview</h1>
+        <h1 className="text-2xl mb-2 font-bold">Preview</h1>
         <CommunityCard community={formState} />
+        <div className="mt-2 border border-gray-300 rounded-lg">
+          <CommunityCardSmall community={formState} />
+        </div>
       </div>
     </div>
   )

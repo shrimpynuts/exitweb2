@@ -18,6 +18,7 @@
     "@tailwindcss/line-clamp": "^0.3.0",
     "@types/js-cookie": "^3.0.2",
     "@types/jsonwebtoken": "^8.5.8",
+    "@uploadcare/react-widget": "^2.1.5",
     "add": "^2.0.6",
     "apollo-link-context": "^1.0.20",
     "autoprefixer": "^10.3.7",
