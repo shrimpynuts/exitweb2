@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Emoji from '../util/emoji'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import Button from '../util/button'
 
 interface IProps {
   displayConnectButton?: boolean
@@ -18,11 +17,11 @@ const Navbar = ({ displayConnectButton = true, children }: IProps) => {
         <div className="max-w-screen-xl m-auto flex justify-between">
           {/* Logo */}
           <Link href="/" passHref>
-            <a className="flex items-center space-x-2">
-              <span className="ml-1 transform hover:rotate-20 transition duration-200 flex items-center space-x-2">
-                <Emoji className="text-4xl cursor-pointer " label="logo" symbol="🚪" />
+            <a className="flex items-center space-x-1">
+              <span className="ml-1 transform hover:rotate-20 transition duration-200">
+                <Emoji className="text-2xl cursor-pointer " label="logo" symbol="🚪" />
               </span>
-              <h1 className="text-xl font-bold tracking-tight">Exit Web2</h1>
+              <h1 className="text-lg font-bold ">Exit Web2</h1>
             </a>
           </Link>
           <div className="flex flex-row items-center space-x-4">
