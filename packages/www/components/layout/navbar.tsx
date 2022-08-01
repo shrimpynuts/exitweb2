@@ -16,15 +16,15 @@ const Navbar = ({ displayConnectButton = true, children }: IProps) => {
     <>
       <nav className="w-full p-4 items-center border-b border-gray-300">
         <div className="max-w-screen-xl m-auto flex justify-between">
-          <div className="flex items-center space-x-2">
-            {/* Logo */}
-            <Link href="/" passHref>
-              <a className="ml-1 transform hover:rotate-20 transition duration-200">
+          {/* Logo */}
+          <Link href="/" passHref>
+            <a className="flex items-center space-x-2">
+              <a className="ml-1 transform hover:rotate-20 transition duration-200 flex items-center space-x-2">
                 <Emoji className="text-4xl cursor-pointer " label="logo" symbol="🚪" />
               </a>
-            </Link>
-            <h1 className="text-xl font-bold tracking-tight">Exit Web2</h1>
-          </div>
+              <h1 className="text-xl font-bold tracking-tight">Exit Web2</h1>
+            </a>
+          </Link>
           <div className="flex flex-row items-center space-x-4">
             {children}
             {displayConnectButton && <ConnectButton />}
