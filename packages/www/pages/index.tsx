@@ -35,10 +35,10 @@ export default function HomePage({ communities }: IProps) {
               {/* Left side */}
               <div className="flex flex-col">
                 <SlowShow step={1}>
-                  <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight">Connect with your tribe.</h1>
+                  <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">Connect with your tribe.</h1>
                 </SlowShow>
                 <SlowShow step={2}>
-                  <h1 className="text-2xl font-semibold my-4 text-gray-900">A new pseudonymous social experience.</h1>
+                  <h1 className="text-2xl font-semibold my-4 text-blue-900">A new pseudonymous social experience.</h1>
                 </SlowShow>
 
                 <SlowShow step={3}>
