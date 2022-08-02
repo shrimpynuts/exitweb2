@@ -37,7 +37,8 @@ export default function SignInButton({ onSuccess, onError }: IProps) {
   const signIn = async () => {
     try {
       const chainId = activeChain?.id
-      if (!address || !chainId) throw new Error('not connected to a wallet')
+      if (!address || !chainId)
+        throw new Error('not connected to a wallet. Please click the "Connect Wallet" button first.')
 
       setState((x) => ({ ...x, loading: true }))
       // Create SIWE message with pre-fetched nonce and sign with wallet
