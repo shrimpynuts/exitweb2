@@ -73,7 +73,7 @@ export default function HomePage({ communities }: IProps) {
 
 export const getStaticProps: GetStaticProps = async (_ctx: GetStaticPropsContext) => {
   const { data } = await client.query({ query: GET_ALL_COMMUNITIES })
-  const communities: ICommunity[] = data?.community.slice(0, 6)
+  const communities: ICommunity[] = data?.community.slice(0, 5)
   return {
     props: { communities },
   }

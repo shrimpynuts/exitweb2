@@ -26,7 +26,7 @@ export default function CommunityCard({ community, withRequirement = true }: IPr
 
 export function CommunityCardSmallVertical({ community }: IProps) {
   return (
-    <div className="flex flex-col h-full w-full rounded-lg border border-gray-300 overflow-hidden p-4 bg-white hover:bg-blue-50">
+    <div className="flex flex-col h-full w-52 overflow-hidden rounded-lg border border-gray-300 p-4 bg-white hover:bg-blue-50">
       <img className="w-full -mb-8 h-24 object-cover rounded-t-lg" src={community.banner_image_url} />
       <div className="h-full flex flex-col">
         <div className="px-2">
@@ -36,7 +36,9 @@ export function CommunityCardSmallVertical({ community }: IProps) {
           />
         </div>
         <h1 className="text-md font-bold">{community.name}</h1>
-        <h3 className="text-sm mt-2 mb-2">{community.description}</h3>
+        <div className="h-12">
+          <h3 className="text-sm mt-2 mb-2">{community.description}</h3>
+        </div>
       </div>
     </div>
   )

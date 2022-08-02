@@ -81,11 +81,11 @@ export function SingleCommunityListHorizontal({ communities }: Omit<ISingleCommu
         <motion.ul variants={container} initial="hidden" animate="visible">
           <div className="flex flex-row space-x-2">
             {communities?.map((community, i) => (
-              <Link href={`/community/${community.slug}`} key={i}>
-                <motion.li key={i} className="w-64 cursor-pointer" variants={item}>
+              <motion.li key={i} className="cursor-pointer" variants={item}>
+                <Link href={`/community/${community.slug}`} key={i}>
                   <CommunityCardSmallVertical community={community} withRequirement={false} />
-                </motion.li>
-              </Link>
+                </Link>
+              </motion.li>
             ))}
           </div>
         </motion.ul>
