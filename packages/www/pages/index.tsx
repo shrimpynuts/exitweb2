@@ -28,17 +28,17 @@ export default function HomePage({ communities }: IProps) {
         <Toaster position="top-center" reverseOrder={false} />
 
         {/* Hero section */}
-        <section className="bg-blue-100 border-b border-gray-300 h-full">
+        <section className="bg-gray-100 border-b border-gray-300 h-full">
           <Navbar />
           <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
               {/* Left side */}
               <div className="flex flex-col">
                 <SlowShow step={1}>
-                  <h1 className="text-5xl font-extrabold text-blue-900 tracking-tight">Connect with your tribe.</h1>
+                  <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight">Connect with your tribe.</h1>
                 </SlowShow>
                 <SlowShow step={2}>
-                  <h1 className="text-2xl font-semibold my-4 text-blue-900">A new pseudonymous social experience.</h1>
+                  <h1 className="text-2xl font-semibold my-4 text-gray-900">A new pseudonymous social experience.</h1>
                 </SlowShow>
 
                 <SlowShow step={3}>
