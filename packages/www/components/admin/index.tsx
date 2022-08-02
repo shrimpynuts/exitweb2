@@ -54,6 +54,8 @@ export default function AdminPage() {
   }, [])
 
   const isSignedInAsAdmin = state.address && isAdmin(state.address)
+  const isSignedInAsOwnerOfContract =
+    state.address && contractData && contractData[1] && String(contractData[1]) === state.address
 
   return (
     <>
@@ -70,7 +72,14 @@ export default function AdminPage() {
                 >
                   Sign Out
                 </Button>
-                <span>Signed in as {state.address}</span>
+                <span>
+                  Signed in as {state.address.slice(0, 12)}... {isSignedInAsAdmin && '(Admin)'}
+                </span>
+                {!isSignedInAsOwnerOfContract && (
+                  <span className="text-red-500">
+                    'You are not the owner of the contract, so you will not be able to update merkle roots.'
+                  </span>
+                )}
               </div>
             ) : (
               <SignInButton
