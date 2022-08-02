@@ -44,12 +44,12 @@ export default function HomePage({ communities }: IProps) {
                 <SlowShow step={3}>
                   <div className="flex space-x-2 my-2">
                     <Link href="/join-community">
-                      <Button classOverrides="py-1 text-lg text-gray-50 rounded-lg" bgColor="bg-black">
+                      <Button classOverrides="text-lg text-gray-50 rounded-lg" bgColor="bg-gray-900">
                         Join a community
                       </Button>
                     </Link>
                     <Link href="/create-community">
-                      <Button classOverrides="py-1 text-lg text-gray-50 rounded-lg bg-blue-700">
+                      <Button classOverrides="text-lg text-gray-50 rounded-lg" bgColor="bg-blue-600">
                         Start a community
                       </Button>
                     </Link>
