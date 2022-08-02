@@ -35,6 +35,7 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
     contractInterface: COMMUNITY_TOKEN_ABI,
     functionName: 'balanceOf',
     args: [address, community.contract_id],
+    onError: (error) => console.error({ error }),
   })
   const isOwner = contractData ? contractData.toNumber() > 0 : false
 

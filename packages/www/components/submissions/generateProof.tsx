@@ -20,60 +20,66 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
   const [proof, setProof] = useState<string>()
   const { address, isConnected } = useAccount()
 
-  const generateProof = async () => {
-    if (!community) return
-    try {
-      if (!community.merkle_tree) return Promise.reject(new Error('Community has not generated a merkle tree yet!'))
-      if (!isConnected || !address) return Promise.reject(new Error('Not signed in with Ethereum!'))
-
-      // Fetch wasm and zkey
-      let domain = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://exitweb2.vercel.app'
-      // let WASM_BUFF = await getFileBuffer(`${domain}/circuit.wasm`)
-      // let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final.zkey`)
-      let WASM_BUFF = await getFileBuffer(`${domain}/circuit_13.wasm`)
-      let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
-
-      // Check if leaf is even in the merkle tree
-      const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
-      const computedCommitment = toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))
-      if (!merkleTree.leafExists(BigInt(computedCommitment)))
-        return Promise.reject(new Error('Commitment not found in merkle tree!'))
-
-      // Generate proof and setState
-      return generateProofCallData(merkleTree, BigInt(nullifier), BigInt(secret), address, WASM_BUFF, ZKEY_BUFF)
-        .then(setProof)
-        .catch((err) => Promise.reject(`Failed to generate proof! ${err}`))
-    } catch (err: any) {
-      toast.error(err.message)
-    }
-  }
-
   const { writeAsync: claim } = useContractWrite({
     ...AIRDROP_CONTRACT_DATA,
     functionName: 'collectAirdrop',
     args: [community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))],
   })
 
-  // Onclick handler for proof generation
-  const onGenerateProofClick = () => {
-    toast.promise(generateProof(), {
-      loading: 'Generating proof...',
-      success: 'Proof successfully generated!',
-      error: (err) => err.toString(),
+  console.log([community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))])
+
+  const generateProofAndClaimTokens = async () => {
+    if (!community) return
+    if (!community.merkle_tree) return Promise.reject(new Error('Community has not generated a merkle tree yet!'))
+    if (!isConnected || !address) return Promise.reject(new Error('Not signed in with Ethereum!'))
+
+    // Fetch wasm and zkey
+    let domain = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://exitweb2.vercel.app'
+    let WASM_BUFF = await getFileBuffer(`${domain}/circuit_13.wasm`)
+    let ZKEY_BUFF = await getFileBuffer(`${domain}/circuit_final_13.zkey`)
+
+    // Check if leaf is even in the merkle tree
+    const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
+    const computedCommitment = toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))
+    if (!merkleTree.leafExists(BigInt(computedCommitment)))
+      return Promise.reject(new Error('Commitment not found in merkle tree!'))
+
+    // Generate proof and then claim token
+    await generateProofCallData(merkleTree, BigInt(nullifier), BigInt(secret), address, WASM_BUFF, ZKEY_BUFF)
+      .then(setProof)
+      .then(() => claim())
+  }
+  console.log({ proof })
+
+  const onClaimClick = () => {
+    toast.promise(generateProofAndClaimTokens(), {
+      loading: 'Claiming your membership token. This may take a few minutes...',
+      success: 'Transaction successfully submitted!',
+      error: (error) => {
+        console.error({ error })
+        if (error.data && error.data.message.includes('Airdrop already redeemed')) {
+          return 'Token has already been claimed!'
+        }
+        return 'Error claiming tokens!'
+      },
     })
   }
 
   return (
     <div className="flex flex-col mx-auto p-12 rounded">
       <label className="text-xl font-bold mb-4">Redeem your membership!</label>
-      <Button onClick={onGenerateProofClick} bgColor="bg-green-500">
-        Claim Tokens
+      <Button onClick={onClaimClick} bgColor="bg-green-500">
+        Claim Token
       </Button>
     </div>
   )
 }
 
-export function GenerateProofButton({ community }: IProps) {
+interface IGenerateProofButtonProps {
+  community: ICommunity
+}
+
+export function GenerateProofButton({ community }: IGenerateProofButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [state, setState] = useState<{ secret: string; nullifier: string }>({ secret: '', nullifier: '' })
 
@@ -87,10 +93,14 @@ export function GenerateProofButton({ community }: IProps) {
     }
   }, [])
 
+  const communityIsOnSmartContract = community.contract_id
   const computedCommitment = toHex(pedersenHashConcat(BigInt(state.nullifier), BigInt(state.secret)))
   const merkleTree = community.merkle_tree && MerkleTree.createFromStorageString(community.merkle_tree)
   const isCommitmentInTree = merkleTree && merkleTree.leafExists(BigInt(computedCommitment))
-  const redeemable = state.secret && state.nullifier && community.merkle_tree && isCommitmentInTree
+  const redeemable =
+    communityIsOnSmartContract && state.secret && state.nullifier && community.merkle_tree && isCommitmentInTree
+
+  console.log({ redeemable, communityIsOnSmartContract, state, community, isCommitmentInTree, merkleTree })
 
   return (
     <>

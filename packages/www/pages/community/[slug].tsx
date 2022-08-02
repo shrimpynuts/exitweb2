@@ -12,12 +12,19 @@ import { ICommunity } from '../../types'
 import { CreateSubmissionButton } from '../../components/submissions/createSubmission'
 import { GenerateProofButton } from '../../components/submissions/generateProof'
 import Footer from '../../components/layout/footer'
+import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
+import { useContractReads } from 'wagmi'
 
 interface IProps {
   community: ICommunity
 }
 
 function CommunityPage({ community }: IProps) {
+  const { data: contractData } = useContractReads({
+    contracts: [{ ...AIRDROP_CONTRACT_DATA, functionName: 'communityToken' }],
+  })
+  const communityTokenAddress = contractData && String(contractData[0])
+
   return (
     <div className="min-h-screen flex flex-col justify-between">
       <div>
@@ -44,7 +51,7 @@ function CommunityPage({ community }: IProps) {
             </div>
             <div className="mt-8 flex space-x-2">
               <CreateSubmissionButton community={community} />
-              <GenerateProofButton community={community} secret={''} nullifier={''} />
+              <GenerateProofButton community={community} />
             </div>
           </div>
           <h1 className="block sm:hidden text-2xl font-bold mt-2 ml-4">{community.name}</h1>
@@ -81,7 +88,9 @@ function CommunityPage({ community }: IProps) {
                 </div>
               </div>
               <div className="col-span-3 flex flex-col p-4 border border-gray-300 rounded relative">
-                <CommunityChat community={community} communityTokenAddress={''} />
+                {communityTokenAddress && (
+                  <CommunityChat community={community} communityTokenAddress={communityTokenAddress} />
+                )}
               </div>
             </div>
           </div>
