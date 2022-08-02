@@ -3,11 +3,10 @@ import { useQuery } from '@apollo/client'
 import { useContractReads } from 'wagmi'
 
 import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS } from '../../lib/config'
-import { CommunityPickerSmall } from '../community/communityPicker'
+import CommunityPicker from '../community/communityPicker'
 import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
 import { removeUserToken } from '../../lib/client/auth'
 import SignInButton from '../util/signInWithEthereum'
-import AddMockCommunities from './addMockCommunities'
 import { isAdmin } from '../../lib/common/auth'
 import CommunityAdmin from './communityAdmin'
 import CopyCode from '../util/copyableCode'
@@ -146,7 +145,7 @@ export default function AdminPage() {
             className="border border-gray-300 rounded flex divide-x"
             style={!isSignedInAsAdmin ? { filter: 'blur(4px)', pointerEvents: 'none' } : {}}
           >
-            <CommunityPickerSmall
+            <CommunityPicker
               selectedCommunity={selectedCommunity}
               setSelectedCommunity={setSelectedCommunity}
               communities={communities}

@@ -1,8 +1,10 @@
+import classNames from 'classnames'
 import { ICommunity } from '../../types'
 
 interface IProps {
   community: Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
   withRequirement?: boolean
+  noHoverBgColor?: boolean
 }
 
 export default function CommunityCard({ community, withRequirement = true }: IProps) {
@@ -40,9 +42,13 @@ export function CommunityCardSmallVertical({ community }: IProps) {
   )
 }
 
-export function CommunityCardSmall({ community }: IProps) {
+export function CommunityCardSmall({ community, noHoverBgColor }: IProps) {
   return (
-    <div className="flex flex-row h-full w-full overflow-hidden rounded-lg px-2 py-1 space-x-2 hover:bg-blue-50">
+    <div
+      className={classNames(`flex flex-row h-full w-full overflow-hidden rounded-lg px-2 py-1 space-x-2`, {
+        'hover:bg-blue-50': !noHoverBgColor,
+      })}
+    >
       <img
         className="w-14 h-14 rounded-xl border-2 border-gray-300 object-contain bg-white"
         src={community.icon_image_url}
