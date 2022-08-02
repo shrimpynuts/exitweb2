@@ -77,7 +77,7 @@ export default function AdminPage() {
                 </span>
                 {!isSignedInAsOwnerOfContract && (
                   <span className="text-red-500">
-                    'You are not the owner of the contract, so you will not be able to update merkle roots.'
+                    You are not the owner of the contract, so you will not be able to update merkle roots.
                   </span>
                 )}
               </div>
