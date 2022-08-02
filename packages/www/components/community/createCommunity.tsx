@@ -48,18 +48,23 @@ export default function CreateCommunity({}: IProps) {
         </SlowShow>
       ) : (
         <div className="flex space-x-8 mx-4">
-          <CreateCommunityForm
-            onSuccess={(_newCommunity) => setIsSuccess(true)}
-            formState={formState}
-            setFormState={setFormState}
-          />
-          <div className="flex flex-col w-96 p-4 border border-gray-300 rounded bg-gray-100">
-            <h1 className="text-2xl mb-2 font-bold">Preview</h1>
-            <CommunityCard community={formState} />
-            <div className="mt-2 border border-gray-300 rounded-lg">
-              <CommunityCardSmall community={formState} noHoverBgColor />
+          <SlowShow step={2}>
+            <CreateCommunityForm
+              onSuccess={(_newCommunity) => setIsSuccess(true)}
+              formState={formState}
+              setFormState={setFormState}
+            />
+          </SlowShow>
+
+          <SlowShow step={8}>
+            <div className="flex flex-col w-96 p-4 border border-gray-300 rounded bg-gray-100">
+              <h1 className="text-2xl mb-2 font-bold">Preview</h1>
+              <CommunityCard community={formState} />
+              <div className="mt-2 border border-gray-300 rounded-lg">
+                <CommunityCardSmall community={formState} noHoverBgColor />
+              </div>
             </div>
-          </div>
+          </SlowShow>
         </div>
       )}
     </>
