@@ -56,7 +56,6 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
             error: 'Failed to add community to contract!',
           })
           .then(() => onSuccess(newCommunity))
-        await tx.wait()
       } catch (err) {
         // If we've added the community to our database, but couldn't add it to the smart contract,
         // we should delete the community from the database.
