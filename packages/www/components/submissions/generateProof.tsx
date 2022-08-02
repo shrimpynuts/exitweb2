@@ -6,7 +6,6 @@ import { pedersenHashConcat, toHex, generateProofCallData, pedersenHash } from '
 import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
 import { MerkleTree } from '../../lib/zkp/MerkleTree'
 import { getFileBuffer } from '../../lib/zkp/util'
-import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
 import Button from '../util/button'
 import Modal from '../util/modal'
@@ -55,16 +54,6 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
     args: [community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))],
   })
 
-  const claimToken = async () => {
-    return claim().catch((error) => {
-      if (error.data.message.includes('Airdrop already redeemed')) {
-        return Promise.reject(`Token has already been claimed!`)
-      } else {
-        return Promise.reject(`Error claiming tokens: ${error.data.message}`)
-      }
-    })
-  }
-
   // Onclick handler for proof generation
   const onGenerateProofClick = () => {
     toast.promise(generateProof(), {
@@ -98,12 +87,17 @@ export function GenerateProofButton({ community }: IProps) {
     }
   }, [])
 
+  const computedCommitment = toHex(pedersenHashConcat(BigInt(state.nullifier), BigInt(state.secret)))
+  const merkleTree = community.merkle_tree && MerkleTree.createFromStorageString(community.merkle_tree)
+  const isCommitmentInTree = merkleTree && merkleTree.leafExists(BigInt(computedCommitment))
+  const redeemable = state.secret && state.nullifier && community.merkle_tree && isCommitmentInTree
+
   return (
     <>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         <GenerateProof community={community} secret={String(state.secret)} nullifier={String(state.nullifier)} />
       </Modal>
-      {state.secret && state.nullifier && (
+      {redeemable && (
         <Button bgColor="bg-yellow-600" onClick={() => setIsOpen(true)}>
           Redeem
         </Button>
