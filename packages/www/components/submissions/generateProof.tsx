@@ -17,16 +17,8 @@ interface IProps {
 }
 
 export default function GenerateProof({ community, secret, nullifier }: IProps) {
-  const [proof, setProof] = useState<string>()
   const { address, isConnected } = useAccount()
-
-  const { writeAsync: claim } = useContractWrite({
-    ...AIRDROP_CONTRACT_DATA,
-    functionName: 'collectAirdrop',
-    args: [community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))],
-  })
-
-  console.log([community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))])
+  const { writeAsync: claim } = useContractWrite({ ...AIRDROP_CONTRACT_DATA, functionName: 'collectAirdrop' })
 
   const generateProofAndClaimTokens = async () => {
     if (!community) return
@@ -41,22 +33,31 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
     // Check if leaf is even in the merkle tree
     const merkleTree = MerkleTree.createFromStorageString(community.merkle_tree)
     const computedCommitment = toHex(pedersenHashConcat(BigInt(nullifier), BigInt(secret)))
+
     if (!merkleTree.leafExists(BigInt(computedCommitment)))
       return Promise.reject(new Error('Commitment not found in merkle tree!'))
 
-    // Generate proof and then claim token
-    await generateProofCallData(merkleTree, BigInt(nullifier), BigInt(secret), address, WASM_BUFF, ZKEY_BUFF)
-      .then(setProof)
-      .then(() => claim())
+    const proof = await generateProofCallData(
+      merkleTree,
+      BigInt(nullifier),
+      BigInt(secret),
+      address,
+      WASM_BUFF,
+      ZKEY_BUFF,
+    )
+
+    return claim({ args: [community.contract_id, proof, toHex(pedersenHash(BigInt(nullifier)))] })
   }
-  console.log({ proof })
 
   const onClaimClick = () => {
     toast.promise(generateProofAndClaimTokens(), {
       loading: 'Claiming your membership token. This may take a few minutes...',
-      success: 'Transaction successfully submitted!',
+      success: 'Transaction successfully submitted! Wait for it to be confirmed, then refresh this page.',
       error: (error) => {
         console.error({ error })
+        if (error.toString().includes('User denied transaction signature.')) {
+          return "You've denied the transaction."
+        }
         if (error.data && error.data.message.includes('Airdrop already redeemed')) {
           return 'Token has already been claimed!'
         }
@@ -69,7 +70,7 @@ export default function GenerateProof({ community, secret, nullifier }: IProps) 
     <div className="flex flex-col mx-auto p-12 rounded">
       <label className="text-xl font-bold mb-4">Redeem your membership!</label>
       <Button onClick={onClaimClick} bgColor="bg-green-500">
-        Claim Token
+        Claim Membership Token
       </Button>
     </div>
   )
@@ -83,6 +84,7 @@ export function GenerateProofButton({ community }: IGenerateProofButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [state, setState] = useState<{ secret: string; nullifier: string }>({ secret: '', nullifier: '' })
 
+  // This fetches the secret and nullifier from localStorage
   useEffect(() => {
     const data = localStorage.getItem(`exitweb2/community/${community.id}`)
     if (data) {
@@ -100,8 +102,6 @@ export function GenerateProofButton({ community }: IGenerateProofButtonProps) {
   const redeemable =
     communityIsOnSmartContract && state.secret && state.nullifier && community.merkle_tree && isCommitmentInTree
 
-  console.log({ redeemable, communityIsOnSmartContract, state, community, isCommitmentInTree, merkleTree })
-
   return (
     <>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -109,7 +109,7 @@ export function GenerateProofButton({ community }: IGenerateProofButtonProps) {
       </Modal>
       {redeemable && (
         <Button bgColor="bg-yellow-600" onClick={() => setIsOpen(true)}>
-          Redeem
+          Redeem Membership
         </Button>
       )}
     </>
