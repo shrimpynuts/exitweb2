@@ -71,7 +71,7 @@ export default function CreateMerkleTree({ submissions, community }: IProps) {
     if (!signer) return toast.error('Not signed in with Ethereum!')
     writeAsync().catch((e) => {
       console.error(e.message)
-      toast.error('Error updating smart contract. Check console.logs for more info.')
+      toast.error('Error updating smart contract. Check console for more info.')
     })
   }
 
