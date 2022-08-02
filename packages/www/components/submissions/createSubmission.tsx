@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 
 import { pedersenHashConcat, toHex } from '../../lib/zkp/Library'
-import { INSERT_SUBMISSION_ONE } from '../../graphql/mutations'
+import { INSERT_SUBMISSIONS } from '../../graphql/mutations'
 import ShareTweetButton from '../util/shareTweetButton'
 import { ICommunity, ISubmission } from '../../types'
 import { randomBigInt } from '../../lib/zkp/util'
@@ -18,7 +18,7 @@ interface IProps {
 type IState = Pick<ISubmission, 'community_id' | 'proof_of_interaction' | 'proof_of_account_ownership'>
 
 export default function CreateSubmission({ community, onFinished }: IProps) {
-  const [insertSubmission] = useMutation(INSERT_SUBMISSION_ONE)
+  const [insertSubmissions] = useMutation(INSERT_SUBMISSIONS)
 
   const [formState, setFormState] = useState<IState>({
     proof_of_interaction: 'http://twitter.com/',
@@ -48,7 +48,7 @@ export default function CreateSubmission({ community, onFinished }: IProps) {
     const submission = { ...formState, commitment }
 
     // Insert submission into database
-    insertSubmission({ variables: { submission } })
+    insertSubmissions({ variables: { submissions: [submission] } })
       // Handle successful response
       .then((res) => {
         toast.success('Created new submission.')
