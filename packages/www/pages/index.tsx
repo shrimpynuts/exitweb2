@@ -28,7 +28,7 @@ export default function HomePage({ communities }: IProps) {
         <Toaster position="top-center" reverseOrder={false} />
 
         {/* Hero section */}
-        <section className="bg-gray-100 border-b border-gray-300 h-full">
+        <section className="bg-blue-400 border-b border-gray-300 h-full">
           <Navbar />
           <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
@@ -49,7 +49,9 @@ export default function HomePage({ communities }: IProps) {
                       </Button>
                     </Link>
                     <Link href="/create-community">
-                      <Button classOverrides="py-1 text-lg text-gray-50 rounded-lg">Start a community</Button>
+                      <Button classOverrides="py-1 text-lg text-gray-50 rounded-lg bg-blue-700">
+                        Start a community
+                      </Button>
                     </Link>
                   </div>
                 </SlowShow>
