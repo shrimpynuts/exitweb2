@@ -9,7 +9,7 @@ interface IProps {
 
 export default function CommunityCard({ community, withRequirement = true }: IProps) {
   return (
-    <div className="flex flex-col h-full w-full rounded-lg border border-gray-300 overflow-hidden">
+    <div className="flex flex-col h-full w-full rounded-lg border border-gray-300 overflow-hidden bg-white">
       <img className="w-full -mb-12 h-36 object-cover" src={community.banner_image_url} />
       <div className="p-4 h-full flex flex-col">
         <img
@@ -47,7 +47,7 @@ export function CommunityCardSmallVertical({ community }: IProps) {
 export function CommunityCardSmall({ community, noHoverBgColor }: IProps) {
   return (
     <div
-      className={classNames(`flex flex-row h-full w-full overflow-hidden rounded-lg px-2 py-1 space-x-2`, {
+      className={classNames(`flex flex-row h-full w-full overflow-hidden rounded-lg px-2 py-1 space-x-2 bg-white`, {
         'hover:bg-blue-50': !noHoverBgColor,
       })}
     >
