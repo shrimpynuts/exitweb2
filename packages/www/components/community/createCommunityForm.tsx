@@ -63,14 +63,15 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
           .then(() => console.log('Deleting community with id '))
           .catch((err) => console.error(`Failed to delete failed community id ${newCommunityId}, ${err}`))
 
-        return toast.error(`Failed to add community to smart contract! ${err}`)
+        console.error({ err })
+        return toast.error(`Failed to add community to smart contract!`)
       }
     } catch (err: any) {
       console.error({ err })
       if (err.message.includes('unique constraint "community_slug_key"')) {
         return toast.error('Community with that slug already exists! Please choose a different slug.')
       }
-      return toast.error(`Failed to submit community to database! ${err}`)
+      return toast.error(`Failed to submit community to database!`)
     }
   }
 
