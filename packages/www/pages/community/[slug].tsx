@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import type { NextPageContext } from 'next'
 import { Toaster } from 'react-hot-toast'
 import moment from 'moment'

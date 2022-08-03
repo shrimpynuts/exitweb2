@@ -90,7 +90,7 @@ export function SingleCommunityListHorizontal({ communities }: Omit<ISingleCommu
           </div>
         </motion.ul>
       </SlowShow>
-      <a className="text-right self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800">
+      <a className="text-right self-end text-sm mt-2 font-semibold text-gray-600 hover:text-gray-800 px-4">
         <SlowShow step={6}>
           <Link href="/join-community">Explore all communities</Link>
         </SlowShow>

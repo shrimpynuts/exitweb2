@@ -36,7 +36,7 @@ export function CommunityCardSmallVertical({ community }: IProps) {
           />
         </div>
         <h1 className="text-md font-bold">{community.name}</h1>
-        <div className="h-12">
+        <div className="h-12 overflow-hidden">
           <h3 className="text-sm mt-2 mb-2">{community.description}</h3>
         </div>
       </div>

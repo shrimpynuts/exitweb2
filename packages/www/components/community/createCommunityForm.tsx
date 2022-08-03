@@ -22,8 +22,6 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
   const { data: signer } = useSigner()
 
-  const router = useRouter()
-
   const { data: numContractCommunities } = useContractRead({
     ...AIRDROP_CONTRACT_DATA,
     functionName: 'totalCommunities',
