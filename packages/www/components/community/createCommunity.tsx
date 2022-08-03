@@ -30,7 +30,7 @@ export default function CreateCommunity({}: IProps) {
     <>
       {isSuccess ? (
         <SlowShow step={6}>
-          <div className="flex flex-col w-2/3 p-8 border border-gray-300 rounded mx-auto bg-gray-100 mt-48 shadow">
+          <div className="flex flex-col w-2/3 p-8 border border-gray-300 rounded mx-auto bg-gray-100 mt-24 shadow">
             <SuccessBadge className="mx-auto" />
             {/* <img
               className="mx-auto w-14 h-14 rounded-full border-4 border-gray-300 object-contain bg-white"
