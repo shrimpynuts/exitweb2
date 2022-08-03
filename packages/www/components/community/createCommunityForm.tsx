@@ -54,7 +54,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
             error: 'Failed to add community to contract!',
           })
           .then(() => onSuccess(newCommunity))
-      } catch (err) {
+      } catch (err: any) {
         // If we've added the community to our database, but couldn't add it to the smart contract,
         // we should delete the community from the database.
         deleteCommunity({ variables: { id: newCommunityId } })
@@ -62,6 +62,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
           .catch((err) => console.error(`Failed to delete failed community id ${newCommunityId}, ${err}`))
 
         console.error({ err })
+        if (err.code === 4001) return toast.error('Transaction rejected!')
         return toast.error(`Failed to add community to smart contract!`)
       }
     } catch (err: any) {
