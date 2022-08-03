@@ -56,7 +56,7 @@ export default function CreateCommunity({}: IProps) {
             />
           </SlowShow>
 
-          <SlowShow step={8}>
+          <SlowShow step={4}>
             <div className="flex flex-col w-96 p-4 border border-gray-300 rounded bg-gray-100">
               <h1 className="text-2xl mb-2 font-bold">Preview</h1>
               <CommunityCard community={formState} />
