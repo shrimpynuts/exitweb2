@@ -1,19 +1,25 @@
 import Link from 'next/link'
 import Emoji from '../util/emoji'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import classNames from 'classnames'
 
 interface IProps {
   displayConnectButton?: boolean
   children?: React.ReactNode
+  border?: boolean
 }
 
 /**
  * Navigation bar that enables connect/disconnect from Web3.
  */
-const Navbar = ({ displayConnectButton = true, children }: IProps) => {
+const Navbar = ({ displayConnectButton = true, children, border = false }: IProps) => {
   return (
     <>
-      <nav className="w-full p-4 items-center  border-gray-300">
+      <nav
+        className={classNames('w-full p-4 items-center border-gray-300', {
+          'border-b': border,
+        })}
+      >
         <div className="max-w-screen-xl m-auto flex justify-between">
           {/* Logo */}
           <Link href="/" passHref>

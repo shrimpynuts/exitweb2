@@ -37,14 +37,14 @@ function CommunityPage({}: IProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
       <div>
         <Head>
           <title>{community.name}</title>
           <meta name={community.description} content="" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Navbar />
+        <Navbar border />
         <div className="max-w-screen-xl m-auto">
           <Toaster position="top-center" reverseOrder={false} />
         </div>
@@ -70,24 +70,24 @@ function CommunityPage({}: IProps) {
           <div className="mt-8 md:mt-0 max-w-screen-xl mx-auto px-4">
             <div className="hidden md:grid grid-cols-1 md:grid-cols-4 gap-4 h-full">
               <div></div>
-              <div className="col-span-3 flex space-x-2 mx-4">
-                <div className="bg-gray-100 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
+              <div className="col-span-3 flex space-x-2 mx-4 ">
+                <div className="text-gray-800 bg-white border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm cursor-pointer">
                   Chat
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="text-gray-800 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Announcements
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="text-gray-800 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Discussion Board
                 </div>
-                <div className="border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
+                <div className="text-gray-800 border border-b-0 border-gray-300 rounded-t px-4 py-2 tracking-widest font-bold text-sm select-none cursor-not-allowed">
                   Pool
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-4 h-full">
-              <div className="flex flex-col border border-gray-300 rounded">
+              <div className="flex flex-col border border-gray-300 rounded bg-white text-gray-800">
                 <div className="text-xl font-semibold border-b border-gray-300 px-4 py-2">About this community</div>
                 <div className="p-4">
                   <h3 className="leading-loose text-lg font-semibold">Description</h3>
@@ -98,7 +98,7 @@ function CommunityPage({}: IProps) {
                   <p className="">{moment(community.created_at).format('MMMM Do, YYYY')}</p>
                 </div>
               </div>
-              <div className="col-span-3 flex flex-col p-4 border border-gray-300 rounded relative">
+              <div className="col-span-3 flex flex-col p-4 border border-gray-300 rounded relative bg-white">
                 {communityTokenAddress && (
                   <CommunityChat community={community} communityTokenAddress={communityTokenAddress} />
                 )}

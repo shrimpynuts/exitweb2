@@ -16,7 +16,7 @@ export default function JoinCommunity() {
   const communities: ICommunity[] = data?.community
 
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
       <Head>
         <title>Exit Web2</title>
         <meta name="description" content="" />

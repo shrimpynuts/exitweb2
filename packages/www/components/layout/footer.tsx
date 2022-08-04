@@ -2,14 +2,12 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 mt-8 border-t border-gray-300">
+    <footer className="bg-gray-100 mt-16 border-t border-gray-300">
       <div className="container mx-auto px-8 md:px-24">
-        <div className="w-full flex flex-row justify-between py-8">
-          <div className="flex space-x-8">
-            <Link href="/about" passHref>
-              <a className="text-gray-600 hover:text-gray-800">About</a>
-            </Link>
-          </div>
+        <div className="w-full flex flex-row justify-between py-6 items-center">
+          <Link href="/about" passHref>
+            <a className="text-gray-600 hover:text-gray-800 text-sm">About</a>
+          </Link>
           <div>
             <a
               href="https://twitter.com/exitweb2"
