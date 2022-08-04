@@ -9,24 +9,32 @@ import CommunityChat from '../../components/chat/communityChat'
 import { GET_COMMUNITY_BY_SLUG } from '../../graphql/queries'
 import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
 import Navbar from '../../components/layout/navbar'
-import client from '../../lib/client/apollo-client'
 import Footer from '../../components/layout/footer'
-import { ICommunity } from '../../types'
 import { useContractReads } from 'wagmi'
+import { useRouter } from 'next/dist/client/router'
+import { useQuery } from '@apollo/client'
 
-interface IProps {
-  community: ICommunity
-}
+interface IProps {}
 
 const GenerateProofButtonWithNoSSR = dynamic(() => import('../../components/submissions/generateProof'), {
   ssr: false,
 })
 
-function CommunityPage({ community }: IProps) {
+function CommunityPage({}: IProps) {
+  const router = useRouter()
+  const { slug } = router.query
+
   const { data: contractData } = useContractReads({
     contracts: [{ ...AIRDROP_CONTRACT_DATA, functionName: 'communityToken' }],
   })
   const communityTokenAddress = contractData && String(contractData[0])
+
+  const { data } = useQuery(GET_COMMUNITY_BY_SLUG, { variables: { slug: slug } })
+  const community = data && data.community[0]
+
+  if (!community) {
+    return <div></div>
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between">
@@ -102,13 +110,6 @@ function CommunityPage({ community }: IProps) {
       <Footer />
     </div>
   )
-}
-
-CommunityPage.getInitialProps = async ({ query }: NextPageContext) => {
-  const slug = query.slug
-  const result = await client.query({ query: GET_COMMUNITY_BY_SLUG, variables: { slug } })
-  const community = result.data.community[0]
-  return { community }
 }
 
 export default CommunityPage
