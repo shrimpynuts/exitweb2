@@ -1,22 +1,26 @@
 import type { NextPageContext } from 'next'
 import { Toaster } from 'react-hot-toast'
-import moment from 'moment'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import moment from 'moment'
 
+import { CreateSubmissionButton } from '../../components/submissions/createSubmission'
 import CommunityChat from '../../components/chat/communityChat'
 import { GET_COMMUNITY_BY_SLUG } from '../../graphql/queries'
+import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
 import Navbar from '../../components/layout/navbar'
 import client from '../../lib/client/apollo-client'
-import { ICommunity } from '../../types'
-import { CreateSubmissionButton } from '../../components/submissions/createSubmission'
-import { GenerateProofButton } from '../../components/submissions/generateProof'
 import Footer from '../../components/layout/footer'
-import { AIRDROP_CONTRACT_DATA } from '../../lib/config'
+import { ICommunity } from '../../types'
 import { useContractReads } from 'wagmi'
 
 interface IProps {
   community: ICommunity
 }
+
+const GenerateProofButtonWithNoSSR = dynamic(() => import('../../components/submissions/generateProof'), {
+  ssr: false,
+})
 
 function CommunityPage({ community }: IProps) {
   const { data: contractData } = useContractReads({
@@ -50,7 +54,7 @@ function CommunityPage({ community }: IProps) {
             </div>
             <div className="mt-8 flex space-x-2">
               <CreateSubmissionButton community={community} />
-              <GenerateProofButton community={community} />
+              <GenerateProofButtonWithNoSSR community={community} />
             </div>
           </div>
           <h1 className="block sm:hidden text-2xl font-bold mt-2 ml-4">{community.name}</h1>

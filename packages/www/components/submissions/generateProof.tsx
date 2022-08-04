@@ -16,7 +16,7 @@ interface IProps {
   nullifier: string
 }
 
-export default function GenerateProof({ community, secret, nullifier }: IProps) {
+function GenerateProof({ community, secret, nullifier }: IProps) {
   const { address, isConnected } = useAccount()
   const { writeAsync: claim } = useContractWrite({ ...AIRDROP_CONTRACT_DATA, functionName: 'collectAirdrop' })
 
@@ -80,7 +80,7 @@ interface IGenerateProofButtonProps {
   community: ICommunity
 }
 
-export function GenerateProofButton({ community }: IGenerateProofButtonProps) {
+export default function GenerateProofButton({ community }: IGenerateProofButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [state, setState] = useState<{ secret: string; nullifier: string }>({ secret: '', nullifier: '' })
 
