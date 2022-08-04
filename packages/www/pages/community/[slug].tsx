@@ -44,7 +44,7 @@ function CommunityPage({}: IProps) {
           <meta name={community.description} content="" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Navbar border />
+        <Navbar border white />
         <div className="max-w-screen-xl m-auto">
           <Toaster position="top-center" reverseOrder={false} />
         </div>

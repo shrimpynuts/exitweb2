@@ -7,17 +7,19 @@ interface IProps {
   displayConnectButton?: boolean
   children?: React.ReactNode
   border?: boolean
+  white?: boolean
 }
 
 /**
  * Navigation bar that enables connect/disconnect from Web3.
  */
-const Navbar = ({ displayConnectButton = true, children, border = false }: IProps) => {
+const Navbar = ({ displayConnectButton = true, children, border = false, white = false }: IProps) => {
   return (
     <>
       <nav
         className={classNames('w-full p-4 items-center border-gray-300', {
           'border-b': border,
+          'bg-white': white,
         })}
       >
         <div className="max-w-screen-xl m-auto flex justify-between">
