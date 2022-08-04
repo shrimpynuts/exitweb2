@@ -49,7 +49,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         let tx = await airdropContract.registerCommunity(formState.name)
         toast
           .promise(tx.wait(), {
-            loading: 'Confirming transaction... Do not refresh the page.',
+            loading: 'Confirming transaction...',
             success: 'Successfully added community to smart contract!',
             error: 'Failed to add community to contract!',
           })
