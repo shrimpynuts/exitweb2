@@ -10,12 +10,7 @@ interface IProps {
   onHoverClass?: string
 }
 
-export default function CommunityPicker({
-  communities,
-  selectedCommunity,
-  setSelectedCommunity,
-  onHoverClass = 'bg-blue-200',
-}: IProps) {
+export default function CommunityPicker({ communities, selectedCommunity, setSelectedCommunity }: IProps) {
   return (
     <div>
       {communities && communities.length > 0 ? (
@@ -34,7 +29,7 @@ export default function CommunityPicker({
         </div>
       ) : (
         <div>
-          <h1 className="text-center py-8">No communities found :/</h1>
+          <h1 className="text-center p-8">No communities found.</h1>
         </div>
       )}
     </div>

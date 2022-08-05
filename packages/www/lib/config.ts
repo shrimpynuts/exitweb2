@@ -3,10 +3,10 @@ import PRIVATE_AIRDROP_JSON from './ABIs/PrivateAirdrop.json'
 import COMMUNITY_TOKEN_JSON from './ABIs/CommunityToken.json'
 
 /** Private airdrop contract configs */
-const AIRDROP_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BASE_CONTRACT_ADDRESS
-if (AIRDROP_CONTRACT_ADDRESS === undefined) {
+if (process.env.NEXT_PUBLIC_BASE_CONTRACT_ADDRESS === undefined) {
   throw `NEXT_PUBLIC_BASE_CONTRACT_ADDRESS not set in the environment variables!`
 }
+export const AIRDROP_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BASE_CONTRACT_ADDRESS
 export const AIRDROP_ABI = PRIVATE_AIRDROP_JSON.abi
 
 export const AIRDROP_CONTRACT_DATA = {
