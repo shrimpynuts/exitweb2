@@ -29,7 +29,7 @@ export default function HomePage({ communities }: IProps) {
 
         {/* Hero section */}
         <section className="bg-gray-100 border-b border-gray-300 h-full">
-          <Navbar />
+          <Navbar displayConnectButton={false} />
           <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
             <div className="flex py-24 px-8 md:max-w-6xl mx-auto">
               {/* Left side */}
