@@ -21,7 +21,7 @@ export default function JoinCommunity() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Navbar>{communities.length > 0 && <CreateCommunityButton />}</Navbar>
+        <Navbar>{communities && communities.length > 0 && <CreateCommunityButton />}</Navbar>
         <Toaster position="top-center" reverseOrder={false} />
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
