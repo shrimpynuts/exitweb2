@@ -89,13 +89,19 @@ function CommunityPage({}: IProps) {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-4 h-full">
               <div className="flex flex-col border border-gray-300 rounded bg-white text-gray-800">
                 <div className="text-xl font-semibold border-b border-gray-300 px-4 py-2">About this community</div>
-                <div className="p-4">
-                  <h3 className="leading-loose text-lg font-semibold">Description</h3>
-                  <p className="">{community.description}</p>
-                  <h3 className="leading-loose text-lg font-semibold">Requirement</h3>
-                  <p className="">{community.requirement}</p>
-                  <h3 className="leading-loose text-lg font-semibold">Created</h3>
-                  <p className="">{moment(community.created_at).format('MMMM Do, YYYY')}</p>
+                <div className="px-4 py-2 space-y-4">
+                  <div>
+                    <h3 className="leading-loose font-semibold">Description</h3>
+                    <p className="text-sm">{community.description}</p>
+                  </div>
+                  <div>
+                    <h3 className="leading-loose font-semibold">Requirement</h3>
+                    <p className="text-sm">{community.requirement}</p>
+                  </div>
+                  <div>
+                    <h3 className="leading-loose font-semibold">Created</h3>
+                    <p className="text-sm">{moment(community.created_at).format('MMMM Do, YYYY')}</p>
+                  </div>
                 </div>
               </div>
               <div className="col-span-3 flex flex-col p-4 border border-gray-300 rounded relative bg-white">
