@@ -176,6 +176,17 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       <Button classOverrides="mt-4" onClick={onSubmitClick}>
         Submit
       </Button>
+
+      <style jsx>
+        {`
+          :global(.uploadcare--widget__button_type_open) {
+            background-color: #7c7c7c;
+          }
+          :global(.uploadcare--widget__button_type_open:hover) {
+            background-color: #393939;
+          }
+        `}
+      </style>
     </div>
   )
 }
