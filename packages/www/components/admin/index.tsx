@@ -155,7 +155,7 @@ export default function AdminPage() {
                 <CommunityAdmin community={selectedCommunity} communityTokenAddress={String(contractData[2])} />
               ) : (
                 <div className="px-4">
-                  {!selectedCommunity && <p className="italic">No community selected.</p>}
+                  {!selectedCommunity && <p className="italic p-4">No community selected.</p>}
                   {!contractData && <p className="italic">Having trouble fetching data from smart contract.</p>}
                 </div>
               )}
