@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 import { useContractRead, useSigner } from 'wagmi'
@@ -8,8 +6,8 @@ import { AIRDROP_CONTRACT_DATA, getAirdropContractWithSigner } from '../../lib/c
 import { INSERT_COMMUNITY_ONE, DELETE_COMMUNITY_BY_ID } from '../../graphql/mutations'
 import Button from '../util/button'
 import { Widget } from '@uploadcare/react-widget'
-import { useRouter } from 'next/dist/client/router'
 import { NewCommunity } from './createCommunity'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 interface IProps {
   onSuccess: (community: NewCommunity) => void
@@ -21,6 +19,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
   const [deleteCommunity] = useMutation(DELETE_COMMUNITY_BY_ID)
   const [insertCommunity] = useMutation(INSERT_COMMUNITY_ONE)
   const { data: signer } = useSigner()
+  const { openConnectModal } = useConnectModal()
 
   const { data: numContractCommunities } = useContractRead({
     ...AIRDROP_CONTRACT_DATA,
@@ -34,11 +33,13 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
   const onSubmitClick = async () => {
     // Calculate contract_id
     const contract_id = Number(numContractCommunities)
-    if (numContractCommunities === undefined || contract_id === undefined)
+    if (numContractCommunities === undefined || contract_id === undefined) {
       return toast.error('Error connecting to smart contract!')
-
+    }
     const newCommunity = { ...formState, contract_id }
-    if (!signer) return toast.error('Not signed in with Ethereum!')
+    if (!signer) {
+      return openConnectModal && openConnectModal()
+    }
 
     // Add community to database
     try {
