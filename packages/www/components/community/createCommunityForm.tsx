@@ -1,3 +1,4 @@
+import { FocusEvent, FocusEventHandler, useEffect, useRef } from 'react'
 import { useMutation } from '@apollo/client'
 import toast from 'react-hot-toast'
 import { useContractRead, useSigner } from 'wagmi'
@@ -8,7 +9,6 @@ import Button from '../util/button'
 import { Widget } from '@uploadcare/react-widget'
 import { NewCommunity } from './createCommunity'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useEffect, useRef } from 'react'
 
 interface IProps {
   onSuccess: (community: NewCommunity) => void
@@ -87,6 +87,10 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
 
   const inputClassName = 'rounded border mb-2 border-gray-300 hover:'
   const windowUrl = process.env.NODE_ENV === 'development' ? 'localhost:3000/' : 'https://www.exitweb2.xyz/'
+  const handleInputFocus: FocusEventHandler<HTMLInputElement> = (event: FocusEvent<HTMLInputElement>) =>
+    event.target.select()
+  const handleAreaFocus: FocusEventHandler<HTMLTextAreaElement> = (event: FocusEvent<HTMLTextAreaElement>) =>
+    event.target.select()
 
   return (
     <div className="flex flex-col w-96 p-4 border border-gray-300 rounded bg-gray-100">
@@ -99,6 +103,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         type="text"
         name="name"
         placeholder="The name of your community"
+        onFocus={handleInputFocus}
         value={formState.name}
         required
         onChange={handleInputChange}
@@ -116,6 +121,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         type="text"
         name="slug"
         placeholder="The unique slug for the community's URL"
+        onFocus={handleInputFocus}
         value={formState.slug}
         required
         onChange={handleInputChange}
@@ -126,6 +132,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         className={inputClassName}
         rows={3}
         placeholder="The general description of what the community is about."
+        onFocus={handleAreaFocus}
         name="description"
         value={formState.description}
         required
@@ -137,6 +144,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         className={inputClassName}
         rows={3}
         placeholder="The requirement for new members to join. (e.g. 'Provide a link to a tweet')"
+        onFocus={handleAreaFocus}
         name="requirement"
         value={formState.requirement}
         required
