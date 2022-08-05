@@ -39,7 +39,7 @@ function SingleFAQ({ question, answer, initialState }: ISingleFAQProps) {
 
 function FAQ() {
   return (
-    <div className="py-4 px-2">
+    <div className="p-8 border border-gray-300 rounded bg-gray-100">
       <div className="mx-auto flex flex-col md:flex-row">
         <h2 className="mr-8 w-full text-2xl font-bold pb-4">Frequently-asked questions</h2>
         <dl className="flex flex-col space-y-4 px-2">
