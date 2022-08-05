@@ -18,14 +18,13 @@ export type NewCommunity = Omit<ICommunity, 'created_at' | 'updated_at' | 'id'>
 export default function CreateCommunity({}: IProps) {
   const [isSuccess, setIsSuccess] = useState(false)
   const [formState, setFormState] = useState<NewCommunity>({
-    name: 'Twitter OGs',
-    description: 'Made for the Twitter Open Graphs community.',
-    requirement: 'Must post a link to your reply to a @twitter_og_bot tweet prior to 2022.',
-    icon_image_url: 'https://cdn-icons-png.flaticon.com/512/124/124021.png',
-    banner_image_url:
-      'https://daocentral.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdaojones%2Fimage%2Fupload%2Fv1637755736%2FCleanShot_2021-11-24_at_04.08.33_pxl0kp.png&w=3840&q=75',
+    name: 'Elon Musk Fan Club',
+    description: 'A community for early supporters of Elon Musk and his various ventures.',
+    requirement: 'Must post a link to your tweet mentioning @elonmusk prior to 2020.',
+    icon_image_url: 'https://ucarecdn.com/dbdaef6c-4614-4bb6-9329-ef2f82f41f6b/gettyimages1229892983square.jpeg',
+    banner_image_url: 'https://ucarecdn.com/77e5ce9f-fe2e-4198-a819-76f063877794/download.jpeg',
     key: toHex(randomBigInt(31)),
-    slug: 'twitter-og',
+    slug: 'elon-fan-club',
   })
 
   return (

@@ -8,6 +8,7 @@ import Button from '../util/button'
 import { Widget } from '@uploadcare/react-widget'
 import { NewCommunity } from './createCommunity'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useEffect, useRef } from 'react'
 
 interface IProps {
   onSuccess: (community: NewCommunity) => void
@@ -26,6 +27,12 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
     functionName: 'totalCommunities',
     select: (data) => data.toNumber(),
   })
+
+  const inputEl = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputEl.current && inputEl.current?.focus()
+  }, [])
 
   const handleInputChange = (event: React.BaseSyntheticEvent) =>
     setFormState({ ...formState, [event.target.name]: event.target.value })
@@ -78,7 +85,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
     }
   }
 
-  const inputClassName = 'rounded border mb-2 border-gray-300'
+  const inputClassName = 'rounded border mb-2 border-gray-300 hover:'
   const windowUrl = process.env.NODE_ENV === 'development' ? 'localhost:3000/' : 'https://www.exitweb2.xyz/'
 
   return (
@@ -88,9 +95,10 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       <label className="my-2 font-semibold">Name</label>
       <input
         className={inputClassName}
+        ref={inputEl}
         type="text"
         name="name"
-        placeholder="Crypto Twitter OGs"
+        placeholder="The name of your community"
         value={formState.name}
         required
         onChange={handleInputChange}
@@ -107,7 +115,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         className={inputClassName}
         type="text"
         name="slug"
-        placeholder=""
+        placeholder="The unique slug for the community's URL"
         value={formState.slug}
         required
         onChange={handleInputChange}
@@ -116,8 +124,8 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       <label className="my-2 font-semibold">Description</label>
       <textarea
         className={inputClassName}
-        rows={2}
-        placeholder="The Crypto Twitter OGs community is a community of people who are interested in the crypto space."
+        rows={3}
+        placeholder="The general description of what the community is about."
         name="description"
         value={formState.description}
         required
@@ -127,8 +135,8 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       <label className="my-2 font-semibold">Requirement</label>
       <textarea
         className={inputClassName}
-        rows={2}
-        placeholder="You must provide a link to a reply to one of my tweets on the account @crypto_twitter_ogs."
+        rows={3}
+        placeholder="The requirement for new members to join. (e.g. 'Provide a link to a tweet')"
         name="requirement"
         value={formState.requirement}
         required
