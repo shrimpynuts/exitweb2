@@ -3,6 +3,8 @@ import { ICommunity } from '../../types'
 import { SlowShow } from '../util/slowShow'
 import { CommunityCardSmallVertical, CommunityCardSmall, CommunityCardSmallSkeleton } from './communityCard'
 import { motion } from 'framer-motion'
+import UserGroup from '../svg/user-group'
+import { CreateCommunityButton } from './createCommunity'
 
 interface IProps {
   popularCommunities: ICommunity[]
@@ -28,7 +30,7 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
   return (
     <div>
       <h2 className="text-lg font-bold mb-1">{title}</h2>
-      <div className="flex flex-col space-y-0 border border-gray-300 bg-white rounded-lg md:w-80">
+      <div className="flex flex-col space-y-0 border border-gray-300 bg-white rounded-lg md:w-80 h-full">
         {communities && communities.length > 0 ? (
           <>
             {communities.map((community, i) => (
@@ -41,9 +43,19 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
           </>
         ) : (
           <div>
-            {[...Array(10)].map((_, i) => (
-              <CommunityCardSmallSkeleton key={i} />
-            ))}
+            {communities && communities.length === 0 ? (
+              <div className="h-full py-72">
+                <div className="text-center">
+                  <div className="w-full mx-auto text-center text-gray-600">
+                    <UserGroup className="h-8 w-8 mx-auto" />
+                  </div>
+                  <h3 className="text-lg text-gray-600 mb-2">No communities yet!</h3>
+                  <CreateCommunityButton />
+                </div>
+              </div>
+            ) : (
+              [...Array(10)].map((_, i) => <CommunityCardSmallSkeleton key={i} />)
+            )}
           </div>
         )}
       </div>
@@ -72,6 +84,9 @@ const item = {
 }
 
 export function SingleCommunityListHorizontal({ communities }: Omit<ISingleCommuntyListProps, 'title'>) {
+  if (!communities || communities.length === 0) {
+    return <></>
+  }
   return (
     <div className="py-8 px-8 md:max-w-6xl mx-auto flex flex-col overflow-hidden">
       <SlowShow step={4}>

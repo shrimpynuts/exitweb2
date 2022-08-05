@@ -8,6 +8,8 @@ import CreateCommunityForm from './createCommunityForm'
 import SuccessBadge from '../svg/success-badge'
 import Button from '../util/button'
 import { SlowShow } from '../util/slowShow'
+import Plus from '../svg/plus'
+import Link from 'next/link'
 
 interface IProps {}
 
@@ -68,5 +70,17 @@ export default function CreateCommunity({}: IProps) {
         </div>
       )}
     </>
+  )
+}
+
+export const CreateCommunityButton = () => {
+  return (
+    <Link href="/create-community">
+      <Button bgColor="bg-gray-700" classOverrides="text-sm">
+        <div className="flex items-center space-x-2">
+          <Plus /> &nbsp; Create a new community
+        </div>
+      </Button>
+    </Link>
   )
 }

@@ -1,15 +1,13 @@
 import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
 
+import { CreateCommunityButton } from '../components/community/createCommunity'
 import CommunityList from '../components/community/communityList'
 import { GET_ALL_COMMUNITIES } from '../graphql/queries'
 import Navbar from '../components/layout/navbar'
 import Footer from '../components/layout/footer'
-import Button from '../components/util/button'
 import { useQuery } from '@apollo/client'
 import { ICommunity } from '../types'
-import Link from 'next/link'
-import Plus from '../components/svg/plus'
 
 export default function JoinCommunity() {
   const { data } = useQuery(GET_ALL_COMMUNITIES)
@@ -23,15 +21,7 @@ export default function JoinCommunity() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Navbar>
-          <Link href="/create-community">
-            <Button bgColor="hidden lg:block bg-gray-700" classOverrides="text-sm">
-              <div className="flex items-center space-x-2">
-                <Plus /> &nbsp; Create a new community
-              </div>
-            </Button>
-          </Link>
-        </Navbar>
+        <Navbar>{communities.length > 0 && <CreateCommunityButton />}</Navbar>
         <Toaster position="top-center" reverseOrder={false} />
 
         <div className="max-w-screen-xl m-auto pb-4 md:pb-12">
