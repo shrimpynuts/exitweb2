@@ -10,6 +10,7 @@ import { ICommunity, IMessage } from '../../types'
 import Lock from '../svg/lock'
 import { INSERT_MESSAGE_ONE } from '../../graphql/mutations'
 import toast from 'react-hot-toast'
+import RestrictedCard from '../util/restrictedCard'
 
 interface IProps {
   community: ICommunity
@@ -88,16 +89,7 @@ export default function CommunityChat({ community, communityTokenAddress }: IPro
 
   return (
     <>
-      {!isOwner && (
-        <div className="blur-none text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
-          <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
-            <div className="text-center mx-auto w-8 ">
-              <Lock />
-            </div>
-            Not a member of this community!
-          </div>
-        </div>
-      )}
+      {!isOwner && <RestrictedCard message="Not a member of this community!" />}
       <div
         className={classNames('border border-gray-300 rounded-lg overflow-hidden', {
           'select-none cursor-not-allowed': !isOwner,

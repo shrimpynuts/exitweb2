@@ -12,8 +12,9 @@ import CommunityAdmin from './communityAdmin'
 import CopyCode from '../util/copyableCode'
 import { ICommunity } from '../../types'
 import Button from '../util/button'
-import Lock from '../svg/lock'
 import toast from 'react-hot-toast'
+import RestrictedCard from '../util/restrictedCard'
+import AddMockCommunities from './addMockCommunities'
 
 export default function AdminPage() {
   const { data } = useQuery(GET_ALL_COMMUNITIES, {
@@ -60,7 +61,7 @@ export default function AdminPage() {
     <>
       {communities && (
         <div className="mx-4 lg:mx-24 mt-8 space-y-4">
-          <div className="p-4 border border-gray-300 rounded">
+          <div className="p-4 border border-gray-300 rounded bg-white">
             {state.address ? (
               <div className="flex space-x-4">
                 <Button
@@ -88,12 +89,12 @@ export default function AdminPage() {
             )}
           </div>
 
-          <div className="p-4 border border-gray-300 rounded">
-            <p className="font-bold text-2xl my-2">Airdrop Smart Contract:</p>
+          <div className="p-4 border border-gray-300 rounded bg-white">
+            <p className="font-bold text-2xl my-2">Smart Contract Details:</p>
             {contractData && contractData[0] ? (
               <>
                 <div>
-                  <p className="text-lg inline">Contract address: </p>
+                  <p className="text-lg inline">Base Contract Address: </p>
                   <CopyCode text={AIRDROP_CONTRACT_ADDRESS} inline />
                 </div>
                 <div>
@@ -101,7 +102,7 @@ export default function AdminPage() {
                   <CopyCode text={String(contractData[1])} inline />
                 </div>
                 <div>
-                  <p className="text-lg inline">Community Token:</p>
+                  <p className="text-lg inline">Community Token Contract Address:</p>
                   <CopyCode text={String(contractData[2])} inline />
                 </div>
                 <p className="text-lg">Number of communities: {contractData[0].toNumber()}</p>
@@ -116,33 +117,11 @@ export default function AdminPage() {
             )}
           </div>
 
-          {!state.address && (
-            <div>
-              <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
-                <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
-                  <div className="text-center mx-auto w-8 ">
-                    <Lock />
-                  </div>
-                  Not signed in with Ethereum!
-                </div>
-              </div>
-            </div>
-          )}
-          {state.address && !isSignedInAsAdmin && (
-            <div>
-              <div className="text-center text-2xl absolute z-10 w-60 md:w-96 mx-auto left-0 right-0 mt-32 select-none cursor-not-allowed">
-                <div className="border border-gray-300 rounded-xl bg-gray-50 py-6 px-4 shadow-md text-gray-700 tracking-tighter">
-                  <div className="text-center mx-auto w-8 ">
-                    <Lock />
-                  </div>
-                  Not admin account!
-                </div>
-              </div>
-            </div>
-          )}
+          {!state.address && <RestrictedCard message="Not signed in with Ethereum!" />}
+          {state.address && !isSignedInAsAdmin && <RestrictedCard message="Not admin account!" />}
 
           <div
-            className="border border-gray-300 rounded flex divide-x"
+            className="border border-gray-300 rounded flex divide-x bg-white"
             style={!isSignedInAsAdmin ? { filter: 'blur(4px)', pointerEvents: 'none' } : {}}
           >
             <CommunityPicker
@@ -162,10 +141,12 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* <div className="p-4 border border-gray-300 rounded">
-            <p className="italic">This adds a bunch of mock communities to seed the database for testing purposes.</p>
-            {process.env.NODE_ENV === 'development' && <AddMockCommunities />}
-          </div> */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="p-4 border border-gray-300 rounded bg-white">
+              <p className="italic">This adds a bunch of mock communities to seed the database for testing purposes.</p>
+              <AddMockCommunities />
+            </div>
+          )}
         </div>
       )}
     </>
