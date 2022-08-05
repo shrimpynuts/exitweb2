@@ -34,6 +34,8 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
   const onSubmitClick = async () => {
     // Calculate contract_id
     const contract_id = Number(numContractCommunities)
+    if (!numContractCommunities || contract_id) return toast.error('Error connecting to smart contract!')
+
     const newCommunity = { ...formState, contract_id }
     if (!signer) return toast.error('Not signed in with Ethereum!')
 
