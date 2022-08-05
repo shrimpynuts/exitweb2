@@ -14,9 +14,11 @@ import apolloClient from '../lib/client/apollo-client'
 
 const { chains, provider } = configureChains(
   [
-    ...(process.env.NODE_ENV === 'development' ? [chain.localhost] : []),
+    // Rainbowkit will prompt users to switch to the first chain provided
+    // If you want to use localhost in a dev environment, uncomment the line below
+    // ...(process.env.NODE_ENV === 'development' ? [chain.localhost] : []),
     chain.goerli,
-    chain.mainnet,
+    // chain.mainnet,
     // chain.polygon, chain.optimism, chain.arbitrum
   ],
   [alchemyProvider({ alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API }), publicProvider()],
