@@ -8,6 +8,7 @@ export const CORE_SUBMISSION_FIELDS = gql`
     community_id
     created_at
     proof_of_interaction
+    proof_of_account_ownership
     updated_at
   }
 `
