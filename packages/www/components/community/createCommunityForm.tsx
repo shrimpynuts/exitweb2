@@ -35,6 +35,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
     // Calculate contract_id
     const contract_id = Number(numContractCommunities)
     const newCommunity = { ...formState, contract_id }
+    if (!signer) return toast.error('Not signed in with Ethereum!')
 
     // Add community to database
     try {
@@ -44,7 +45,6 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
 
       // Add community to airdrop contract
       try {
-        if (!signer) return toast.error('Not signed in with Ethereum!')
         let airdropContract = getAirdropContractWithSigner(signer)
         let tx = await airdropContract.registerCommunity(formState.name)
         toast
@@ -110,9 +110,9 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       />
 
       <label className="my-2 font-semibold">Description</label>
-      <input
+      <textarea
         className={inputClassName}
-        type="text"
+        rows={2}
         placeholder="The Crypto Twitter OGs community is a community of people who are interested in the crypto space."
         name="description"
         value={formState.description}
@@ -121,9 +121,9 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
       />
 
       <label className="my-2 font-semibold">Requirement</label>
-      <input
+      <textarea
         className={inputClassName}
-        type="text"
+        rows={2}
         placeholder="You must provide a link to a reply to one of my tweets on the account @crypto_twitter_ogs."
         name="requirement"
         value={formState.requirement}
