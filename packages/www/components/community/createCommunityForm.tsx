@@ -34,7 +34,8 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
   const onSubmitClick = async () => {
     // Calculate contract_id
     const contract_id = Number(numContractCommunities)
-    if (!numContractCommunities || !contract_id) return toast.error('Error connecting to smart contract!')
+    if (numContractCommunities === undefined || contract_id === undefined)
+      return toast.error('Error connecting to smart contract!')
 
     const newCommunity = { ...formState, contract_id }
     if (!signer) return toast.error('Not signed in with Ethereum!')
@@ -60,7 +61,7 @@ export default function CreateCommunityForm({ onSuccess, formState, setFormState
         // If we've added the community to our database, but couldn't add it to the smart contract,
         // we should delete the community from the database.
         deleteCommunity({ variables: { id: newCommunityId } })
-          .then(() => console.log('Deleting community with id '))
+          .then(() => console.log('Deleted community with id', newCommunityId))
           .catch((err) => console.error(`Failed to delete failed community id ${newCommunityId}, ${err}`))
 
         console.error({ err })
