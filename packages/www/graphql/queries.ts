@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import { CORE_SUBMISSION_FIELDS, CORE_COMMUNITY_FIELDS, CORE_MESSAGE_FIELDS } from './fragments'
 
-export const GET_SUBMISSIONS = gql`
+export const GET_ALL_SUBMISSIONS = gql`
   ${CORE_SUBMISSION_FIELDS}
   query GetSubmissions {
     submissions(order_by: { created_at: asc }) {

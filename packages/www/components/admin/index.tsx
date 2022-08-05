@@ -4,13 +4,13 @@ import { useContractReads } from 'wagmi'
 
 import { AIRDROP_CONTRACT_DATA, AIRDROP_CONTRACT_ADDRESS } from '../../lib/config'
 import CommunityPicker from '../community/communityPicker'
-import { GET_ALL_COMMUNITIES } from '../../graphql/queries'
+import { GET_ALL_COMMUNITIES, GET_ALL_SUBMISSIONS } from '../../graphql/queries'
 import { removeUserToken } from '../../lib/client/auth'
 import SignInButton from '../util/signInWithEthereum'
 import { isAdmin } from '../../lib/common/auth'
 import CommunityAdmin from './communityAdmin'
 import CopyCode from '../util/copyableCode'
-import { ICommunity } from '../../types'
+import { ICommunity, ISubmission } from '../../types'
 import Button from '../util/button'
 import toast from 'react-hot-toast'
 import RestrictedCard from '../util/restrictedCard'
@@ -33,6 +33,16 @@ export default function AdminPage() {
   })
 
   const [state, setState] = useState<{ address?: string; error?: Error; loading?: boolean }>({})
+  const isSignedInAsAdmin = !!state.address && isAdmin(state.address)
+  const isSignedInAsOwnerOfContract =
+    state.address && contractData && contractData[1] && String(contractData[1]) === state.address
+
+  const { data: submissionsData } = useQuery(GET_ALL_SUBMISSIONS, {
+    skip: !isSignedInAsAdmin,
+    onError: (error) => toast.error(`Error fetching submissions ${error.message}`),
+  })
+  const submissions: ISubmission[] = submissionsData?.submissions
+  console.log({ submissions, submissionsData, isSignedInAsAdmin })
 
   // Fetch user when:
   useEffect(() => {
@@ -52,10 +62,6 @@ export default function AdminPage() {
     window.addEventListener('focus', handler)
     return () => window.removeEventListener('focus', handler)
   }, [])
-
-  const isSignedInAsAdmin = state.address && isAdmin(state.address)
-  const isSignedInAsOwnerOfContract =
-    state.address && contractData && contractData[1] && String(contractData[1]) === state.address
 
   return (
     <>
@@ -90,7 +96,7 @@ export default function AdminPage() {
           </div>
 
           <div className="p-4 border border-gray-300 rounded bg-white">
-            <p className="font-bold text-2xl my-2">Smart Contract Details:</p>
+            <p className="font-bold text-xl my-2">Smart Contract Details:</p>
             {contractData && contractData[0] ? (
               <>
                 <div>
@@ -116,6 +122,15 @@ export default function AdminPage() {
               </div>
             )}
           </div>
+          {submissions && (
+            <div className="p-4 border border-gray-300 rounded bg-white">
+              <p className="font-bold text-xl my-2">Aggregate Submission Details:</p>
+              <div>
+                <div>Total submissions: {submissions.length}</div>
+                <div>Unseen submissions: {submissions.filter((x) => x.approved === null).length}</div>
+              </div>
+            </div>
+          )}
 
           {!state.address && <RestrictedCard message="Not signed in with Ethereum!" />}
           {state.address && !isSignedInAsAdmin && <RestrictedCard message="Not admin account!" />}
