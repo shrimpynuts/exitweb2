@@ -30,7 +30,13 @@ export default function Submission({ submission, selected, onClick }: IProps) {
           <p className="">{submission.proof_of_account_ownership}</p>
         </div>
       </div>
-      <div className="text-right">{<Emoji label="approval" symbol={submission.approved ? '✅' : '❌'} />}</div>
+      <div className="text-right">
+        <div>
+          {submission.approved === null && <Emoji label="approval" symbol="unseen" />}
+          {submission.approved === true && <Emoji label="approval" symbol="✅" />}
+          {submission.approved === false && <Emoji label="approval" symbol="❌" />}
+        </div>
+      </div>
     </div>
   )
 }
