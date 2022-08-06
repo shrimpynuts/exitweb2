@@ -30,7 +30,7 @@ function SingleCommunityListVertical({ communities, title }: ISingleCommuntyList
   return (
     <div>
       <h2 className="text-lg font-bold mb-1">{title}</h2>
-      <div className="flex flex-col space-y-0 border border-gray-300 bg-white rounded-lg md:w-80 h-full">
+      <div className="flex flex-col space-y-0 border border-gray-300 bg-white rounded-lg md:w-80">
         {communities && communities.length > 0 ? (
           <>
             {communities.map((community, i) => (
