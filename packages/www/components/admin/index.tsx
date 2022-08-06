@@ -42,7 +42,6 @@ export default function AdminPage() {
     onError: (error) => toast.error(`Error fetching submissions ${error.message}`),
   })
   const submissions: ISubmission[] = submissionsData?.submissions
-  console.log({ submissions, submissionsData, isSignedInAsAdmin })
 
   // Fetch user when:
   useEffect(() => {
