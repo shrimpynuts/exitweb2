@@ -95,12 +95,12 @@ export default function GenerateProofButton({ community }: IGenerateProofButtonP
     }
   }, [])
 
-  const communityIsOnSmartContract = community.contract_id
+  const communityIsOnSmartContract = !!community.contract_id
   const computedCommitment = toHex(pedersenHashConcat(BigInt(state.nullifier), BigInt(state.secret)))
   const merkleTree = community.merkle_tree && MerkleTree.createFromStorageString(community.merkle_tree)
   const isCommitmentInTree = merkleTree && merkleTree.leafExists(BigInt(computedCommitment))
   const redeemable =
-    communityIsOnSmartContract && state.secret && state.nullifier && community.merkle_tree && isCommitmentInTree
+    communityIsOnSmartContract && !!state.secret && !!state.nullifier && !!community.merkle_tree && !!isCommitmentInTree
 
   return (
     <>
