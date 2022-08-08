@@ -35,7 +35,18 @@ export default function AllSubmissions({ community, submissions, refetch }: IPro
       .catch((e) => toast.error(e.message))
   }
 
-  const onSelect = (id: number) => setSelectedIds({ ...selectedIds, [id]: !selectedIds[id] })
+  const onSelect = (id: number) => {
+    const newIds = {
+      ...selectedIds,
+      [id]: true,
+    };
+
+    if (id in selectedIds) {
+      delete newIds[id];
+    }
+
+    setSelectedIds(newIds);
+  }
 
   const onSelectAll = () => {
     const newSelectedIds: { [id: number]: boolean } = {}
