@@ -33,8 +33,7 @@ export default function AdminPage() {
   })
 
   const [state, setState] = useState<{ address?: string; error?: Error; loading?: boolean }>({})
-  // const isSignedInAsAdmin = !!state.address && isAdmin(state.address)
-  const isSignedInAsAdmin = true;
+  const isSignedInAsAdmin = !!state.address && isAdmin(state.address)
   const isSignedInAsOwnerOfContract =
     state.address && contractData && contractData[1] && String(contractData[1]) === state.address
 
@@ -133,7 +132,7 @@ export default function AdminPage() {
           )}
 
           {!state.address && <RestrictedCard message="Not signed in with Ethereum!" />}
-          {/* {state.address && !isSignedInAsAdmin && <RestrictedCard message="Not admin account!" />} */}
+          {state.address && !isSignedInAsAdmin && <RestrictedCard message="Not admin account!" />}
 
           <div
             className="border border-gray-300 rounded flex divide-x bg-white"
