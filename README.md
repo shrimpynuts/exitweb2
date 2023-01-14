@@ -17,11 +17,13 @@ Bootstrapping process often involves using a product like guild.xyz or simply as
 
 If we can obfuscate the link between the web2 profile and the Ethereum address, you can have truly pseudonymous identities that can speak credibly without fear of risk to reputation. As these tokens are composable bits of your identity, you can also have varying degrees of pseudonymity.
 
-These ideas are important to the concept coined ["The Pseudonymous Economy"](https://www.youtube.com/watch?v=urtXRg9Nl3k).
+See ["the Pseudonymous Economy"](https://www.youtube.com/watch?v=urtXRg9Nl3k).
 
 ## How it works
 
 This project borrows heavily from Sam Ragsdale's [zkp-merkle-airdrop project](https://github.com/a16z/zkp-merkle-airdrop-contracts/). When a prospective member submits their proof-of-membership link, a commitment is made and stored both on the client's web browser (localStorage) and the web server. When the admin decides the proof-of-membership matches the predicate for the community specified, the commitment gets included in a merkle tree. A transaction is then submitted to update root of the merkle tree on the Ethereum smart contract (one transaction can be submitted after all approvals in bulk).
+
+The user is then able to mint the NFT without exposing the link to their profile by generating a zkSNARK that proves that they know the secret commitment that is contained in the merkle root.
 
 ## Problems
 
